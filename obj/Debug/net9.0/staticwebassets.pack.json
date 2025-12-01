@@ -1,0 +1,405 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\epl-backend.bundle.scp.css",
+      "PackagePath": "staticwebassets\\epl-backend.qbqgwjo18b.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\tailwind.css",
+      "PackagePath": "staticwebassets\\css\\tailwind.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ars.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\ars.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\avl.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\avl.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bhr.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\bhr.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bou.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\bou.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bre.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\bre.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bunley.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\bunley.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\che.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\che.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\cry.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\cry.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\eve.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\eve.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ful.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\ful.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ips.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\ips.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\leed.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\leed.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\lei.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\lei.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\liv.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\liv.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\mci.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\mci.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\menu.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\menu.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\mun.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\mun.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\new.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\new.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\nf.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\nf.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\sou.png",
+      "PackagePath": "staticwebassets\\folders\\clubs\\sou.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\sun.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\sun.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\tot.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\tot.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\wol.svg",
+      "PackagePath": "staticwebassets\\folders\\clubs\\wol.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\icon.png",
+      "PackagePath": "staticwebassets\\icon.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\_layout.js",
+      "PackagePath": "staticwebassets\\js\\_layout.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\club\\index.js",
+      "PackagePath": "staticwebassets\\js\\club\\index.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\color_picker.js",
+      "PackagePath": "staticwebassets\\js\\color_picker.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\modal.js",
+      "PackagePath": "staticwebassets\\js\\modal.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\upload_file.js",
+      "PackagePath": "staticwebassets\\js\\upload_file.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.epl-backend.props",
+      "PackagePath": "build\\epl-backend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.epl-backend.props",
+      "PackagePath": "buildMultiTargeting\\epl-backend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.epl-backend.props",
+      "PackagePath": "buildTransitive\\epl-backend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.epl-backend.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.epl-backend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

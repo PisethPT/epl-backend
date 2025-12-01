@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 14px;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+.modal-sm {
+  max-width: 24rem; /* Tailwind max-w-sm = 384px */
+}
+
+.modal-md {
+  max-width: 28rem; /* Tailwind max-w-md = 448px */
+}
+
+.modal-lg {
+  max-width: 32rem; /* Tailwind max-w-lg = 512px */
+}
+
+.modal-xl {
+  max-width: 36rem; /* Tailwind max-w-xl = 576px */
+}
+
+.modal-xxl {
+  max-width: 42rem; /* Tailwind max-w-2xl = 672px */
+}
+
+.modal-3xl {
+  max-width: 48rem; /* Tailwind max-w-3xl = 768px */
+}
+
+.modal-4xl {
+  max-width: 56rem; /* Tailwind max-w-4xl = 896px */
+}
+
+.modal-5xl {
+  max-width: 64rem; /* Tailwind max-w-5xl = 1024px */
+}
+
+.modal-6xl {
+  max-width: 72rem; /* ~1152px (Tailwind-style 6xl) */
+}
+.modal-7xl {
+  max-width: 80rem; /* ~1280px (Tailwind-style 7xl) */
+}
+.modal-8xl {
+  max-width: 88rem; /* ~1408px (Tailwind-style 8xl) */
+}
+
+.modal-full {
+  width: 100%;
+  max-width: none;
+}
+
+/* this layer not work with cdn tailwind */
+
+@layer components {
+  .modal-sm {
+    @apply max-w-sm;
+  }
+  .modal-md {
+    @apply max-w-md;
+  }
+  .modal-lg {
+    @apply max-w-lg;
+  }
+  .modal-xl {
+    @apply max-w-xl;
+  }
+  .modal-xxl {
+    @apply max-w-2xl;
+  }
+  .modal-full {
+    @apply w-full max-w-none;
+  }
+}

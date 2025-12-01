@@ -1,0 +1,309 @@
+﻿@model epl_backend.Models.ViewModels.ClubViewModel
+@{
+    ViewData["Title"] = "Clubs";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+        id="alertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel()" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+<!-- Backdrop -->
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
+<!-- Modal Wrapper -->
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div id="modalBox" class="!bg-[#37003c] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-white">Create New Club</h2>
+            <div
+                class="bg-[#55005a] flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                <button onclick="closeModal()" class="text-white">✕</button>
+            </div>
+        </div>
+
+        <form id="clubForm" asp-controller="Club" asp-action="Create" method="post" asp-antiforgery="true"
+            class="h-auto p-2" enctype="multipart/form-data" novalidate>
+            <input type="hidden" id="clubId" name="Id" />
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Club Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="clubName" asp-for="clubDto.Name" type="text" required
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Founded</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="founded" asp-for="clubDto.Founded" type="number" min="1800" max="2099" required
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">City</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="city" asp-for="clubDto.City" type="text" required
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Stadium</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="stadium" asp-for="clubDto.Stadium" type="text" required
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Coach Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="coach" asp-for="clubDto.HeadCoach" type="text" required
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Official Website</span>
+                        <span class="text-white text-sm">(optional)</span>
+                    </span>
+                    <input id="website" asp-for="clubDto.ClubOfficialWebsite" type="url"
+                        placeholder="https://clubName.com"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                </label>
+
+                <div class="flex flex-col gap-2">
+                    <span class="flex items-center gap-2">
+                        <span class="text-white font-medium">Theme Color</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <div class="flex items-center gap-3">
+                        <input id="themeColor" name="themeColor" type="color" value="#55005a"
+                            class="w-12 rounded border border-white/10 p-0 cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]"
+                            aria-label="Pick theme color" />
+
+                        <!-- hex text input -->
+                        <input id="themeHex" asp-for="clubDto.Theme" type="text" value="#55005a" maxlength="7"
+                            class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    </div>
+                    <p class="text-sm text-white">Choose primary theme color (hex or picker).</p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Club Official Logo</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <div id="dropZone" class="relative flex flex-col items-center justify-center gap-3 border-2 border-dashed border-white/20 rounded-lg p-4 bg-white/3 cursor-pointer
+                            hover:border-white/40 transition">
+                        <input id="logoInput" asp-for="clubDto.CrestFile" type="file" accept="image/*"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            aria-label="Upload club logo" required>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M7 16V7a1 1 0 011-1h3m6 11v-5a1 1 0 00-1-1h-3M7 16l3-3 2 2 4-4 3 3" />
+                        </svg>
+                        <div class="text-center">
+                            <div class="text-gray-500 font-medium">Drag & drop logo or click to browse</div>
+                            <div class="text-xs text-gray-200/70">PNG, JPG, SVG — max 2 MB</div>
+                        </div>
+
+                        <!-- Preview/controls (hidden until file chosen) -->
+                        <div id="previewArea" class="hidden mt-3 w-full flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex justify-center items-center h-20 w-20 rounded-md bg-white/5 border border-white/10 overflow-hidden">
+                                    <img id="logoPreview" src="" alt="logo preview" class="h-14 w-auto object-contain">
+                                </div>
+                                <div class="flex flex-col">
+                                    <div id="logoName" class="text-white text-sm font-medium">filename.png</div>
+                                    <div id="logoSize" class="text-white text-xs text-gray-200/70">120 KB</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="removeLogo"
+                                    class="px-3 py-1 text-white bg-[#55005a] rounded text-sm hover:bg-[#3a0531] z-10">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="logoError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                <div class="text-sm text-gray-200/80">Fields with <span class="text-red-400">*</span> are required.
+                </div>
+                <div class="flex gap-3">
+                    <button type="reset" id="resetBtn"
+                        class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                    <button type="submit"
+                        class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+    <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+        <div class="flex justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "Home")"
+                class="inline-block bg-[#55005a] w-fit text-white px-4 py-2 rounded hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf]">Back
+                to
+                Home</a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] w-fit text-white px-4 py-2 rounded rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf]"
+                id="btnAddNewClub">Add New</button>
+        </div>
+
+        <input type="text"
+            class="text-white bg-[#55005a] w-full lg:w-fit ml-auto px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+            placeholder="Search Clubs..." id="clubSearchInput" onkeyup="filterClubs()" />
+    </div>
+
+    <div class="overflow-x-scroll scrollbar-none">
+        <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden ">
+            <thead class="bg-[#55005a]">
+                <tr>
+                    <th scope="col"
+                        class="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        ID</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Action</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Club</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Theme</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Name</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Founded</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        City</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Stadium</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Head Coach</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center text-nowrap">
+                        Official Website</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[#55005a]">
+                @foreach (var club in Model.clubDtos)
+                {
+                    <tr>
+                        <td class="px-4 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center">
+                                <div
+                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
+                                    @club.Id</div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center">
+                                <div class="flex justify-between items-center gap-4">
+                                    <button onclick="attachEditClub('@club.Id')"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0]  rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </button>
+
+                                    <form asp-controller="Club" asp-action="Delete" method="post" asp-antiforgery="true">
+                                        <input type="text" name="clubId" value="@club.Id" hidden />
+                                        <button
+                                            class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white ">
+                            <div class="flex justify-center items-center">
+                                <img src="~/folders/clubs/@club.Crest" class="w-auto h-10 object-contain cursor-pointer"
+                                    alt="@club.Name logo" />
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex flex-col gap-2 justify-center items-center">
+                                <div class="w-6 h-6 rounded-full border-2 border-white"
+                                    style="background-color: @club.Theme;"></div>
+                                <span class="text-white text-sm">@club.Theme</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@club.Name</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">@club.Founded</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@club.City</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@club.Stadium</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@club.HeadCoach</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">
+                            @if (!string.IsNullOrEmpty(club.ClubOfficialWebsite))
+                            {
+                                <a href="@club.ClubOfficialWebsite"
+                                    class="text-white text-center bg-[#55005a] hover:bg-[#6b2fa0] px-2 py-1 rounded hover:underline hover:ring-2 hover:!ring-[#8a3fbf]"
+                                    target="_blank">Visit
+                                    Website</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex items-center mt-4 border-t-2 border-[#55005a] pt-4">
+        <div class="mt-4 text-sm text-gray-400">
+            Total Clubs: @Model.clubDtos.Count
+        </div>
+
+        <div class="ml-auto flex gap-2">
+            <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage - 1 })"
+                class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                @(ViewBag.CurrentPage == 1 ? "onclick='return false;'" : "")>
+                Previous
+            </a>
+            <span class="text-white px-3 py-1">
+                Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+            </span>
+            <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage + 1 })"
+                class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                @(ViewBag.CurrentPage == ViewBag.TotalPages ? "onclick='return false;'" : "")>
+                Next
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/club/index.js" asp-append-version="true"></script>
+}
