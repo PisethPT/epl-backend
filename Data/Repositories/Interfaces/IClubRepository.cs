@@ -7,7 +7,7 @@ namespace epl_backend.Data.Repositories.Interfaces;
 public interface IClubRepository
 {
     // CRUD using DTOs
-    Task<int> AddClubAsync(ClubDto club, CancellationToken ct = default);
+    Task<bool> AddClubAsync(ClubDto club, CancellationToken ct = default);
     Task<bool> UpdateClubAsync(ClubDto club, CancellationToken ct = default);
     Task<bool> DeleteClubAsync(int id, CancellationToken ct = default);
 

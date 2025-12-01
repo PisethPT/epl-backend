@@ -1,5 +1,3 @@
-const alertPanel = document.getElementById("alertPanel");
-
 (function () {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
@@ -232,7 +230,7 @@ const alertPanel = document.getElementById("alertPanel");
   });
 })();
 
-function closeAlertPanel() {
-  if (!alertPanel.classList.contains("hidden"))
-    alertPanel.classList.add("hidden");
+function closeAlertPanel(alertPanel) {
+  const alert = document.getElementById(alertPanel);
+  if (!alert.classList.contains("hidden")) alert.classList.add("hidden");
 }

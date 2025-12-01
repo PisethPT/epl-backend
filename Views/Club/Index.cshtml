@@ -6,7 +6,7 @@
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="bg-red-100 border border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
-        id="alertPanel">
+        id="errorAlertPanel">
         <ul>
             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {
@@ -14,7 +14,18 @@
             }
         </ul>
         <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-            <button onclick="closeAlertPanel()" class="text-red-700">✕</button>
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] border text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300"
+        id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-red-700">✕</button>
         </div>
     </div>
 }
@@ -27,7 +38,7 @@
         onclick="event.stopPropagation()">
 
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold text-white">Create New Club</h2>
+            <h2 class="text-xl font-semibold text-white" id="modalTitle">Create New Club</h2>
             <div
                 class="bg-[#55005a] flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
                 <button onclick="closeModal()" class="text-white">✕</button>
@@ -36,7 +47,9 @@
 
         <form id="clubForm" asp-controller="Club" asp-action="Create" method="post" asp-antiforgery="true"
             class="h-auto p-2" enctype="multipart/form-data" novalidate>
-            <input type="hidden" id="clubId" name="Id" />
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="clubId" asp-for="clubDto.Id" />
+            <input type="hidden" id="crest" asp-for="clubDto.Crest" />
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 <label class="flex flex-col gap-2">
                     <span class="flex items-center gap-1">
@@ -232,7 +245,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
                             <div class="flex justify-center items-center">
                                 <div class="flex justify-between items-center gap-4">
-                                    <button onclick="attachEditClub('@club.Id')"
+                                    <button onclick="attachUpdateClub('@club.Id')"
                                         class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0]  rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button>

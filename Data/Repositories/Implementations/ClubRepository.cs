@@ -8,7 +8,7 @@ namespace epl_backend.Data.Repositories.Implementations;
 
 public class ClubRepository : IClubRepository
 {
-    public async Task<int> AddClubAsync(ClubDto club, CancellationToken ct = default)
+    public async Task<bool> AddClubAsync(ClubDto club, CancellationToken ct = default)
     {
         if (club == null) throw new ArgumentNullException(nameof(club));
 
@@ -44,10 +44,17 @@ public class ClubRepository : IClubRepository
         cmd.Parameters.AddWithValue("@Crest", club.Crest ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("@Theme", club.Theme ?? (object)DBNull.Value);
 
-        var scalar = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
-        if (scalar == null || scalar == DBNull.Value) return 0;
+        try
+        {
+            var scalar = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
+            if (scalar == null || scalar == DBNull.Value) return false;
 
-        return Convert.ToInt32(scalar);
+            return Convert.ToInt32(scalar) < 0;
+        }
+        catch (SqlException ex) when (ex.Number == 500000)
+        {
+            return false;
+        }
     }
 
     public async Task<bool> DeleteClubAsync(int id, CancellationToken ct = default)
@@ -196,18 +203,51 @@ public class ClubRepository : IClubRepository
 
     public async Task<bool> UpdateClubAsync(ClubDto club, CancellationToken ct = default)
     {
+        if (club == null) throw new ArgumentNullException(nameof(club));
+
+        if (club.CrestFile != null && club.CrestFile.Length > 0)
+        {
+            var ext = Path.GetExtension(club.CrestFile.FileName ?? string.Empty);
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "folders", "clubs");
+            Directory.CreateDirectory(uploadsFolder);
+
+            var safeFileName = $"{Guid.NewGuid()}{ext}";
+            var filePath = Path.Combine(uploadsFolder, safeFileName);
+
+            // save file (async)
+            await using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true))
+            {
+                await club.CrestFile.CopyToAsync(stream, ct).ConfigureAwait(false);
+            }
+
+            club.Crest = Path.Combine("folders", "clubs", safeFileName).Replace('\\', '/');
+        }
+
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "UpdateClub";
+        cmd.CommandText = "PL_UpdateClub";
 
-        cmd.Parameters.AddWithValue("@Id", club.Id);
+        cmd.Parameters.AddWithValue("@ClubId", club.Id);
         cmd.Parameters.AddWithValue("@Name", club.Name ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@Founded", club.Founded ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@City", club.City ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@Stadium", club.Stadium ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@HeadCoach", club.HeadCoach ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@ClubOfficialWebsite", club.ClubOfficialWebsite ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("@Crest", club.Crest ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("@Theme", club.Theme ?? (object)DBNull.Value);
 
-        var result = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
-        var rows = Convert.ToInt32(result);
-        return rows > 0;
+        try
+        {
+            var scalar = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
+            if (scalar == null || scalar == DBNull.Value) return false;
+
+            return Convert.ToInt32(scalar) < 0;
+        }
+        catch (SqlException ex) when (ex.Number == 500000)
+        {
+            return false;
+        }
     }
 }

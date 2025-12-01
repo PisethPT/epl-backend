@@ -1,6 +1,6 @@
 (function () {
-  const removeLogo = document.getElementById("removeLogo");
   const form = document.getElementById("clubForm");
+  const removeLogo = document.getElementById("removeLogo");
 
   // remove button
   removeLogo.addEventListener("click", () => {
@@ -10,7 +10,12 @@
   // reset form
   document.getElementById("resetBtn").addEventListener("click", () => {
     form.reset();
-    form.querySelectorAll("input").forEach((input) => (input.value = ""));
+    form.querySelectorAll("input").forEach(
+      (input) =>
+        function () {
+          if (input.name != "__RequestVerificationToken") input.value = "";
+        }
+    );
     resetFile();
     // reset color swatch to default
     resetColorPicker();
@@ -45,13 +50,21 @@
 })();
 
 document.getElementById("btnAddNewClub").addEventListener("click", (e) => {
-  form.reset();
+  const clubForm = document.getElementById("clubForm");
+  $("#modalTitle").text("Create New Club");
+  clubForm.reset();
   resetFile();
-  form.querySelectorAll("input").forEach((input) => (input.value = ""));
+  clubForm.querySelectorAll("input").forEach(
+    (input) =>
+      function () {
+        if (input.name != "__RequestVerificationToken") input.value = "";
+      }
+  );
   resetColorPicker();
+  $("#clubForm").attr("action", "/clubs/create");
 });
 
-function attachEditClub(clubId) {
+function attachUpdateClub(clubId) {
   $.ajax({
     url: "/clubs/get-club/" + clubId,
     method: "POST",
@@ -69,6 +82,7 @@ function attachEditClub(clubId) {
       $("#stadium").val(data.stadium ?? "");
       $("#coach").val(data.headCoach ?? "");
       $("#website").val(data.clubOfficialWebsite ?? "");
+      $("#crest").val(data.crest ?? "");
 
       // theme color picker + hex box
       if (data.theme) {
@@ -93,12 +107,14 @@ function attachEditClub(clubId) {
         $("#logoName").text("");
         $("#logoInput").attr("required", true);
       }
-      
-      $("#clubForm").attr("action", "/clubs/edit/" + data.id);
+
+      $("#modalTitle").text("Update Club");
+      $("#clubForm").attr("action", "/clubs/update/" + data.id);
       // Open modal after fill
       openModal("modal-8xl", true);
     },
     error: function (err) {
+      alert(JSON.stringify(err));
       console.error(err);
     },
   });
