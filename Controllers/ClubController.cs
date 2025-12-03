@@ -59,7 +59,7 @@ namespace epl_backend.Controllers
                 }
 
                 var success = await _clubRepository.AddClubAsync(clubDto);
-                if (success)
+                if (!success)
                 {
                     // repository indicated failure — show friendly error
                     ModelState.AddModelError(string.Empty, "Unable to create club. Please try again or contact admin.");
@@ -138,14 +138,14 @@ namespace epl_backend.Controllers
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(clubDto.Name) && await _clubRepository.ExistsByNameAsync(clubDto.Name))
+                if (!string.IsNullOrWhiteSpace(clubDto.Name) && await _clubRepository.ExistsByNameAsync(clubDto.Name, clubDto.Id))
                 {
                     ModelState.AddModelError(nameof(clubDto.Name), "A club with this name already exists.");
                     return RedirectToAction(nameof(Index));
                 }
 
                 var success = await _clubRepository.UpdateClubAsync(clubDto);
-                if (success)
+                if (!success)
                 {
                     // repository indicated failure — show friendly error
                     ModelState.AddModelError(string.Empty, "Unable to create club. Please try again or contact admin.");

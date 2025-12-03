@@ -20,5 +20,5 @@ public interface IClubRepository
     Task<DataSet> GetAllClubsDataSetAsync(CancellationToken ct = default);
 
     // Validations
-    Task<bool> ExistsByNameAsync(string clubName, CancellationToken ct = default);
+    Task<bool> ExistsByNameAsync(string clubName, int? clubId = null, CancellationToken ct = default);
 }

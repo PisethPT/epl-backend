@@ -49,7 +49,7 @@ public class ClubRepository : IClubRepository
             var scalar = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
             if (scalar == null || scalar == DBNull.Value) return false;
 
-            return Convert.ToInt32(scalar) < 0;
+            return true;
         }
         catch (SqlException ex) when (ex.Number == 500000)
         {
@@ -76,7 +76,7 @@ public class ClubRepository : IClubRepository
         }
     }
 
-    public async Task<bool> ExistsByNameAsync(string clubName, CancellationToken ct = default)
+    public async Task<bool> ExistsByNameAsync(string clubName, int? clubId, CancellationToken ct = default)
     {
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct);
         await using var cmd = conn.CreateCommand();
@@ -84,6 +84,7 @@ public class ClubRepository : IClubRepository
         cmd.CommandText = "PL_ClubExistByName";
 
         cmd.Parameters.AddWithValue("@Name", clubName ?? (object)DBNull.Value);
+        cmd.Parameters.AddWithValue("@ClubId", clubId ?? (object)DBNull.Value);
         try
         {
             await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
@@ -243,7 +244,7 @@ public class ClubRepository : IClubRepository
             var scalar = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
             if (scalar == null || scalar == DBNull.Value) return false;
 
-            return Convert.ToInt32(scalar) < 0;
+            return true;
         }
         catch (SqlException ex) when (ex.Number == 500000)
         {

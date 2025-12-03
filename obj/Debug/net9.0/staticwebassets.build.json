@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ddbDyLugOEUx1h7/y+kQZCz/J8zPDk8kShRWCKE26GU=",
+  "Hash": "+n8s0TiQJrJ1BawzTv/deSDLkUjnHj3s7ilGIL+/PKE=",
   "Source": "epl-backend",
   "BasePath": "_content/epl-backend",
   "Mode": "Default",
@@ -519,6 +519,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\modal.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\au4khs3dvb-h8js47d8f6.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346#[.{fingerprint=h8js47d8f6}]?.svg.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "aq2iz82top",
+      "Integrity": "UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\d8o3nmqtwx-khv3u5hwcm.gz",
@@ -1779,6 +1800,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\folders\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346#[.{fingerprint}]?.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "h8js47d8f6",
+      "Integrity": "n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ars.png",
@@ -5457,6 +5499,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-EnCR8Nr2Yw+8VIaFQJKz2mlsJpMQePI2HWIcz0kx6Sc="
+        }
+      ]
+    },
+    {
+      "Route": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.h8js47d8f6.svg",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\au4khs3dvb-h8js47d8f6.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000485908649"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2057"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Dec 2025 14:46:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h8js47d8f6"
+        },
+        {
+          "Name": "label",
+          "Value": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.svg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854="
+        }
+      ]
+    },
+    {
+      "Route": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.h8js47d8f6.svg",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4576"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Dec 2025 14:46:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h8js47d8f6"
+        },
+        {
+          "Name": "label",
+          "Value": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.svg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854="
+        }
+      ]
+    },
+    {
+      "Route": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.h8js47d8f6.svg.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\au4khs3dvb-h8js47d8f6.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2057"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Dec 2025 14:46:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h8js47d8f6"
+        },
+        {
+          "Name": "label",
+          "Value": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.svg.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE="
+        }
+      ]
+    },
+    {
+      "Route": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\au4khs3dvb-h8js47d8f6.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000485908649"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2057"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Dec 2025 14:46:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854="
+        }
+      ]
+    },
+    {
+      "Route": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4576"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Dec 2025 14:46:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-n99tEJSsvq7UdxroPiaT9Y8dgH4ug7k0pwPkGoco854="
+        }
+      ]
+    },
+    {
+      "Route": "folders/clubs/43e7435a-db59-49b1-ab6f-82d2d0b78346.svg.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\au4khs3dvb-h8js47d8f6.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2057"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Dec 2025 14:46:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UmHaQyiQ7+Jn0l6V2nb1VrP4Tey3KvsQWoAhqW3BvTE="
         }
       ]
     },
@@ -9263,7 +9603,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 01 Dec 2025 14:10:32 GMT"
+          "Value": "Mon, 01 Dec 2025 14:29:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9324,7 +9664,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 01 Dec 2025 14:10:32 GMT"
+          "Value": "Mon, 01 Dec 2025 14:29:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9369,7 +9709,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 01 Dec 2025 14:10:32 GMT"
+          "Value": "Mon, 01 Dec 2025 14:29:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9424,7 +9764,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 01 Dec 2025 14:10:32 GMT"
+          "Value": "Mon, 01 Dec 2025 14:29:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9477,7 +9817,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 01 Dec 2025 14:10:32 GMT"
+          "Value": "Mon, 01 Dec 2025 14:29:44 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9514,7 +9854,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 01 Dec 2025 14:10:32 GMT"
+          "Value": "Mon, 01 Dec 2025 14:29:44 GMT"
         },
         {
           "Name": "Cache-Control",

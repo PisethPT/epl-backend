@@ -53,7 +53,7 @@
                         class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
                         aria-expanded="false">
                         <span class="flex items-center gap-3">
-                            <i class="fas fa-box menu-icon w-5 text-center"></i>
+                            <i class="fa-solid fa-cube menu-icon w-4 text-center"></i>
                             <span class="menu-label truncate ml-2">Clubs</span>
                         </span>
                         <i class="fas fa-chevron-right text-sm"></i>
@@ -64,21 +64,21 @@
                         <li>
                             <a href="/clubs/all-club"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-folder menu-icon w-4 text-center"></i>
+                                <i class="fa-solid fa-cubes menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">All Clubs</span>
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Products" asp-action="Units"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
+                                <i class="fa-solid fa-futbol menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Goals</span>
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Products" asp-action="Inventory"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
+                                <i class="fa-solid fa-handshake-angle menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Assists</span>
                             </a>
                         </li>
@@ -90,7 +90,7 @@
                         class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
                         aria-expanded="false">
                         <span class="flex items-center gap-3">
-                            <i class="fas fa-box menu-icon w-5 text-center"></i>
+                            <i class="fa-solid fa-square-poll-horizontal menu-icon w-5 text-center"></i>
                             <span class="menu-label truncate ml-2">Stats</span>
                         </span>
                         <i class="fas fa-chevron-right text-sm"></i>
@@ -127,7 +127,7 @@
                         class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
                         aria-expanded="false">
                         <span class="flex items-center gap-3">
-                            <i class="fas fa-box menu-icon w-5 text-center"></i>
+                            <i class="fa-solid fa-newspaper menu-icon w-5 text-center"></i>
                             <span class="menu-label truncate ml-2">News</span>
                         </span>
                         <i class="fas fa-chevron-right text-sm"></i>
@@ -164,7 +164,7 @@
                         class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
                         aria-expanded="false">
                         <span class="flex items-center gap-3">
-                            <i class="fas fa-box menu-icon w-5 text-center"></i>
+                            <i class="fa-solid fa-clapperboard menu-icon w-5 text-center"></i>
                             <span class="menu-label truncate ml-2">Videos</span>
                         </span>
                         <i class="fas fa-chevron-right text-sm"></i>
@@ -199,21 +199,57 @@
                 <li>
                     <a asp-controller="Orders" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                        <i class="fas fa-shopping-cart menu-icon w-5 text-center"></i>
+                        <i class="fa-solid fa-calendar-days menu-icon w-5 text-center"></i>
                         <span class="menu-label truncate ml-2">Matches</span>
                     </a>
                 </li>
 
                 <li>
-                    <a asp-controller="Settings" asp-action="Index"
+                    <a asp-controller="Orders" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                        <i class="fas fa-cog menu-icon w-5 text-center"></i>
-                        <span class="menu-label truncate ml-2">Settings</span>
+                        <i class="fa-solid fa-cloud-sun menu-icon w-5 text-center"></i>
+                        <span class="menu-label truncate ml-2">Sessions</span>
                     </a>
+                </li>
+
+                <li class="relative has-submenu">
+                    <button type="button"
+                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                        aria-expanded="false">
+                        <span class="flex items-center gap-3">
+                            <i class="fas fa-cog menu-icon w-5 text-center"></i>
+                            <span class="menu-label truncate ml-2">Settings</span>
+                        </span>
+                        <i class="fas fa-chevron-right text-sm"></i>
+                    </button>
+
+                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                        aria-hidden="true">
+                        <li>
+                            <a href="/clubs/all-club"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-users-gear menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Products" asp-action="Units"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-user-shield menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Permissions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Products" asp-action="Inventory"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-key menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Reset Password</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
-
     </aside>
 
     <div id="page" class="min-h-screen transition-margin lg:ml-64 bg-[#1e0021]">
