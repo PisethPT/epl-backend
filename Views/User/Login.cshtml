@@ -1,0 +1,64 @@
+﻿@model epl_backend.Models.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/font.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#28002b] to-[#330d36] p-4">
+        <div class="bg-[#37003c] rounded-2xl shadow-2xl p-8 w-full max-w-md">
+            <div class="text-center mb-6">
+                <img src="~/icon.png" alt="EPL Logo" class="mx-auto !h-17 w-auto mb-4" />
+                <h1
+                    class="text-3xl font-bold bg-gradient-to-r from-[#ffffff] to-[#330d36] bg-clip-text text-transparent">
+                    Premier League Login
+                </h1>
+            </div>
+
+            <form asp-controller="User" asp-action="Login" method="post" asp-antiforgery="true">
+                @Html.AntiForgeryToken()
+                <div class="flex flex-col items-center justify-center gap-4">
+                    <div class="flex flex-col w-full">
+                        <input type="text" placeholder="Email" asp-for="userLoginDto.Email"
+                            class="text-white bg-gradient-to-r from-[#28002b] to-[#330d36] w-full px-4 py-2 border-2 border-[#8a3fbf] rounded-lg focus:outline-none focus:ring-0 focus:ring-[#8a3fbf]" />
+                        <span class="text-red-500" asp-validation-for="userLoginDto.Email"></span>
+                    </div>
+
+                    <div class="flex flex-col w-full mb-4">
+                        <input type="password" placeholder="Password" asp-for="userLoginDto.Password"
+                            class="text-white bg-gradient-to-r from-[#28002b] to-[#330d36] w-full px-4 py-2 border-2 border-[#8a3fbf] rounded-lg focus:outline-none focus:ring-0 focus:ring-[#8a3fbf]" />
+                        <span class="text-red-500" asp-validation-for="userLoginDto.Password"></span>
+                    </div>
+
+                    <button type="submit"
+                        class="text-[#28002b] font-bold bg-gradient-to-r from-[#ffffff] to-[#330d36] border-2 border-[#8a3fbf] px-4 py-2 w-full first-letter:mt-4 rounded-lg hover:bg-[#8a3fbf] hover:ring-1 hover:!ring-[#8a3fbf]">
+                        Log In
+                    </button>
+                </div>
+            </form>
+            <div class="flex justify-center mt-3">
+                <span class="text-white text-center self-center">Do you have account
+                    ? click <a class="text-purple-500 cursor-pointer underline" href="#">
+                        Register</a></span>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+
+</html>

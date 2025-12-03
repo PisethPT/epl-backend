@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+n8s0TiQJrJ1BawzTv/deSDLkUjnHj3s7ilGIL+/PKE=",
+  "Hash": "rYajnr0l8ncZsMBazbZjfoPT6kh+nKvYPuXrLyHZsN4=",
   "Source": "epl-backend",
   "BasePath": "_content/epl-backend",
   "Mode": "Default",
@@ -16,6 +16,27 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\0fb3v4zaz1-c7tq0legft.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "css/font#[.{fingerprint=c7tq0legft}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\font.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "3x6a67380u",
+      "Integrity": "h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\font.css"
+    },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\0mlv4odsbj-0j3bgjxly4.gz",
       "SourceId": "epl-backend",
@@ -1716,6 +1737,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\epl-backend.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\font.css",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "css/font#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "c7tq0legft",
+      "Integrity": "qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\font.css"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\site.css",
@@ -3714,6 +3756,304 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "css/font.c7tq0legft.css",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\0fb3v4zaz1-c7tq0legft.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.005434782609"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "183"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 15:03:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "c7tq0legft"
+        },
+        {
+          "Name": "label",
+          "Value": "css/font.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI="
+        }
+      ]
+    },
+    {
+      "Route": "css/font.c7tq0legft.css",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\font.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "216"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 15:03:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "c7tq0legft"
+        },
+        {
+          "Name": "label",
+          "Value": "css/font.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI="
+        }
+      ]
+    },
+    {
+      "Route": "css/font.c7tq0legft.css.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\0fb3v4zaz1-c7tq0legft.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "183"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 15:03:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "c7tq0legft"
+        },
+        {
+          "Name": "label",
+          "Value": "css/font.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE="
+        }
+      ]
+    },
+    {
+      "Route": "css/font.css",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\0fb3v4zaz1-c7tq0legft.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.005434782609"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "183"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 15:03:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI="
+        }
+      ]
+    },
+    {
+      "Route": "css/font.css",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\css\\font.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "216"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 15:03:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qJVjCNm+lPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI="
+        }
+      ]
+    },
+    {
+      "Route": "css/font.css.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\0fb3v4zaz1-c7tq0legft.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "183"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 15:03:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-h7NCMSSdhZMBhJKlPujIRHt6AgCQ8RCpU1elyHm1+TE="
+        }
+      ]
+    },
     {
       "Route": "css/site.css",
       "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\mdelnf4pkq-v87c16nb56.gz",

@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/epl-backend/css/font.c7tq0legft.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\font.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"c7tq0legft"},{"Name":"integrity","Value":"sha256-qJVjCNm\u002BlPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI="},{"Name":"label","Value":"_content/epl-backend/css/font.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"216"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022qJVjCNm\u002BlPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=\u0022"},{"Name":"Last-Modified","Value":"Wed, 03 Dec 2025 15:03:37 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/epl-backend/css/font.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\font.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-qJVjCNm\u002BlPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"216"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022qJVjCNm\u002BlPbq3nB0eMPgarii5NbvPGDru3CT6DezHBI=\u0022"},{"Name":"Last-Modified","Value":"Wed, 03 Dec 2025 15:03:37 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/epl-backend/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
