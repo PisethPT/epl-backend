@@ -32,6 +32,8 @@ function closeModal() {
 }
 
 // close on background click (non-static only)
-backdrop.addEventListener("click", () => {
-  if (!staticModal) closeModal();
-});
+if (backdrop) {
+  backdrop.addEventListener("click", () => {
+    if (!staticModal) closeModal();
+  });
+}

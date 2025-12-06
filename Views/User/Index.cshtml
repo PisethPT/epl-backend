@@ -1,0 +1,308 @@
+﻿@using epl_backend.Models.Enums
+@using epl_backend.Models.ViewModels
+@model UserViewModel
+@{
+    ViewData["Title"] = "All User";
+    int index = 1;
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+        id="errorAlertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
+        id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
+        </div>
+    </div>
+}
+
+
+<!-- Backdrop -->
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
+<!-- Modal Wrapper -->
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div id="modalBox" class="!bg-[#37003c] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-white" id="modalTitle">Create New User</h2>
+            <div
+                class="bg-[#55005a] flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                <button onclick="closeModal()" class="text-white">✕</button>
+            </div>
+        </div>
+
+        <form id="userForm" asp-controller="User" asp-action="Create" method="post" asp-antiforgery="true"
+            class="h-auto p-2" enctype="multipart/form-data" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="clubId" asp-for="userDto.UserId" />
+            <input type="hidden" id="crest" asp-for="userDto.Photo" />
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">First Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="clubName" asp-for="userDto.FirstName" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="userDto.FirstName" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Last Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="clubName" asp-for="userDto.LastName" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="userDto.LastName" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Gender</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <select asp-for="userDto.Gender" asp-items="Html.GetEnumSelectList<Gender>()"
+                        class="bg-[#55005a] text-white rounded-lg px-4 py-2 placeholder:text-gray-400 focus:outline-none first-line:focus:ring-2 focus:ring-[#8a3fbf] border border-[#6a1b77]">
+                    </select>
+                    <span asp-validation-for="userDto.Gender" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">User Email</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <input id="email" asp-for="userDto.Email" type="email" placeholder="example@email.com"
+                        class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="userDto.Email" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Phone Number</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="phoneNumber" asp-for="userDto.PhoneNumber" type="number"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="userDto.PhoneNumber" class="text-red-400 text-sm"></span>
+                </label>
+
+                <div class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">User Photo</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <div id="dropZone" class="relative flex flex-col items-center justify-center gap-3 border-2 border-dashed border-white/20 rounded-lg p-4 bg-white/3 cursor-pointer
+                            hover:border-white/40 transition">
+                        <input id="fileInput" asp-for="userDto.PhotoFile" type="file" accept="image/*"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            aria-label="Upload user photo">
+                        <span asp-validation-for="userDto.PhotoFile"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M7 16V7a1 1 0 011-1h3m6 11v-5a1 1 0 00-1-1h-3M7 16l3-3 2 2 4-4 3 3" />
+                        </svg>
+                        <div class="text-center">
+                            <div class="text-gray-500 font-medium">Drag & drop file or click to browse</div>
+                            <div class="text-xs text-gray-200/70">PNG, JPG, SVG, WEBP — max 2 MB</div>
+                        </div>
+
+                        <!-- Preview/controls (hidden until file chosen) -->
+                        <div id="previewArea" class="hidden mt-3 w-full flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex justify-center items-center h-20 w-20 pt-2 rounded-md bg-white/5 border border-white/10 overflow-hidden">
+                                    <img id="filePreview" src="" alt="file preview" class="h-auto w-14 object-contain">
+                                </div>
+                                <div class="flex flex-col">
+                                    <div id="fileName" class="text-white text-sm font-medium">filename.png</div>
+                                    <div id="fileSize" class="text-white text-xs text-gray-200/70">120 KB</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="removePhoto"
+                                    class="px-3 py-1 text-white bg-[#55005a] rounded text-sm hover:bg-[#3a0531] z-10">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="fileError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                <div class="text-sm text-gray-200/80">Fields with <span class="text-red-400">*</span> are required.
+                </div>
+                <div class="flex gap-3">
+                    <button type="reset" id="resetBtn"
+                        class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                    <button type="submit"
+                        class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+    <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+        <div class="flex justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "User")"
+                class="inline-block bg-[#55005a] w-fit text-white px-4 py-2 rounded hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf]">Back
+                to
+                Home</a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] w-fit text-white px-4 py-2 rounded rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf]"
+                id="btnAddNewUer">Add New</button>
+        </div>
+
+        <input type="text"
+            class="text-white bg-[#55005a] w-full lg:w-fit ml-auto px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+            placeholder="Search User..." id="userSearchInput" onkeyup="filterUsers()" />
+    </div>
+
+    <div class="overflow-x-scroll scrollbar-none">
+        <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
+            <thead class="bg-[#55005a]">
+                <tr>
+                    <th scope="col"
+                        class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        ID</th>
+                    <th scope="col"
+                        class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Action</th>
+                    <th scope="col"
+                        class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Photo</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider whitespace-nowrap">
+                        First Name</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider whitespace-nowrap">
+                        Last Name</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        Gender</th>
+                    <th scope="col" class="px-7 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Email</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider whitespace-nowrap">
+                        Phone Number</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        Roles</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center text-nowrap">
+                        Status</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[#55005a]">
+                @foreach (var user in Model.userDtos)
+                {
+                    <tr>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center">
+                                <div
+                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
+                                    @index</div>
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center">
+                                <div class="flex justify-between items-center gap-4">
+                                    <button onclick="attachUpdateClub('@user.UserId')"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0]  rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </button>
+
+                                    <form asp-controller="Club" asp-action="Delete" method="post" asp-antiforgery="true">
+                                        <input type="text" name="clubId" value="@user.UserId" hidden />
+                                        <button
+                                            class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                            <i class="fa-solid fa-circle-minus"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white ">
+                            <div class="flex justify-center items-center">
+                                <div
+                                    class="flex justify-center items-center w-12 h-12 pt-2 rounded-full ring-2 !ring-[#8a3fbf] overflow-hidden">
+                                    <img src="~/upload/users/@(string.IsNullOrEmpty(user.Photo) ? "placeholder.png" : user.Photo)"
+                                        class="w-auto h-12 object-contain cursor-pointer" alt="@user.FirstName" />
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@user.FirstName</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@user.LastName</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">@(user.Gender == 0 ? "Male" :
+                                                    "Female")</td>
+                        <td class="px-7 py-4 whitespace-nowrap text-sm text-white">@user.Email</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@user.PhoneNumber</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white"></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">
+                            <div class="flex justify-center items-center">
+                                <div class="flex justify-center items-center rounded-2xl bg-green-700 px-3 py-1">Active
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex items-center mt-4 border-t-2 border-[#55005a] pt-4">
+        <div class="mt-4 text-sm text-gray-400">
+            Total Users: @Model.userDtos.Count
+        </div>
+
+        <div class="ml-auto flex gap-2">
+            <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage - 1 })"
+                class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                @(ViewBag.CurrentPage == 1 ? "onclick='return false;'" : "")>
+                Previous
+            </a>
+            <span class="text-white px-3 py-1">
+                Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+            </span>
+            <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage + 1 })"
+                class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                @(ViewBag.CurrentPage == ViewBag.TotalPages ? "onclick='return false;'" : "")>
+                Next
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/user/index.js" asp-append-version="true"></script>
+}

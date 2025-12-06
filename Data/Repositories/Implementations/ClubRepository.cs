@@ -8,6 +8,7 @@ namespace epl_backend.Data.Repositories.Implementations;
 
 public class ClubRepository : IClubRepository
 {
+    private readonly string _clubFolder = "upload/users";
     public async Task<bool> AddClubAsync(ClubDto club, CancellationToken ct = default)
     {
         if (club == null) throw new ArgumentNullException(nameof(club));
@@ -15,7 +16,7 @@ public class ClubRepository : IClubRepository
         if (club.CrestFile != null && club.CrestFile.Length > 0)
         {
             var ext = Path.GetExtension(club.CrestFile.FileName ?? string.Empty);
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "folders", "clubs");
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", _clubFolder);
             Directory.CreateDirectory(uploadsFolder);
 
             var safeFileName = $"{Guid.NewGuid()}{ext}";
@@ -27,7 +28,7 @@ public class ClubRepository : IClubRepository
                 await club.CrestFile.CopyToAsync(stream, ct).ConfigureAwait(false);
             }
 
-            club.Crest = Path.Combine("folders", "clubs", safeFileName).Replace('\\', '/');
+            club.Crest = Path.Combine(_clubFolder, safeFileName).Replace('\\', '/');
         }
 
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
@@ -56,7 +57,6 @@ public class ClubRepository : IClubRepository
             return false;
         }
     }
-
     public async Task<bool> DeleteClubAsync(int id, CancellationToken ct = default)
     {
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
@@ -209,7 +209,7 @@ public class ClubRepository : IClubRepository
         if (club.CrestFile != null && club.CrestFile.Length > 0)
         {
             var ext = Path.GetExtension(club.CrestFile.FileName ?? string.Empty);
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "folders", "clubs");
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", _clubFolder);
             Directory.CreateDirectory(uploadsFolder);
 
             var safeFileName = $"{Guid.NewGuid()}{ext}";
@@ -221,7 +221,7 @@ public class ClubRepository : IClubRepository
                 await club.CrestFile.CopyToAsync(stream, ct).ConfigureAwait(false);
             }
 
-            club.Crest = Path.Combine("folders", "clubs", safeFileName).Replace('\\', '/');
+            club.Crest = Path.Combine(_clubFolder, safeFileName).Replace('\\', '/');
         }
 
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);

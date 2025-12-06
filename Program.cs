@@ -1,14 +1,24 @@
 using epl_backend.Data;
-using epl_backend.Data.Repositories.Implementations;
-using epl_backend.Data.Repositories.Interfaces;
+using epl_backend.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using static epl_backend.Startup.DependenciesConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+        options.LoginPath = "/auth/login";
+        options.AccessDeniedPath = "/auth/access-denied";
+    });
+
 // Minimal hosting model used, so register repositories here
-builder.Services.AddScoped<IClubRepository, ClubRepository>();
+builder.RegisterServices();
 
 var app = builder.Build();
 
@@ -36,14 +46,23 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
+// Use custom middleware BEFORE routing
+app.UseMiddleware<ValidateUserMiddleware>();
+
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/auth/login");
+    return Task.CompletedTask;
+});
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=User}/{action=Login}/{id?}")
-    .WithStaticAssets();
-
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+.WithStaticAssets();
 
 app.Run();

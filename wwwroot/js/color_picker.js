@@ -13,6 +13,8 @@ function resetColorPicker() {
 
 (function () {
   // color sync
+  if (!themeColor || !themeHex) return;
+
   themeColor.addEventListener("input", (e) => {
     themeHex.value = e.target.value;
     // colorSwatch.style.background = e.target.value;

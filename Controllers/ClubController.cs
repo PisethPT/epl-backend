@@ -3,9 +3,11 @@ using epl_backend.Data.Repositories.Interfaces;
 using epl_backend.Models.DTOs;
 using epl_backend.Models.ViewModels;
 using epl_backend.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace epl_backend.Controllers
 {
+    [Authorize]
     [Route("clubs")]
     public class ClubController : Controller
     {
@@ -40,7 +42,7 @@ namespace epl_backend.Controllers
 
             var validation = FileValidator.Validate(
                 clubDto.CrestFile,
-                allowedExtensions: new[] { ".png", ".jpg", ".jpeg", ".svg" },
+                allowedExtensions: new[] { ".png", ".jpg", ".jpeg", ".svg", ".webp" },
                 maxBytes: 2 * 1024 * 1024 // 2 MB
             );
 

@@ -1,6 +1,7 @@
 ﻿@model epl_backend.Models.ViewModels.ClubViewModel
 @{
     ViewData["Title"] = "Clubs";
+    int index = 1;
 }
 
 @if (!ViewData.ModelState.IsValid)
@@ -56,8 +57,9 @@
                         <span class="text-white font-medium">Club Name</span>
                         <span class="text-red-400">*</span>
                     </span>
-                    <input id="clubName" asp-for="clubDto.Name" type="text" required
+                    <input id="clubName" asp-for="clubDto.Name" type="text"
                         class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="clubDto.Name"></span>
                 </label>
 
                 <label class="flex flex-col gap-2">
@@ -65,7 +67,7 @@
                         <span class="text-white font-medium">Founded</span>
                         <span class="text-red-400">*</span>
                     </span>
-                    <input id="founded" asp-for="clubDto.Founded" type="number" min="1800" max="2099" required
+                    <input id="founded" asp-for="clubDto.Founded" type="number" min="1800" max="2099"
                         class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                 </label>
 
@@ -74,7 +76,7 @@
                         <span class="text-white font-medium">City</span>
                         <span class="text-red-400">*</span>
                     </span>
-                    <input id="city" asp-for="clubDto.City" type="text" required
+                    <input id="city" asp-for="clubDto.City" type="text"
                         class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                 </label>
 
@@ -83,7 +85,7 @@
                         <span class="text-white font-medium">Stadium</span>
                         <span class="text-red-400">*</span>
                     </span>
-                    <input id="stadium" asp-for="clubDto.Stadium" type="text" required
+                    <input id="stadium" asp-for="clubDto.Stadium" type="text"
                         class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                 </label>
 
@@ -92,7 +94,7 @@
                         <span class="text-white font-medium">Coach Name</span>
                         <span class="text-red-400">*</span>
                     </span>
-                    <input id="coach" asp-for="clubDto.HeadCoach" type="text" required
+                    <input id="coach" asp-for="clubDto.HeadCoach" type="text"
                         class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                 </label>
 
@@ -104,6 +106,7 @@
                     <input id="website" asp-for="clubDto.ClubOfficialWebsite" type="url"
                         placeholder="https://clubName.com"
                         class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="clubDto.ClubOfficialWebsite"></span>
                 </label>
 
                 <div class="flex flex-col gap-2">
@@ -119,6 +122,7 @@
                         <!-- hex text input -->
                         <input id="themeHex" asp-for="clubDto.Theme" type="text" value="#55005a" maxlength="7"
                             class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                        <span asp-validation-for="clubDto.Theme"></span>
                     </div>
                     <p class="text-sm text-white">Choose primary theme color (hex or picker).</p>
                 </div>
@@ -131,9 +135,10 @@
 
                     <div id="dropZone" class="relative flex flex-col items-center justify-center gap-3 border-2 border-dashed border-white/20 rounded-lg p-4 bg-white/3 cursor-pointer
                             hover:border-white/40 transition">
-                        <input id="logoInput" asp-for="clubDto.CrestFile" type="file" accept="image/*"
+                        <input id="fileInput" asp-for="clubDto.CrestFile" type="file" accept="image/*"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            aria-label="Upload club logo" required>
+                            aria-label="Upload club logo">
+                        <span asp-validation-for="clubDto.CrestFile"></span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -149,11 +154,11 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="flex justify-center items-center h-20 w-20 rounded-md bg-white/5 border border-white/10 overflow-hidden">
-                                    <img id="logoPreview" src="" alt="logo preview" class="h-14 w-auto object-contain">
+                                    <img id="filePreview" src="" alt="logo preview" class="h-14 w-auto object-contain">
                                 </div>
                                 <div class="flex flex-col">
-                                    <div id="logoName" class="text-white text-sm font-medium">filename.png</div>
-                                    <div id="logoSize" class="text-white text-xs text-gray-200/70">120 KB</div>
+                                    <div id="fileName" class="text-white text-sm font-medium">filename.png</div>
+                                    <div id="fileSize" class="text-white text-xs text-gray-200/70">120 KB</div>
                                 </div>
                             </div>
 
@@ -163,7 +168,7 @@
                             </div>
                         </div>
                     </div>
-                    <p id="logoError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
+                    <p id="fileError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
                 </div>
             </div>
 
@@ -239,7 +244,7 @@
                             <div class="flex justify-center items-center">
                                 <div
                                     class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
-                                    @club.Id</div>
+                                    @index</div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
@@ -288,6 +293,8 @@
                             }
                         </td>
                     </tr>
+
+                    index++;
                 }
             </tbody>
         </table>

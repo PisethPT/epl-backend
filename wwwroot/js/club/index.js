@@ -31,8 +31,8 @@
     }
 
     const clubId = document.getElementById("clubId").value;
-    const logoInput = document.getElementById("logoInput");
-    const logoError = document.getElementById("logoError");
+    const logoInput = document.getElementById("fileInput");
+    const logoError = document.getElementById("fileError");
 
     logoError.classList.add("hidden");
     logoError.textContent = "";
@@ -95,17 +95,17 @@ function attachUpdateClub(clubId) {
 
       // logo preview
       if (data.crest) {
-        const logoPath = "/folders/clubs/" + data.crest; // adjust your folder path
-        $("#logoPreview").attr("src", logoPath);
-        $("#logoName").text(data.crest);
+        const logoPath = "/upload/clubs/" + data.crest; // adjust your folder path
+        $("#filePreview").attr("src", logoPath);
+        $("#fileName").text(data.crest);
         $("#previewArea").removeClass("hidden");
-        $("#logoInput").attr("required", false);
+        $("#fileInput").attr("required", false);
       } else {
         // reset preview
         $("#previewArea").addClass("hidden");
-        $("#logoPreview").attr("src", "");
-        $("#logoName").text("");
-        $("#logoInput").attr("required", true);
+        $("#filePreview").attr("src", "");
+        $("#fileName").text("");
+        $("#fileInput").attr("required", true);
       }
 
       $("#modalTitle").text("Update Club");

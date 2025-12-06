@@ -21,106 +21,6 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ars.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\ars.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\avl.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\avl.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bhr.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\bhr.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bou.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\bou.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bre.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\bre.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\bunley.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\bunley.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\che.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\che.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\cry.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\cry.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\eve.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\eve.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ful.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\ful.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\ips.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\ips.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\leed.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\leed.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\lei.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\lei.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\liv.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\liv.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\mci.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\mci.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\menu.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\menu.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\mun.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\mun.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\new.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\new.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\nf.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\nf.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\sou.png",
-      "PackagePath": "staticwebassets\\folders\\clubs\\sou.png"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\sun.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\sun.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\tot.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\tot.svg"
-    },
-    {
-      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\folders\\clubs\\wol.svg",
-      "PackagePath": "staticwebassets\\folders\\clubs\\wol.svg"
-    },
-    {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\icon.png",
       "PackagePath": "staticwebassets\\icon.png"
     },
@@ -147,6 +47,10 @@
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\upload_file.js",
       "PackagePath": "staticwebassets\\js\\upload_file.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\user\\index.js",
+      "PackagePath": "staticwebassets\\js\\user\\index.js"
     },
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\LICENSE",
@@ -387,6 +291,110 @@
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\3bf96fe5-73fe-4d1e-87b9-7db75c24377d.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\43e7435a-db59-49b1-ab6f-82d2d0b78346.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\ars.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\ars.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\avl.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\avl.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\bhr.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\bhr.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\bou.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\bou.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\bre.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\bre.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\bunley.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\bunley.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\che.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\che.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\cry.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\cry.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\eve.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\eve.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\ful.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\ful.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\ips.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\ips.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\leed.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\leed.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\lei.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\lei.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\liv.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\liv.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\mci.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\mci.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\menu.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\menu.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\mun.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\mun.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\new.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\new.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\nf.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\nf.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\sou.png",
+      "PackagePath": "staticwebassets\\upload\\clubs\\sou.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\sun.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\sun.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\tot.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\tot.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\wol.svg",
+      "PackagePath": "staticwebassets\\upload\\clubs\\wol.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\placeholder.png",
+      "PackagePath": "staticwebassets\\upload\\users\\placeholder.png"
     },
     {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.epl-backend.props",

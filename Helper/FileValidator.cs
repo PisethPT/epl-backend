@@ -18,7 +18,7 @@ public static class FileValidator
 
         var allowed = allowedExtensions != null
             ? new HashSet<string>(allowedExtensions, StringComparer.OrdinalIgnoreCase)
-            : new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".png", ".jpg", ".jpeg", ".svg" };
+            : new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".png", ".jpg", ".jpeg", ".svg", ".webp" };
 
         long max = maxBytes ?? 2 * 1024 * 1024; // 2 MB
 

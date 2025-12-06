@@ -5,17 +5,17 @@ function resetFile() {
   logoName.textContent = "";
   logoSize.textContent = "";
   logoError.classList.add("hidden");
-  $("#logoInput").attr("required", true);
+  $("#fileInput").attr("required", true);
 }
 
 (function () {
   const dropZone = document.getElementById("dropZone");
-  const logoInput = document.getElementById("logoInput");
+  const logoInput = document.getElementById("fileInput");
   const previewArea = document.getElementById("previewArea");
-  const logoPreview = document.getElementById("logoPreview");
-  const logoName = document.getElementById("logoName");
-  const logoSize = document.getElementById("logoSize");
-  const logoError = document.getElementById("logoError");
+  const logoPreview = document.getElementById("filePreview");
+  const logoName = document.getElementById("fileName");
+  const logoSize = document.getElementById("fileSize");
+  const logoError = document.getElementById("fileError");
 
   const MAX_FILE_BYTES = 2 * 1024 * 1024; // 2 MB
   const VALID_TYPES = [
@@ -27,6 +27,8 @@ function resetFile() {
   ];
 
   // drag and drop
+  if (!dropZone) return;
+
   dropZone.addEventListener("dragover", (e) => {
     e.preventDefault();
     dropZone.classList.add("border-white/60", "bg-white/5");

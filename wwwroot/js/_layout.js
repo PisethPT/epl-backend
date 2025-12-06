@@ -124,6 +124,7 @@
       mi.classList.remove("bg-[#410544]", "text-white");
       mi.removeAttribute("aria-current");
     });
+
     el.classList.add("bg-[#410544]", "text-white");
     el.setAttribute("aria-current", "page");
 

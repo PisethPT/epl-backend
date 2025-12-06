@@ -1,0 +1,39 @@
+{
+  "name": "epl-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "dependencies": {
+    "baseline-browser-mapping": "^2.8.32",
+    "browserslist": "^4.28.0",
+    "caniuse-lite": "^1.0.30001757",
+    "electron-to-chromium": "^1.5.262",
+    "escalade": "^3.2.0",
+    "fraction.js": "^5.3.4",
+    "nanoid": "^3.3.11",
+    "node-releases": "^2.0.27",
+    "normalize-range": "^0.1.2",
+    "picocolors": "^1.1.1",
+    "postcss-value-parser": "^4.2.0",
+    "source-map-js": "^1.2.1",
+    "update-browserslist-db": "^1.1.4"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.33"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PisethPT/epl-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PisethPT/epl-backend/issues"
+  },
+  "homepage": "https://github.com/PisethPT/epl-backend#readme"
+}
