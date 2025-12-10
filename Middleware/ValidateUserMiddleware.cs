@@ -1,7 +1,6 @@
 using epl_backend.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace epl_backend.Middleware;
@@ -25,8 +24,8 @@ public class ValidateUserMiddleware
                 var user = await repository.FindByIdAsync(userId);
                 if (user != null)
                 {
-                    bool isLocked = user.LockoutEnabled 
-                && user.LockoutEnd.HasValue 
+                    bool isLocked = user.LockoutEnabled
+                && user.LockoutEnd.HasValue
                 && user.LockoutEnd.Value > DateTimeOffset.UtcNow;
 
                     if (isLocked)

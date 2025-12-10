@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Threading.Tasks;
 using epl_backend.Data.Repositories.Interfaces;
 using epl_backend.Helper;
 using epl_backend.Models.DTOs;
@@ -74,7 +73,7 @@ namespace epl_backend.Controllers
                     new AuthenticationProperties
                     {
                         IsPersistent = userLoginDto.RememberMe,
-                        ExpiresUtc = DateTime.UtcNow.AddHours(12)
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
                     });
                 return RedirectToAction("Dashboard", "Home");
             }
@@ -83,11 +82,28 @@ namespace epl_backend.Controllers
             return View(viewModel);
         }
 
+        [HttpPost("logout")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(Login));
+        }
+
+        [HttpGet("access-denied")]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            // Optionally pass data to the view (e.g., reason, return URL)
+            ViewData["Title"] = "404 Access Denied";
+            return View();
+        }
+
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromForm] UserDto userDto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return RedirectToAction(nameof(Index));
 
             var validation = FileValidator.Validate(userDto.PhotoFile);
@@ -127,6 +143,114 @@ namespace epl_backend.Controllers
                 _logger.LogError(ex, "Error creating user {UserName}", string.Concat(userDto.FirstName, " ", userDto.LastName));
                 ModelState.AddModelError(string.Empty, ex.Message);
                 ViewBag.OpenCreateModal = true;
+                viewModel.userDtos = await repository.GetAllUsers();
+                return View(nameof(Index), viewModel);
+            }
+        }
+
+        [HttpPost("get-user/{userId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FindUserByUserId([FromRoute] string userId)
+        {
+            try
+            {
+                var userDto = await repository.FindByIdAsync(userId);
+                if (userDto is null)
+                {
+                    ModelState.AddModelError(nameof(userId), "A user is not found.");
+                    return RedirectToAction(nameof(Index));
+                }
+                return Json(userDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting user {UserId}", userId);
+                ModelState.AddModelError(string.Empty, ex.Message);
+                viewModel.userDtos = await repository.GetAllUsers();
+                return View(nameof(Index), viewModel);
+            }
+        }
+
+        [HttpPost("update/{userId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update([FromForm] UserDto userDto, [FromRoute] string userId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return RedirectToAction(nameof(Index));
+
+                if (userDto.PhotoFile is not null || userDto.PhotoFile?.Length > 0)
+                {
+                    var validation = FileValidator.Validate(userDto.PhotoFile);
+                    if (!validation.IsValid)
+                    {
+                        ModelState.AddModelError(nameof(userDto.PhotoFile), validation.ErrorMessage ?? "Invalid file");
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+
+                if (!await repository.UserByExistEmail(userDto.Email, userId))
+                {
+                    ModelState.AddModelError(nameof(userDto.Email), "A user with this email already exists.");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var success = await repository.UpdateUserAsync(userDto);
+                if (!success)
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to update user. Please try again or contact admin.");
+                    _logger.LogWarning("UpdateUserAsync returned {success} for user {UserName}", success, string.Concat(userDto.FirstName, " ", userDto.LastName));
+                    return RedirectToAction(nameof(Index));
+                }
+
+                TempData["SuccessMessage"] = "User update successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (OperationCanceledException)
+            {
+                _logger.LogInformation("Update canceled for user {UserName}", string.Concat(userDto.FirstName, " ", userDto.LastName));
+                ModelState.AddModelError(string.Empty, "Request was cancelled.");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating user {UserName}", string.Concat(userDto.FirstName, " ", userDto.LastName));
+                ModelState.AddModelError(string.Empty, ex.Message);
+                ViewBag.OpenCreateModal = true;
+                viewModel.userDtos = await repository.GetAllUsers();
+                return View(nameof(Index), viewModel);
+            }
+        }
+
+        [HttpPost("delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string userId)
+        {
+            try
+            {
+                var existingUser = await repository.FindByIdAsync(userId);
+                if (existingUser is null)
+                {
+                    ModelState.AddModelError(nameof(userId), "A user id is not found.");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var success = await repository.DeleteUserAsync(userId, existingUser.Photo);
+                if (!success)
+                {
+                    ModelState.AddModelError(string.Empty, "Unable to delete user. Please try again or contact admin.");
+                    _logger.LogWarning("DeleteUserAsync returned {Success} for club {UserName}", success, string.Concat(existingUser.FirstName, existingUser.LastName));
+                    return RedirectToAction(nameof(Index));
+                }
+
+                TempData["SuccessMessage"] = "User delete successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error delete user {UserId}", userId);
+                ModelState.AddModelError(string.Empty, ex.Message);
                 viewModel.userDtos = await repository.GetAllUsers();
                 return View(nameof(Index), viewModel);
             }

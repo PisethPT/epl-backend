@@ -2,13 +2,13 @@ using System.Data;
 using System.Data.SqlClient;
 using epl_backend.Data.Repositories.Interfaces;
 using epl_backend.Models.DTOs;
-using epl_backend.Helper;
+using static epl_backend.Helper.SqlCommands.ClubCommands;
 
 namespace epl_backend.Data.Repositories.Implementations;
 
 public class ClubRepository : IClubRepository
 {
-    private readonly string _clubFolder = "upload/users";
+    private readonly string _clubFolder = "upload/clubs";
     public async Task<bool> AddClubAsync(ClubDto club, CancellationToken ct = default)
     {
         if (club == null) throw new ArgumentNullException(nameof(club));
@@ -34,7 +34,7 @@ public class ClubRepository : IClubRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_AddClub";
+        cmd.CommandText = AddClubCommand;
 
         cmd.Parameters.AddWithValue("@Name", club.Name ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("@Founded", club.Founded ?? (object)DBNull.Value);
@@ -57,12 +57,13 @@ public class ClubRepository : IClubRepository
             return false;
         }
     }
+    
     public async Task<bool> DeleteClubAsync(int id, CancellationToken ct = default)
     {
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_DeleteClub";
+        cmd.CommandText = DeleteClubCommand;
         cmd.Parameters.AddWithValue("@ClubId", id);
 
         try
@@ -81,7 +82,7 @@ public class ClubRepository : IClubRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_ClubExistByName";
+        cmd.CommandText = ClubExistByNameCommand;
 
         cmd.Parameters.AddWithValue("@Name", clubName ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("@ClubId", clubId ?? (object)DBNull.Value);
@@ -103,7 +104,7 @@ public class ClubRepository : IClubRepository
 
         using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_GetAllClubs";
+        cmd.CommandText = GetAllClubsCommand;
 
         using var adapter = new SqlDataAdapter((SqlCommand)cmd);
         adapter.Fill(table);
@@ -117,7 +118,7 @@ public class ClubRepository : IClubRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_GetAllClubs";
+        cmd.CommandText = GetAllClubsCommand;
 
         using var adapter = new SqlDataAdapter((SqlCommand)cmd);
         adapter.Fill(table);
@@ -152,7 +153,7 @@ public class ClubRepository : IClubRepository
 
         using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "GetAllClubs";
+        cmd.CommandText = GetAllClubsCommand;
 
         using var adapter = new SqlDataAdapter((SqlCommand)cmd);
         adapter.Fill(ds);
@@ -164,7 +165,7 @@ public class ClubRepository : IClubRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_GetClubById";
+        cmd.CommandText = GetClubByIdCommand;
         cmd.Parameters.AddWithValue("@ClubId", id);
 
         await using var rdr = await cmd.ExecuteReaderAsync(ct).ConfigureAwait(false);
@@ -194,7 +195,7 @@ public class ClubRepository : IClubRepository
 
         using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "GetClubById";
+        cmd.CommandText = GetClubByIdCommand;
         cmd.Parameters.AddWithValue("@Id", id);
 
         using var adapter = new SqlDataAdapter((SqlCommand)cmd);
@@ -227,7 +228,7 @@ public class ClubRepository : IClubRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "PL_UpdateClub";
+        cmd.CommandText = UpdateClubCommand;
 
         cmd.Parameters.AddWithValue("@ClubId", club.Id);
         cmd.Parameters.AddWithValue("@Name", club.Name ?? (object)DBNull.Value);

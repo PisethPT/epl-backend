@@ -8,14 +8,30 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Cookie Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
+        options.LoginPath = "/auth/login";
+        options.LogoutPath = "/auth/logout";
+        options.AccessDeniedPath = "/auth/access-denied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.SlidingExpiration = true;
-        options.LoginPath = "/auth/login";
-        options.AccessDeniedPath = "/auth/access-denied";
+
+        // redirect to login automatically when cookie expires
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = ctx =>
+            {
+                // Keep default behavior OR customize
+                ctx.Response.Redirect(ctx.RedirectUri);
+                return Task.CompletedTask;
+            }
+        };
     });
+
+builder.Services.AddAntiforgery();
+builder.Services.AddHttpContextAccessor();
 
 // Minimal hosting model used, so register repositories here
 builder.RegisterServices();

@@ -1,19 +1,25 @@
 using System.Data;
 using System.Data.SqlClient;
 using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Helper;
 using epl_backend.Models.DTOs;
 using epl_backend.Models.Enums;
 using epl_backend.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using static epl_backend.Helper.SqlCommands.UserCommands;
 
 namespace epl_backend.Data.Repositories.Implementations;
 
 public class UserRepository : IUserRepository
 {
     private readonly IFileStorageService storageService;
+    private readonly IExecute execute;
     public string _userFolder => "upload/users";
-    public UserRepository(IFileStorageService storageService) => this.storageService = storageService;
+    public UserRepository(IFileStorageService storageService, IExecute execute)
+    {
+        this.storageService = storageService;
+        this.execute = execute;
+    }
+
     public async Task<bool> AddUserAsync(UserDto user, CancellationToken ct = default)
     {
         if (user is null) throw new ArgumentNullException(nameof(user));
@@ -30,10 +36,8 @@ public class UserRepository : IUserRepository
 
         //await _userManager.CreateAsync(user);
 
-        await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
-        await using var cmd = conn.CreateCommand();
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = UserCommands.AddAspNetUserCommand;
+        var cmd = new SqlCommand();
+        cmd.CommandText = AddAspNetUserCommand;
 
         cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
         cmd.Parameters.AddWithValue("@LastName", user.LastName);
@@ -45,13 +49,11 @@ public class UserRepository : IUserRepository
 
         try
         {
-            var scalar = await cmd.ExecuteScalarAsync(ct).ConfigureAwait(false);
-            if (scalar is not null || scalar == DBNull.Value) return false;
-            return true;
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
-        catch (SqlException ex) when (ex.Number == 500000)
+        catch (Exception ex)
         {
-            return false;
+            throw new Exception(ex.Message);
         }
     }
 
@@ -60,7 +62,7 @@ public class UserRepository : IUserRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = UserCommands.CheckAspNetUserPasswordCommand;
+        cmd.CommandText = CheckAspNetUserPasswordCommand;
 
         cmd.Parameters.AddWithValue("@UserId", userDto.UserId);
 
@@ -75,9 +77,28 @@ public class UserRepository : IUserRepository
         return result == PasswordVerificationResult.Success;
     }
 
-    public Task<bool> DeleteUserAsync(int userId, CancellationToken ct = default)
+    public async Task<bool> DeleteUserAsync(string userId, string? photo, CancellationToken ct = default)
     {
-        throw new NotImplementedException();
+        var cmd = new SqlCommand();
+        cmd.CommandText = DeleteAspNetUserCommand;
+        cmd.Parameters.AddWithValue("@UserId", userId);
+        try
+        {
+            var scalar = await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
+            if (scalar)
+            {
+                if (!string.IsNullOrEmpty(photo) && !string.IsNullOrWhiteSpace(photo))
+                {
+                    await storageService.DeleteFileAsync(Path.Combine(_userFolder, photo));
+                }
+            }
+
+            return scalar;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task<UserDto> FindByEmailAsync(string email, CancellationToken ct = default)
@@ -85,7 +106,7 @@ public class UserRepository : IUserRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = UserCommands.FindAspNetUserByEmailCommand;
+        cmd.CommandText = FindAspNetUserByEmailCommand;
         cmd.Parameters.AddWithValue("@Email", email);
 
         try
@@ -117,7 +138,7 @@ public class UserRepository : IUserRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = UserCommands.FindAspNetUserByUserIdCommand;
+        cmd.CommandText = FindAspNetUserByUserIdCommand;
         cmd.Parameters.AddWithValue("@UserId", userId);
 
         try
@@ -134,7 +155,8 @@ public class UserRepository : IUserRepository
                     PhoneNumber = rdr.IsDBNull(rdr.GetOrdinal("PhoneNumber")) ? string.Empty : rdr.GetString(rdr.GetOrdinal("PhoneNumber")),
                     Gender = (Gender)rdr.GetInt32(rdr.GetOrdinal("Gender")),
                     LockoutEnabled = !rdr.IsDBNull(rdr.GetOrdinal("LockoutEnabled")) && rdr.GetBoolean(rdr.GetOrdinal("LockoutEnabled")),
-                    LockoutEnd = rdr.IsDBNull(rdr.GetOrdinal("LockoutEnd")) ? (DateTimeOffset?)null : rdr.GetFieldValue<DateTimeOffset>(rdr.GetOrdinal("LockoutEnd"))
+                    LockoutEnd = rdr.IsDBNull(rdr.GetOrdinal("LockoutEnd")) ? (DateTimeOffset?)null : rdr.GetFieldValue<DateTimeOffset>(rdr.GetOrdinal("LockoutEnd")),
+                    Photo = rdr.IsDBNull(rdr.GetOrdinal("Photo")) ? "placeholder.png" : rdr.GetString(rdr.GetOrdinal("Photo"))
                 };
             }
 
@@ -151,7 +173,7 @@ public class UserRepository : IUserRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = UserCommands.GetAllAspNetUsersCommand;
+        cmd.CommandText = GetAllAspNetUsersCommand;
         try
         {
             var users = new List<UserDto>();
@@ -184,7 +206,7 @@ public class UserRepository : IUserRepository
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = UserCommands.GetAspNetUserRolesCommand;
+        cmd.CommandText = GetAspNetUserRolesCommand;
         cmd.Parameters.AddWithValue("@UserId", userDto.UserId);
 
         var roles = new List<string>();
@@ -203,8 +225,50 @@ public class UserRepository : IUserRepository
         };
     }
 
-    public Task<bool> UpdateUserAsync(UserDto user, CancellationToken ct = default)
+    public async Task<bool> UpdateUserAsync(UserDto user, CancellationToken ct = default)
     {
-        throw new NotImplementedException();
+        if (user is null) throw new ArgumentNullException(nameof(user));
+        if (user.PhotoFile is not null || user.PhotoFile?.Length > 0)
+        {
+            if (!string.Equals(user.PhotoFile?.FileName, "placeholder.png", StringComparison.OrdinalIgnoreCase))
+                user.Photo = await storageService.SavePhotoAsync(user.PhotoFile!, _userFolder);
+        }
+
+        var cmd = new SqlCommand();
+        cmd.CommandText = UpdateAspNetUserCommand;
+
+        cmd.Parameters.AddWithValue("@UserId", user.UserId);
+        cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+        cmd.Parameters.AddWithValue("@LastName", user.LastName);
+        cmd.Parameters.AddWithValue("@Gender", user.Gender);
+        cmd.Parameters.AddWithValue("@Email", user.Email);
+        cmd.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+        cmd.Parameters.AddWithValue("@Photo", user.Photo == "placeholder.png" ? (object)DBNull.Value : user.Photo);
+
+        try
+        {
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<bool> UserByExistEmail(string email, string? userId, CancellationToken ct = default)
+    {
+        var cmd = new SqlCommand();
+        cmd.CommandText = UserByExistEmailCommand;
+        cmd.Parameters.AddWithValue("@Email", email);
+        cmd.Parameters.AddWithValue("@UserId", userId);
+
+        try
+        {
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

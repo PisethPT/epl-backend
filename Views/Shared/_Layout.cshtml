@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    var title = ViewData["Title"] ?? "epl";
+    var title = ViewData["Title"] ?? "PL";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@title - epl</title>
+    <title>PL - @title </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -42,7 +42,7 @@
                 </li>
 
                 <li>
-                    <a asp-controller="Home" asp-action="Index"
+                    <a asp-controller="Player" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
                         id="menu-players" role="link">
                         <i class="fas fa-users menu-icon w-4 text-center"></i>
@@ -72,14 +72,14 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Units"
+                            <a asp-controller="Goal" asp-action="Index"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fa-solid fa-futbol menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Goals</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Inventory"
+                            <a asp-controller="Assist" asp-action="Index"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fa-solid fa-handshake-angle menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Assists</span>
@@ -102,24 +102,17 @@
                     <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
                         aria-hidden="true">
                         <li>
-                            <a asp-controller="Products" asp-action="Categories"
+                            <a asp-controller="Stats" asp-action="ClubStat"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-folder menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">All Clubs</span>
+                                <span class="menu-label truncate ml-2">Club Stat</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Units"
+                            <a asp-controller="Stats" asp-action="PlayerStat"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Goals</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Products" asp-action="Inventory"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Assists</span>
+                                <span class="menu-label truncate ml-2">Player Stat</span>
                             </a>
                         </li>
                     </ul>
@@ -139,24 +132,24 @@
                     <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
                         aria-hidden="true">
                         <li>
-                            <a asp-controller="Products" asp-action="Categories"
+                            <a asp-controller="News" asp-action="ClubNews"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-folder menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">All Clubs</span>
+                                <span class="menu-label truncate ml-2">Club News</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Units"
+                            <a asp-controller="News" asp-action="PlayerNews"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Goals</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Inventory"
+                            <a asp-controller="News" asp-action="MatchNews"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Assists</span>
+                                <span class="menu-label truncate ml-2">Match News</span>
                             </a>
                         </li>
                     </ul>
@@ -176,31 +169,31 @@
                     <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
                         aria-hidden="true">
                         <li>
-                            <a asp-controller="Products" asp-action="Categories"
+                            <a asp-controller="Video" asp-action="ClubVideos"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-folder menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">All Clubs</span>
+                                <span class="menu-label truncate ml-2">Club Videos</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Units"
+                            <a asp-controller="Video" asp-action="PlayerVideos"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Goals</span>
+                                <span class="menu-label truncate ml-2">Player Videos</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Inventory"
+                            <a asp-controller="Video" asp-action="SeriesVideo"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Assists</span>
+                                <span class="menu-label truncate ml-2">Series Video</span>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li>
-                    <a asp-controller="Orders" asp-action="Index"
+                    <a asp-controller="Match" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                         <i class="fa-solid fa-calendar-days menu-icon w-4 text-center"></i>
                         <span class="menu-label truncate ml-2">Matches</span>
@@ -208,7 +201,7 @@
                 </li>
 
                 <li>
-                    <a asp-controller="Home" asp-action="Dashboard"
+                    <a asp-controller="Table" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
                         id="menu-table" role="link">
                         <i class="fa-solid fa-table-list menu-icon w-4 text-center"></i>
@@ -217,7 +210,7 @@
                 </li>
 
                 <li>
-                    <a asp-controller="Orders" asp-action="Index"
+                    <a asp-controller="Session" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                         <i class="fa-solid fa-cloud-sun menu-icon w-4 text-center"></i>
                         <span class="menu-label truncate ml-2">Sessions</span>
@@ -245,18 +238,28 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Units"
+                            <a asp-controller="User" asp-action="Permissions"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fa-solid fa-user-shield menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Permissions</span>
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Products" asp-action="Inventory"
+                            <a asp-controller="User" asp-action="ResetPassword"
                                 class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                                 <i class="fa-solid fa-key menu-icon w-4 text-center"></i>
                                 <span class="menu-label truncate ml-2">Reset Password</span>
                             </a>
+                        </li>
+                        <li>
+                            <form method="post" action="/auth/logout">
+                                @Html.AntiForgeryToken()
+                                <button type="submit"
+                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-md w-full hover:bg-[#410544] transition">
+                                    <i class="fa-solid fa-right-from-bracket menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">Logout</span>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
@@ -312,6 +315,7 @@
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/_layout.js" asp-append-version="true"></script>
     <script src="~/js/modal.js" asp-append-version="true"></script>
     <script src="~/js/color_picker.js" asp-append-version="true"></script>

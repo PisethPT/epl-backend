@@ -98,7 +98,7 @@ namespace epl_backend.Controllers
                 var clubDto = await _clubRepository.GetClubByIdAsync(clubId);
                 if (clubDto is null)
                 {
-                    ModelState.AddModelError(nameof(clubDto.Name), "A club is not found.");
+                    ModelState.AddModelError(nameof(clubId), "A club is not found.");
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -140,7 +140,7 @@ namespace epl_backend.Controllers
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(clubDto.Name) && await _clubRepository.ExistsByNameAsync(clubDto.Name, clubDto.Id))
+                if (!string.IsNullOrWhiteSpace(clubDto.Name) && await _clubRepository.ExistsByNameAsync(clubDto.Name, clubId))
                 {
                     ModelState.AddModelError(nameof(clubDto.Name), "A club with this name already exists.");
                     return RedirectToAction(nameof(Index));

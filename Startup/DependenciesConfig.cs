@@ -9,6 +9,9 @@ public static class DependenciesConfig
 {
     public static void RegisterServices(this WebApplicationBuilder builder)
     {
+        // execute query
+        builder.Services.AddScoped<IExecute, Execute>();
+
         // repositories
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IClubRepository, ClubRepository>();

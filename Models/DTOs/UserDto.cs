@@ -1,13 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using epl_backend.Models.Enums;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace epl_backend.Models.DTOs;
 
 public class UserDto
 {
     // [MaxLength(length: 450)]
-    public string UserId { get; set; } = string.Empty;
+    public string? UserId { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Please input your first name.")]
     [MaxLength(100)]
@@ -27,7 +26,7 @@ public class UserDto
     [Required(ErrorMessage = "Please select a gender.")]
     public Gender Gender { get; set; }
     public string? PasswordHash { get; set; }
-    public bool LockoutEnabled { get; set; }
+    public bool LockoutEnabled { get; set; } = false;
     public DateTimeOffset? LockoutEnd { get; set; }
     public string? Photo { get; set; }
     public IFormFile? PhotoFile { get; set; }

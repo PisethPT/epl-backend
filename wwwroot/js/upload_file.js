@@ -1,21 +1,21 @@
 function resetFile() {
-  logoInput.value = "";
+  fileInput.value = "";
   previewArea.classList.add("hidden");
-  logoPreview.src = "";
-  logoName.textContent = "";
-  logoSize.textContent = "";
-  logoError.classList.add("hidden");
+  filePreview.src = "";
+  fileName.textContent = "";
+  fileSize.textContent = "";
+  fileError.classList.add("hidden");
   $("#fileInput").attr("required", true);
 }
 
 (function () {
   const dropZone = document.getElementById("dropZone");
-  const logoInput = document.getElementById("fileInput");
+  const fileInput = document.getElementById("fileInput");
   const previewArea = document.getElementById("previewArea");
-  const logoPreview = document.getElementById("filePreview");
-  const logoName = document.getElementById("fileName");
-  const logoSize = document.getElementById("fileSize");
-  const logoError = document.getElementById("fileError");
+  const filePreview = document.getElementById("filePreview");
+  const fileName = document.getElementById("fileName");
+  const fileSize = document.getElementById("fileSize");
+  const vError = document.getElementById("fileError");
 
   const MAX_FILE_BYTES = 2 * 1024 * 1024; // 2 MB
   const VALID_TYPES = [
@@ -44,30 +44,30 @@ function resetFile() {
     // set file to input programmatically (for form send)
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(f);
-    logoInput.files = dataTransfer.files;
-    logoInput.dispatchEvent(new Event("change"));
+    fileInput.files = dataTransfer.files;
+    fileInput.dispatchEvent(new Event("change"));
   });
 
   // file helpers
   function showFile(file) {
     const url = URL.createObjectURL(file);
-    logoPreview.src = url;
-    logoName.textContent = file.name;
-    logoSize.textContent = Math.round(file.size / 1024) + " KB";
+    filePreview.src = url;
+    fileName.textContent = file.name;
+    fileSize.textContent = Math.round(file.size / 1024) + " KB";
     previewArea.classList.remove("hidden");
   }
 
   // handle selection
-  logoInput.addEventListener("change", (ev) => {
+  fileInput.addEventListener("change", (ev) => {
     const f = ev.target.files[0];
     if (!f) return;
     if (!VALID_TYPES.includes(f.type) || f.size > MAX_FILE_BYTES) {
-      logoError.classList.remove("hidden");
-      logoError.textContent = "Invalid file type or too large (max 2 MB).";
+      fileError.classList.remove("hidden");
+      fileError.textContent = "Invalid file type or too large (max 2 MB).";
       resetFile();
       return;
     }
-    logoError.classList.add("hidden");
+    fileError.classList.add("hidden");
     showFile(f);
   });
 })();

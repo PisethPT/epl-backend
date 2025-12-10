@@ -1,0 +1,251 @@
+﻿@using epl_backend.Models.Enums
+@using epl_backend.Models.ViewModels
+@model PlayerViewModel
+@{
+    ViewData["Title"] = "Player";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+        id="errorAlertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
+        id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
+        </div>
+    </div>
+}
+
+
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div id="modalBox" class="!bg-[#37003c] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-white" id="modalTitle">Create New User</h2>
+            <div
+                class="bg-[#55005a] flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                <button onclick="closeModal()" class="text-white">✕</button>
+            </div>
+        </div>
+
+        <form id="playerForm" asp-controller="Player" asp-action="Create" method="post" asp-antiforgery="true"
+            class="h-auto p-2" enctype="multipart/form-data" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="playerId" asp-for="PlayerDto.PlayerId" />
+            <input type="hidden" id="photo" asp-for="PlayerDto.Photo" />
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">First Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="firstName" asp-for="PlayerDto.FirstName" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.FirstName" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Last Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="lastName" asp-for="PlayerDto.LastName" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.LastName" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Date Of Birth</span>
+                    </span>
+
+                    <input id="dateOfBirth" asp-for="PlayerDto.DateOfBirth" type="date"
+                        class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.DateOfBirth" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Place Of Birth</span>
+                    </span>
+                    <input id="placeOfBirth" asp-for="PlayerDto.PlaceOfBirth" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.PlaceOfBirth" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Nationality</span>
+                    </span>
+                    <input id="nationality" asp-for="PlayerDto.Nationality" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.Nationality" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Preferred Foot</span>
+                    </span>
+                    <select class="js-custom-select" id="preferredFoot" asp-for="PlayerDto.PreferredFoot"
+                        asp-items="@Html.GetEnumSelectList<PreferredFoot>()">
+                        <option value="">Select Player's Preferred Foot</option>
+                    </select>
+                    <span asp-validation-for="PlayerDto.PreferredFoot" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Height</span>
+                    </span>
+                    <input id="height" asp-for="PlayerDto.Height" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.Height" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Position</span>
+                    </span>
+                    <select class="js-custom-select" id="position" asp-for="PlayerDto.Position"
+                        asp-items="@Html.GetEnumSelectList<Position>()">
+                        <option value="">Select Player's Position</option>
+                    </select>
+                    <span asp-validation-for="PlayerDto.Position" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Player Number</span>
+                    </span>
+                    <input id="playerNumber" asp-for="PlayerDto.Height" type="number" min="1" max="99" step="1"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="PlayerDto.PlayerNumber" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Joined Club</span>
+                    </span>
+                    <select class="js-custom-select" id="joinedClub" asp-for="PlayerDto.JoinedClub"
+                        name="PlayerDto.JoinedClub" asp-items="Model.JoinedClubSelectListItem" required>
+                        <option value="">Select Joined Club</option>
+                    </select>
+                    <span asp-validation-for="PlayerDto.JoinedClub" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Player's Club</span>
+                    </span>
+                    <select class="js-custom-select" asp-for="PlayerDto.ClubId" id="playerClub" data-show-image="true"
+                        data-placeholder="Choose club">
+                        <option value="1" data-img="/upload/clubs/ars.png" data-sub="Premier League">Arsenal</option>
+                        <option value="2" data-img="/upload/clubs/liv.png" data-sub="Premier League">Liverpool</option>
+                        <option value="3" data-img="/upload/clubs/mci.png" data-sub="Premier League">Man City</option>
+                    </select>
+                    <span asp-validation-for="PlayerDto.ClubId" class="text-red-400 text-sm"></span>
+                </label>
+
+                <div class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Player Photo</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <div id="dropZone" class="relative flex flex-col items-center justify-center gap-3 border-2 border-dashed border-white/20 rounded-lg p-4 bg-white/3 cursor-pointer
+                            hover:border-white/40 transition">
+                        <input id="fileInput" asp-for="PlayerDto.PhotoFile" type="file" accept="image/*"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            aria-label="Upload user photo">
+                        <span asp-validation-for="PlayerDto.PhotoFile"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M7 16V7a1 1 0 011-1h3m6 11v-5a1 1 0 00-1-1h-3M7 16l3-3 2 2 4-4 3 3" />
+                        </svg>
+                        <div class="text-center">
+                            <div class="text-gray-500 font-medium">Drag & drop file or click to browse</div>
+                            <div class="text-xs text-gray-200/70">PNG, JPG, SVG, WEBP — max 2 MB</div>
+                        </div>
+
+                        <div id="previewArea" class="hidden mt-3 w-full flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex justify-center items-center h-20 w-20 pt-2 rounded-md bg-white/5 border border-white/10 overflow-hidden">
+                                    <img id="filePreview" src="" alt="file preview" class="h-auto w-14 object-contain">
+                                </div>
+                                <div class="flex flex-col">
+                                    <div id="fileName" class="text-white text-sm font-medium">filename.png</div>
+                                    <div id="fileSize" class="text-white text-xs text-gray-200/70">120 KB</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="removePhoto"
+                                    class="px-3 py-1 text-white bg-[#55005a] rounded text-sm hover:bg-[#3a0531] z-10">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="fileError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                <div class="text-sm text-gray-200/80">Fields with <span class="text-red-400">*</span> are required.
+                </div>
+                <div class="flex gap-3">
+                    <button type="reset" id="resetBtn"
+                        class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                    <button type="submit"
+                        class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg">
+
+    <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+        <div class="flex justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "Player")"
+                class="inline-block bg-[#55005a] w-fit text-white px-4 py-2 rounded hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf]">Back
+                to
+                Home</a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] w-fit text-white px-4 py-2 rounded rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf]"
+                id="btnAddNewPlayer">Add New</button>
+        </div>
+
+        <input type="text"
+            class="text-white bg-[#55005a] w-full lg:w-fit ml-auto px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+            placeholder="Search Player..." id="userSearchInput" onkeyup="filterPlayer()" />
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/player/index.js" asp-append-version="true"></script>
+    <script src="~/js/player/custom_select.js" asp-append-version="true"></script>
+}

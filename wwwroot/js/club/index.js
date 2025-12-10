@@ -1,3 +1,10 @@
+const CLUB_BASE_CONTROLLER = "/clubs";
+const CLUB_ENDPOINT = {
+  CREATE_CLUB_ENDPOINT: CLUB_BASE_CONTROLLER + "/create",
+  UPDATE_CLUB_ENDPOINT: CLUB_BASE_CONTROLLER + "/update",
+  GET_CLUB_BY_ID_ENDPOINT: CLUB_BASE_CONTROLLER + "/get-club",
+};
+
 (function () {
   const form = document.getElementById("clubForm");
   const removeLogo = document.getElementById("removeLogo");
@@ -61,12 +68,12 @@ document.getElementById("btnAddNewClub").addEventListener("click", (e) => {
       }
   );
   resetColorPicker();
-  $("#clubForm").attr("action", "/clubs/create");
+  $("#clubForm").attr("action", CLUB_ENDPOINT.CREATE_CLUB_ENDPOINT);
 });
 
 function attachUpdateClub(clubId) {
   $.ajax({
-    url: "/clubs/get-club/" + clubId,
+    url: CLUB_ENDPOINT.GET_CLUB_BY_ID_ENDPOINT + "/" + clubId,
     method: "POST",
     headers: {
       RequestVerificationToken: $(
@@ -109,7 +116,7 @@ function attachUpdateClub(clubId) {
       }
 
       $("#modalTitle").text("Update Club");
-      $("#clubForm").attr("action", "/clubs/update/" + data.id);
+      $("#clubForm").attr("action", CLUB_ENDPOINT.UPDATE_CLUB_ENDPOINT + "/" + data.id);
       // Open modal after fill
       openModal("modal-8xl", true);
     },

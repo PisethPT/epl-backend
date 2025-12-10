@@ -37,8 +37,16 @@
       "PackagePath": "staticwebassets\\js\\color_picker.js"
     },
     {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\global_modal.js",
+      "PackagePath": "staticwebassets\\js\\global_modal.js"
+    },
+    {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\modal.js",
       "PackagePath": "staticwebassets\\js\\modal.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\index.js",
+      "PackagePath": "staticwebassets\\js\\player\\index.js"
     },
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\site.js",
@@ -47,6 +55,10 @@
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\upload_file.js",
       "PackagePath": "staticwebassets\\js\\upload_file.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\user\\confirm_delete_modal.js",
+      "PackagePath": "staticwebassets\\js\\user\\confirm_delete_modal.js"
     },
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\user\\index.js",
@@ -391,6 +403,30 @@
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\clubs\\wol.svg",
       "PackagePath": "staticwebassets\\upload\\clubs\\wol.svg"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\013c9f59a51f44d581297d67c804f4e1.png",
+      "PackagePath": "staticwebassets\\upload\\users\\013c9f59a51f44d581297d67c804f4e1.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\58dc43862e9b4453bbd41d273cbe1a35.png",
+      "PackagePath": "staticwebassets\\upload\\users\\58dc43862e9b4453bbd41d273cbe1a35.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\6f12d1bd5285443a8ad1aaa8db6794b6.png",
+      "PackagePath": "staticwebassets\\upload\\users\\6f12d1bd5285443a8ad1aaa8db6794b6.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\78638d2868a14aa8b0e1e3379911cd46.png",
+      "PackagePath": "staticwebassets\\upload\\users\\78638d2868a14aa8b0e1e3379911cd46.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\a6c1aab54a094b8da8ffd4e8a00ae5b4.png",
+      "PackagePath": "staticwebassets\\upload\\users\\a6c1aab54a094b8da8ffd4e8a00ae5b4.png"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\e855d3aa4f834e6cb7627498f44abcd7.png",
+      "PackagePath": "staticwebassets\\upload\\users\\e855d3aa4f834e6cb7627498f44abcd7.png"
     },
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\upload\\users\\placeholder.png",

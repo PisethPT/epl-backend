@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Helper\UserCommandscs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Implementations\" />
+    <Folder Include="wwwroot\js\player\" />
     <Folder Include="wwwroot\js\user\" />
   </ItemGroup>
 
