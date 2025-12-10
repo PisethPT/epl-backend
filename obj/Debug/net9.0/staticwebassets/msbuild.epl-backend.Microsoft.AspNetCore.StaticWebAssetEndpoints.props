@@ -120,6 +120,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-S2dsopkPdZHNX4\u002BJYsWOJMdVracJ0Rss64\u002BV83unfME="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1053"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022S2dsopkPdZHNX4\u002BJYsWOJMdVracJ0Rss64\u002BV83unfME=\u0022"},{"Name":"Last-Modified","Value":"Sat, 06 Dec 2025 15:17:08 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/epl-backend/js/player/custom_select.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\player\custom_select.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"13007"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00228RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=\u0022"},{"Name":"Last-Modified","Value":"Tue, 09 Dec 2025 15:13:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/epl-backend/js/player/custom_select.xsqx5i6s1c.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\player\custom_select.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xsqx5i6s1c"},{"Name":"integrity","Value":"sha256-8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms="},{"Name":"label","Value":"_content/epl-backend/js/player/custom_select.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13007"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00228RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=\u0022"},{"Name":"Last-Modified","Value":"Tue, 09 Dec 2025 15:13:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/epl-backend/js/player/index.go6sb5fsx4.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\player\index.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

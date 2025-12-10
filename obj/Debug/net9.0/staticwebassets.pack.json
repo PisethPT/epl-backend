@@ -45,6 +45,10 @@
       "PackagePath": "staticwebassets\\js\\modal.js"
     },
     {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "PackagePath": "staticwebassets\\js\\player\\custom_select.js"
+    },
+    {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\index.js",
       "PackagePath": "staticwebassets\\js\\player\\index.js"
     },

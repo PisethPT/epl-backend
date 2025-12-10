@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jQ4VoOnc/W0zXDsMC9fUI+MFH0f5m5JRzBRyDWOVGoU=",
+  "Hash": "2x+scYUCZjvDIyYzzgyZFoNWmNZGuzyvGj16jLjYDaM=",
   "Source": "epl-backend",
   "BasePath": "_content/epl-backend",
   "Mode": "Default",
@@ -561,6 +561,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\user\\index.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-xsqx5i6s1c.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/player/custom_select#[.{fingerprint=xsqx5i6s1c}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "szhwwc4oid",
+      "Integrity": "6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\d8o3nmqtwx-khv3u5hwcm.gz",
@@ -2031,6 +2052,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\modal.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/player/custom_select#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xsqx5i6s1c",
+      "Integrity": "8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\player\\custom_select.js"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\index.js",
@@ -7428,6 +7470,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-sa44mzEfk7uguiOYnstRRmBmq9f1vBD/aszXilH/1yY="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-xsqx5i6s1c.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000263574064"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3793"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 15:13:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13007"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 15:13:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-xsqx5i6s1c.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3793"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 15:13:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.xsqx5i6s1c.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-xsqx5i6s1c.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000263574064"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3793"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 15:13:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xsqx5i6s1c"
+        },
+        {
+          "Name": "label",
+          "Value": "js/player/custom_select.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.xsqx5i6s1c.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13007"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 15:13:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xsqx5i6s1c"
+        },
+        {
+          "Name": "label",
+          "Value": "js/player/custom_select.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8RKSXdYtjuookIxlIUcJP7nOYFfhhL5HKhB9wtwJjms="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.xsqx5i6s1c.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-xsqx5i6s1c.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3793"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 09 Dec 2025 15:13:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xsqx5i6s1c"
+        },
+        {
+          "Name": "label",
+          "Value": "js/player/custom_select.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-6Mxswr0jGQyNvNS0u4gpyV0IMkhKbUdyue/Z/smERM8="
         }
       ]
     },
