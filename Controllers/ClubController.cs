@@ -21,7 +21,7 @@ namespace epl_backend.Controllers
             this.viewModel = new ClubViewModel();
         }
 
-        // GET: ClubController
+        // GET: ClubController/Index
         [HttpGet("all-club")]
         public async Task<ActionResult> Index()
         {

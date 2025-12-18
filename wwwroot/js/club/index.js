@@ -2,7 +2,7 @@ const CLUB_BASE_CONTROLLER = "/clubs";
 const CLUB_ENDPOINT = {
   CREATE_CLUB_ENDPOINT: CLUB_BASE_CONTROLLER + "/create",
   UPDATE_CLUB_ENDPOINT: CLUB_BASE_CONTROLLER + "/update",
-  GET_CLUB_BY_ID_ENDPOINT: CLUB_BASE_CONTROLLER + "/get-club",
+  FIND_CLUB_BY_ID_ENDPOINT: CLUB_BASE_CONTROLLER + "/get-club",
 };
 
 (function () {
@@ -73,7 +73,7 @@ document.getElementById("btnAddNewClub").addEventListener("click", (e) => {
 
 function attachUpdateClub(clubId) {
   $.ajax({
-    url: CLUB_ENDPOINT.GET_CLUB_BY_ID_ENDPOINT + "/" + clubId,
+    url: CLUB_ENDPOINT.FIND_CLUB_BY_ID_ENDPOINT + "/" + clubId,
     method: "POST",
     headers: {
       RequestVerificationToken: $(

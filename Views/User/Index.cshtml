@@ -41,10 +41,10 @@
 
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-semibold text-white" id="modalTitle">Create New User</h2>
-            <div
-                class="bg-[#55005a] flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                <button onclick="closeModal()" class="text-white">✕</button>
-            </div>
+            <button onclick="closeModal()"
+                class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                <i class="fa-solid fa-xmark text-white"></i>
+            </button>
         </div>
 
         <form id="userForm" asp-controller="User" asp-action="Create" method="post" asp-antiforgery="true"
@@ -79,17 +79,15 @@
                         <span class="text-red-400">*</span>
                     </span>
 
-                    <div class="relative w-64 font-sans">
-                        <!-- hidden native select (for form binding) -->
+                    <div class="relative w-full font-sans">
                         <select id="gender" name="userDto.Gender"
-                            class="absolute opacity-0 w-full h-full pointer-events-none">
+                            class="absolute opacity-0 !w-full h-full pointer-events-none">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
 
-                        <!-- fake select button -->
                         <button id="fakeSelect" type="button"
-                            class="w-full bg-[#55005a] text-white px-3 py-2 rounded-lg flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]">
+                            class="!w-full bg-[#55005a] text-white px-3 py-2 rounded-lg flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]">
                             <div class="flex items-center gap-2 min-w-0">
                                 <svg id="genderIcon" class="w-5 h-5 flex-shrink-0" fill="currentColor"
                                     viewBox="0 0 24 24"></svg>
@@ -98,7 +96,6 @@
                             <span class="text-[8px]">▼</span>
                         </button>
 
-                        <!-- dropdown -->
                         <ul id="dropdownList"
                             class="hidden absolute w-full mt-1 bg-[#55005a] rounded-lg shadow-lg z-50 divide-y divide-[#8a3fbf] overflow-hidden">
                             <li data-value="Male"
@@ -272,8 +269,8 @@
         </div>
 
         <input type="text"
-            class="text-white bg-[#55005a] w-full lg:w-fit ml-auto px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
-            placeholder="Search User..." id="userSearchInput" onkeyup="filterUsers()" />
+            class="text-white bg-[#55005a] !w-full lg:!w-[500px] ml-auto px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+            placeholder="Search Users..." id="userSearchInput" onkeyup="filterUsers()" />
     </div>
 
     <div class="overflow-x-scroll scrollbar-none">
@@ -281,22 +278,22 @@
             <thead class="bg-[#55005a]">
                 <tr>
                     <th scope="col"
-                        class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
                         ID</th>
                     <th scope="col"
-                        class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
                         Action</th>
                     <th scope="col"
-                        class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
                         Photo</th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider whitespace-nowrap">
+                        class="px-6 py-3text-xs font-medium text-white uppercase tracking-wider whitespace-nowrap">
                         First Name</th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider whitespace-nowrap">
                         Last Name</th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center">
+                        class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
                         Gender</th>
                     <th scope="col" class="px-7 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                         Email</th>
@@ -306,7 +303,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                         Roles</th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-center text-nowrap">
+                        class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider text-center text-nowrap">
                         Status</th>
                 </tr>
             </thead>
@@ -345,9 +342,9 @@
                         <td class="px-2 py-4 whitespace-nowrap text-sm text-white ">
                             <div class="flex justify-center items-center">
                                 <div
-                                    class="flex justify-center items-center w-12 h-12 pt-2 rounded-2xl ring-2 !ring-[#8a3fbf] overflow-hidden">
+                                    class="flex justify-center items-center w-14 h-14 rounded-2xl ring-2 !ring-[#8a3fbf] overflow-hidden">
                                     <img src="~/upload/users/@(string.IsNullOrEmpty(user.Photo) ? "placeholder.png" : user.Photo)"
-                                        class="w-auto h-12 object-contain cursor-pointer" alt="@user.FirstName" />
+                                        class="w-auto h-[4rem] mt-5 object-contain cursor-pointer" alt="@user.FirstName" />
                                 </div>
                             </div>
                         </td>
@@ -379,18 +376,18 @@
         </div>
 
         <div class="ml-auto flex gap-2">
-            <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage - 1 })"
+            <a href="@Url.Action("Index", "User", new { page = ViewBag.CurrentPage - 1 })"
                 class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
                 @(ViewBag.CurrentPage == 1 ? "onclick='return false;'" : "")>
-                Previous
+                <i class="fa-solid fa-chevron-left"></i>
             </a>
             <span class="text-white px-3 py-1">
                 Page @ViewBag.CurrentPage of @ViewBag.TotalPages
             </span>
-            <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage + 1 })"
+            <a href="@Url.Action("Index", "User", new { page = ViewBag.CurrentPage + 1 })"
                 class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
                 @(ViewBag.CurrentPage == ViewBag.TotalPages ? "onclick='return false;'" : "")>
-                Next
+                <i class="fa-solid fa-chevron-right"></i>
             </a>
         </div>
     </div>

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\json\" />
     <Folder Include="wwwroot\js\player\" />
     <Folder Include="wwwroot\js\user\" />
   </ItemGroup>

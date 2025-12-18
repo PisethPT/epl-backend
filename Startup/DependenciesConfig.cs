@@ -15,6 +15,10 @@ public static class DependenciesConfig
         // repositories
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IClubRepository, ClubRepository>();
+        builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+
+        // select list item
+        builder.Services.AddScoped<ISelectListItems, SelectListItems>();
 
         // login service 
         builder.Services.AddSingleton<IFileStorageService, FileStorageService>();

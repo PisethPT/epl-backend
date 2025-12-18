@@ -9,10 +9,10 @@ public interface IUserRepository
     Task<bool> CheckPasswordAsync(UserDto userDto, string password, CancellationToken ct = default);
     Task<bool> UserByExistEmail(string email, string? userId, CancellationToken ct = default);
     Task<UserRolesDto> GetRolesAsync(UserDto userDto, CancellationToken ct = default);
-    Task<UserDto> FindByIdAsync(string userId, CancellationToken ct = default);
+    Task<UserDto> FindUserByIdAsync(string userId, CancellationToken ct = default);
 
     Task<bool> AddUserAsync(UserDto user, CancellationToken ct = default);
     Task<bool> UpdateUserAsync(UserDto user, CancellationToken ct = default);
     Task<bool> DeleteUserAsync(string userId, string? photo, CancellationToken ct = default);
-    Task<List<UserDto>> GetAllUsers(CancellationToken ct = default);
+    Task<List<UserDto>> GetAllUsersAsync(CancellationToken ct = default);
 }

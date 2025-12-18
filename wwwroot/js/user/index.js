@@ -3,7 +3,7 @@ const USER_BASE_CONTROLLER = "/auth";
 const USER_ENDPOINT = {
   CREATE_USER_ENDPOINT: USER_BASE_CONTROLLER + "/create",
   UPDATE_USER_ENDPOINT: USER_BASE_CONTROLLER + "/update",
-  GET_USER_BY_USER_ID_ENDPOINT: USER_BASE_CONTROLLER + "/get-user",
+  FIND_USER_BY_ID_ENDPOINT: USER_BASE_CONTROLLER + "/get-user",
 };
 
 const selectGender = document.getElementById("gender");
@@ -68,7 +68,7 @@ $("#btnAddNewUser").on("click", function () {
 
 const attachUserByUserIdForUpdate = (userId) => {
   $.ajax({
-    url: USER_ENDPOINT.GET_USER_BY_USER_ID_ENDPOINT + "/" + userId,
+    url: USER_ENDPOINT.FIND_USER_BY_ID_ENDPOINT + "/" + userId,
     method: "POST",
     headers: {
       RequestVerificationToken: $(

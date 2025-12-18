@@ -28,7 +28,7 @@ namespace epl_backend.Controllers
         [HttpGet("all-user")]
         public async Task<IActionResult> Index()
         {
-            viewModel.userDtos = await repository.GetAllUsers();
+            viewModel.userDtos = await repository.GetAllUsersAsync();
             return View(viewModel);
         }
 
@@ -53,7 +53,7 @@ namespace epl_backend.Controllers
                 // Build claims identity
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId!),
                     new Claim(ClaimTypes.Name, user.Email),
                     new Claim(ClaimTypes.Email, user.Email)
                 };
@@ -143,7 +143,7 @@ namespace epl_backend.Controllers
                 _logger.LogError(ex, "Error creating user {UserName}", string.Concat(userDto.FirstName, " ", userDto.LastName));
                 ModelState.AddModelError(string.Empty, ex.Message);
                 ViewBag.OpenCreateModal = true;
-                viewModel.userDtos = await repository.GetAllUsers();
+                viewModel.userDtos = await repository.GetAllUsersAsync();
                 return View(nameof(Index), viewModel);
             }
         }
@@ -154,7 +154,7 @@ namespace epl_backend.Controllers
         {
             try
             {
-                var userDto = await repository.FindByIdAsync(userId);
+                var userDto = await repository.FindUserByIdAsync(userId);
                 if (userDto is null)
                 {
                     ModelState.AddModelError(nameof(userId), "A user is not found.");
@@ -166,7 +166,7 @@ namespace epl_backend.Controllers
             {
                 _logger.LogError(ex, "Error getting user {UserId}", userId);
                 ModelState.AddModelError(string.Empty, ex.Message);
-                viewModel.userDtos = await repository.GetAllUsers();
+                viewModel.userDtos = await repository.GetAllUsersAsync();
                 return View(nameof(Index), viewModel);
             }
         }
@@ -218,7 +218,7 @@ namespace epl_backend.Controllers
                 _logger.LogError(ex, "Error updating user {UserName}", string.Concat(userDto.FirstName, " ", userDto.LastName));
                 ModelState.AddModelError(string.Empty, ex.Message);
                 ViewBag.OpenCreateModal = true;
-                viewModel.userDtos = await repository.GetAllUsers();
+                viewModel.userDtos = await repository.GetAllUsersAsync();
                 return View(nameof(Index), viewModel);
             }
         }
@@ -229,7 +229,7 @@ namespace epl_backend.Controllers
         {
             try
             {
-                var existingUser = await repository.FindByIdAsync(userId);
+                var existingUser = await repository.FindUserByIdAsync(userId);
                 if (existingUser is null)
                 {
                     ModelState.AddModelError(nameof(userId), "A user id is not found.");
@@ -251,7 +251,7 @@ namespace epl_backend.Controllers
             {
                 _logger.LogError(ex, "Error delete user {UserId}", userId);
                 ModelState.AddModelError(string.Empty, ex.Message);
-                viewModel.userDtos = await repository.GetAllUsers();
+                viewModel.userDtos = await repository.GetAllUsersAsync();
                 return View(nameof(Index), viewModel);
             }
         }

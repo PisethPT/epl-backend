@@ -9,7 +9,7 @@ function openModal(sizeClass = "modal-md", isStatic = false) {
 
   // completely reset and re-apply classes
   box.className = `
-    !bg-[#37003c] rounded-2xl shadow-xl p-6 transition-all duration-300
+    !bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300
     scale-90 opacity-0 h-auto w-full ${sizeClass}
   `.trim();
 

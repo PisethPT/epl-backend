@@ -7,30 +7,32 @@ namespace epl_backend.Services.Implementations;
 
 public class Execute : IExecute
 {
-    public async Task<IDataReader> ExecuteReaderAsync(SqlCommand cmd, CancellationToken ct = default)
+    public async Task<SqlDataReader?> ExecuteReaderAsync(SqlCommand cmd, CancellationToken ct = default)
     {
-        await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
+        var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         cmd.Connection = conn;
-        // cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-
         try
         {
-            var rdr = await cmd.ExecuteReaderAsync(ct).ConfigureAwait(false);
-            if (await rdr.ReadAsync(ct).ConfigureAwait(false)) return rdr;
-            return null!;
+            var rdr = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection, ct).ConfigureAwait(false);
+            if (await rdr.ReadAsync(ct).ConfigureAwait(false))
+                return rdr;
+
+            rdr.Close();
+            return null;
         }
         catch (SqlException ex) when (ex.Number == 500000)
         {
-            return null!;
+            conn.Dispose();
+            return null;
         }
     }
+
 
     public async Task<T?> ExecuteScalarAsync<T>(SqlCommand cmd, CancellationToken ct = default)
     {
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         cmd.Connection = conn;
-        // cmd = conn.CreateCommand();
         cmd.CommandType = CommandType.StoredProcedure;
 
         try
@@ -40,6 +42,7 @@ public class Execute : IExecute
         }
         catch (SqlException ex) when (ex.Number == 500000)
         {
+            conn.Dispose();
             return default;
         }
     }

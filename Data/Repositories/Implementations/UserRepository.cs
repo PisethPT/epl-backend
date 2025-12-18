@@ -133,7 +133,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<UserDto> FindByIdAsync(string userId, CancellationToken ct = default)
+    public async Task<UserDto> FindUserByIdAsync(string userId, CancellationToken ct = default)
     {
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();
@@ -168,7 +168,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<List<UserDto>> GetAllUsers(CancellationToken ct = default)
+    public async Task<List<UserDto>> GetAllUsersAsync(CancellationToken ct = default)
     {
         await using var conn = await AppDbContext.Instance.GetOpenConnectionAsync(ct).ConfigureAwait(false);
         await using var cmd = conn.CreateCommand();

@@ -21,7 +21,7 @@ public class ValidateUserMiddleware
             var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (!string.IsNullOrEmpty(userId))
             {
-                var user = await repository.FindByIdAsync(userId);
+                var user = await repository.FindUserByIdAsync(userId);
                 if (user != null)
                 {
                     bool isLocked = user.LockoutEnabled

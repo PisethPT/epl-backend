@@ -5,7 +5,7 @@ namespace epl_backend.Models.DTOs;
 
 public class PlayerDto
 {
-    public int PlayerId { get; set; }
+    public int? PlayerId { get; set; }
 
     [Required(ErrorMessage = "Please input player's first name.")]
     [MaxLength(100)]
@@ -26,7 +26,7 @@ public class PlayerDto
     public PreferredFoot? PreferredFoot { get; set; }
 
     // Height as text (e.g., "180 cm")
-    [RegularExpression(@"\S+", ErrorMessage = "Player height cannot be empty or whitespace.")]
+    // [RegularExpression(@"\S+", ErrorMessage = "Player height cannot be empty or whitespace.")]
     public string? Height { get; set; }
 
     [Required(ErrorMessage = "Please select a playing position.")]
@@ -34,14 +34,14 @@ public class PlayerDto
 
     [Required(ErrorMessage = "Please input player number.")]
     [Range(1, 99, ErrorMessage = "Player number must be between 1 and 99.")]
-    public int PlayerNumber { get; set; }
+    public int? PlayerNumber { get; set; }
 
     [Required(AllowEmptyStrings = false, ErrorMessage = "Please select player's joined club.")]
-    public string JoinedClub { get; set; }
+    public string? JoinedClub { get; set; }
 
     public string? Photo { get; set; }
 
-    [Required(ErrorMessage = "Please upload a player's photo.")]
+    // [Required(ErrorMessage = "Please upload a player's photo.")]
     public IFormFile? PhotoFile { get; set; }
 
     public int ClubId { get; set; }
