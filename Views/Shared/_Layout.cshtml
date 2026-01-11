@@ -9,6 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PL - @title </title>
+    <link rel="icon" href="~/icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -192,12 +193,55 @@
                     </ul>
                 </li>
 
-                <li>
-                    <a asp-controller="Match" asp-action="Index"
-                        class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                        <i class="fa-solid fa-calendar-days menu-icon w-4 text-center"></i>
-                        <span class="menu-label truncate ml-2">Matches</span>
-                    </a>
+                <li class="relative has-submenu">
+                    <button type="button"
+                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                        aria-expanded="false">
+                        <span class="flex items-center gap-3">
+                            <i class="fa-solid fa-calendar-days menu-icon w-4 text-center"></i>
+                            <span class="menu-label truncate ml-2">Matches</span>
+                        </span>
+                        <i class="fas fa-chevron-right text-sm"></i>
+                    </button>
+
+                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                        aria-hidden="true">
+                        <li>
+                            <a asp-controller="Match" asp-action="Index"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-calendar-check menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Match</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Match" asp-action="Recap"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-file-lines menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Recap</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Match" asp-action="Highlights"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-highlighter menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Highlights</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Match" asp-action="Lineup"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-arrows-down-to-people menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Lineup</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Match" asp-action="MatchInfo"
+                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-circle-info menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Match Info</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li>
@@ -210,10 +254,10 @@
                 </li>
 
                 <li>
-                    <a asp-controller="Session" asp-action="Index"
+                    <a asp-controller="Season" asp-action="Index"
                         class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
                         <i class="fa-solid fa-cloud-sun menu-icon w-4 text-center"></i>
-                        <span class="menu-label truncate ml-2">Sessions</span>
+                        <span class="menu-label truncate ml-2">Seasons</span>
                     </a>
                 </li>
 

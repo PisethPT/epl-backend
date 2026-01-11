@@ -3,7 +3,6 @@ using epl_backend.Helper;
 using epl_backend.Models.DTOs;
 using epl_backend.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace epl_backend.Controllers
 {
@@ -29,64 +28,73 @@ namespace epl_backend.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(List<int> positions, List<int> clubIds, int page = 1)
         {
-            clubIds ??= new();
-            positions ??= new();
-
-            int pageSize = 20;
-            viewModel.SelectedPositions = positions;
-            viewModel.SelectedClubIds = clubIds;
-
-            var positionJson = System.Text.Json.JsonSerializer.Serialize(positions);
-            var clubIdJson = System.Text.Json.JsonSerializer.Serialize(clubIds);
-
-            viewModel.SelectListItemClubs = await selectList.SelectListItemClubAsync();
-            viewModel.PlayerDetailDtos = await repository.GetAllPlayerAsync(positionJson, clubIdJson, page);
-
-            int totalCount = await repository.CountPlayersAsync(positionJson, clubIdJson);
-            int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
-
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = totalPages;
-            ViewBag.PageSize = pageSize;
-            ViewBag.TotalCount = totalCount;
-
-            var jsonPath = Path.Combine(env.WebRootPath, "json", "nationality.json");
-            var natFile = NationalityLoader.LoadFromPath(jsonPath);
-
-            var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            if (natFile?.nationalities != null)
+            try
             {
-                foreach (var n in natFile.nationalities)
+                clubIds ??= new();
+                positions ??= new();
+
+                int pageSize = 20;
+                viewModel.SelectedPositions = positions;
+                viewModel.SelectedClubIds = clubIds;
+
+                var positionJson = System.Text.Json.JsonSerializer.Serialize(positions);
+                var clubIdJson = System.Text.Json.JsonSerializer.Serialize(clubIds);
+
+                viewModel.SelectListItemClubs = await selectList.SelectListItemClubAsync();
+                viewModel.PlayerDetailDtos = await repository.GetAllPlayerAsync(positionJson, clubIdJson, page);
+
+                int totalCount = await repository.CountPlayersAsync(positionJson, clubIdJson);
+                int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPages = totalPages;
+                ViewBag.PageSize = pageSize;
+                ViewBag.TotalCount = totalCount;
+
+                var jsonPath = Path.Combine(env.WebRootPath, "json", "nationality.json");
+                var natFile = NationalityLoader.LoadFromPath(jsonPath);
+
+                var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                if (natFile?.nationalities != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(n.nationality) && !string.IsNullOrWhiteSpace(n.icon))
-                        dict[n.nationality.Trim()] = n.icon.Trim();
+                    foreach (var n in natFile.nationalities)
+                    {
+                        if (!string.IsNullOrWhiteSpace(n.nationality) && !string.IsNullOrWhiteSpace(n.icon))
+                            dict[n.nationality.Trim()] = n.icon.Trim();
 
-                    if (!string.IsNullOrWhiteSpace(n.name) && !string.IsNullOrWhiteSpace(n.icon))
-                        dict[n.name.Trim()] = n.icon.Trim();
+                        if (!string.IsNullOrWhiteSpace(n.name) && !string.IsNullOrWhiteSpace(n.icon))
+                            dict[n.name.Trim()] = n.icon.Trim();
+                    }
                 }
-            }
 
-            foreach (var p in viewModel.PlayerDetailDtos)
+                foreach (var p in viewModel.PlayerDetailDtos)
+                {
+                    p.NationalityIcon = "https://flagcdn.com/w40/un.png";
+
+                    if (!string.IsNullOrWhiteSpace(p.Nationality) &&
+                        dict.TryGetValue(p.Nationality.Trim(), out var icon))
+                    {
+                        p.NationalityIcon = icon;
+                    }
+                    else
+                    {
+                        var found = natFile?.nationalities?.FirstOrDefault(x =>
+                            string.Equals(x.nationality, p.Nationality, StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(x.name, p.Nationality, StringComparison.OrdinalIgnoreCase));
+
+                        if (found != null)
+                            p.NationalityIcon = found.icon;
+                    }
+                }
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
             {
-                p.NationalityIcon = "https://flagcdn.com/w40/un.png";
-
-                if (!string.IsNullOrWhiteSpace(p.Nationality) &&
-                    dict.TryGetValue(p.Nationality.Trim(), out var icon))
-                {
-                    p.NationalityIcon = icon;
-                }
-                else
-                {
-                    var found = natFile?.nationalities?.FirstOrDefault(x =>
-                        string.Equals(x.nationality, p.Nationality, StringComparison.OrdinalIgnoreCase) ||
-                        string.Equals(x.name, p.Nationality, StringComparison.OrdinalIgnoreCase));
-
-                    if (found != null)
-                        p.NationalityIcon = found.icon;
-                }
+                _logger.LogError(ex, "Error loading players with filters");
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(viewModel);
             }
-
-            return View(viewModel);
         }
 
         // POST: PlayerController/Create
@@ -94,17 +102,17 @@ namespace epl_backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromForm] PlayerDto playerDto)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = string.Join(" | ", ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage));
-
-                throw new Exception($"Form validation failed: {errors}");
-            }
-
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    var errors = string.Join(" | ", ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage));
+
+                    throw new Exception($"Form validation failed: {errors}");
+                }
+
                 var validation = FileValidator.Validate(playerDto.PhotoFile);
                 if (!validation.IsValid)
                 {
@@ -161,7 +169,7 @@ namespace epl_backend.Controllers
                     }
                 }
 
-                if (!await repository.PlayerExistingByClubAsync(playerDto)) throw new Exception($"This player {playerId} is already registered in this club.");
+                if (!await repository.PlayerExistingByClubAsync(playerDto, playerId)) throw new Exception($"This player {playerId} is already registered in this club.");
 
                 var success = await repository.UpdatePlayerAsync(playerDto);
                 if (!success)

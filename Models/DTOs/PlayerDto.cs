@@ -9,13 +9,13 @@ public class PlayerDto
 
     [Required(ErrorMessage = "Please input player's first name.")]
     [MaxLength(100)]
-    [RegularExpression(@"\S+", ErrorMessage = "First name cannot be only whitespace.")]
-    public string FirstName { get; set; }
+    [RegularExpression(@"^\S+(\s+\S+)*$", ErrorMessage = "First name cannot be empty or only whitespace.")]
+    public string? FirstName { get; set; }
 
     [Required(ErrorMessage = "Please input player's last name.")]
     [MaxLength(100)]
-    [RegularExpression(@"\S+", ErrorMessage = "Last name cannot be only whitespace.")]
-    public string LastName { get; set; }
+    [RegularExpression(@"^\S+(\s+\S+)*$", ErrorMessage = "Last name cannot be empty or only whitespace.")]
+    public string? LastName { get; set; }
 
     public DateOnly? DateOfBirth { get; set; }
 
@@ -26,7 +26,7 @@ public class PlayerDto
     public PreferredFoot? PreferredFoot { get; set; }
 
     // Height as text (e.g., "180 cm")
-    // [RegularExpression(@"\S+", ErrorMessage = "Player height cannot be empty or whitespace.")]
+    [RegularExpression(@"^\S+(\s+\S+)*$", ErrorMessage = "Player height cannot be empty or only whitespace.")]
     public string? Height { get; set; }
 
     [Required(ErrorMessage = "Please select a playing position.")]

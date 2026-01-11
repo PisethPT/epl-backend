@@ -10,19 +10,19 @@ public class UserDto
 
     [Required(ErrorMessage = "Please input your first name.")]
     [MaxLength(100)]
-    [RegularExpression(@"\S+", ErrorMessage = "First name cannot be empty or whitespace.")]
-    public string FirstName { get; set; }
+    [RegularExpression(@"^\S+(\s+\S+)*$", ErrorMessage = "First name cannot be empty or only whitespace.")]
+    public string? FirstName { get; set; }
 
     [Required(ErrorMessage = "Please input your last name.")]
     [MaxLength(100)]
-    [RegularExpression(@"\S+", ErrorMessage = "Last name cannot be empty or whitespace.")]
-    public string LastName { get; set; }
+    [RegularExpression(@"^\S+(\s+\S+)*$", ErrorMessage = "Last name cannot be empty or only whitespace.")]
+    public string? LastName { get; set; }
     [Required(ErrorMessage = "Please input your email."), MaxLength(256)]
     [EmailAddress]
-    public string Email { get; set; }
+    public string? Email { get; set; }
     [Required(ErrorMessage = "Please input your phone number.")]
     [Phone(ErrorMessage = "Please input a valid phone number.")]
-    public string PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; }
     [Required(ErrorMessage = "Please select a gender.")]
     public Gender Gender { get; set; }
     public string? PasswordHash { get; set; }

@@ -3,84 +3,10 @@
 }
 <div class="p-4 bg-[#37003c] rounded-lg shadow-lg">
     <h1 class="text-2xl text-white font-bold mb-4">Welcome to the @ViewData["Title"]!!</h1>
-
-
-    <div class="w-64">
-        <label class="block text-sm font-medium text-white mb-1">Choose Country</label>
-
-        <div class="relative">
-            <button id="dropdownBtn"
-                class="flex items-center justify-between w-full bg-[#2a002c] text-white px-4 py-3 rounded-lg border border-[#430044] shadow">
-                <div class="flex items-center gap-2">
-                    <img id="dropdownImg" src="/flags/cambodia.png" class="w-6 h-6 rounded" />
-                    <span id="dropdownLabel">Cambodia</span>
-                </div>
-                <span class="text-[9px]">▼</span>
-            </button>
-
-            <ul id="dropdownMenu"
-                class="hidden absolute z-10 w-full max-h-56 mt-1 bg-[#2a002c] border border-[#430044] rounded-lg shadow-lg overflow-y-scroll scrollbar-none">
-
-                <li data-value="kh" data-img="/flags/cambodia.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/cambodia.png" class="w-5 h-5"> Cambodia
-                </li>
-                <li data-value="th" data-img="/flags/thailand.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/thailand.png" class="w-5 h-5"> Thailand
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-                <li data-value="vn" data-img="/flags/vietnam.png"
-                    class="flex items-center gap-2 px-4 py-2 hover:bg-[#3a003c] text-white cursor-pointer">
-                    <img src="/flags/vietnam.png" class="w-5 h-5"> Vietnam
-                </li>
-            </ul>
-        </div>
-    </div>
+    <p class="text-gray-300">This is the home page of the EPL backend application. Use the navigation menu to explore
+        different sections.</p>
 </div>
 
 @section Scripts {
-    <script>
-        const btn = document.getElementById("dropdownBtn");
-        const menu = document.getElementById("dropdownMenu");
 
-        btn.onclick = () => menu.classList.toggle("hidden");
-
-        document.querySelectorAll("#dropdownMenu li").forEach(item =>
-        {
-            item.onclick = () =>
-            {
-                document.getElementById("dropdownImg").src = item.dataset.img;
-                document.getElementById("dropdownLabel").textContent = item.textContent.trim();
-                menu.classList.add("hidden");
-            };
-        });
-    </script>
 }

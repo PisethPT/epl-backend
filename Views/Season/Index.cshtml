@@ -1,0 +1,246 @@
+﻿@using epl_backend.Models.ViewModels
+@model SeasonViewModel
+@{
+    ViewData["Title"] = "Season";
+    int index = 0;
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+        id="errorAlertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
+        id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
+        </div>
+    </div>
+}
+
+
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
+
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div id="modalBox" class="bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-white" id="modalTitle">Create New Season</h2>
+            <button onclick="closeModal()"
+                class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                <i class="fa-solid fa-xmark text-white"></i>
+            </button>
+        </div>
+
+        <form id="seasonForm" asp-controller="Season" asp-action="Create" method="post" asp-antiforgery="true"
+            class="h-auto p-2" enctype="multipart/form-data" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="seasonId" asp-for="seasonDto.SeasonId" />
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Season Name</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+                    <input id="seasonName" asp-for="seasonDto.SeasonName" type="text"
+                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="seasonDto.SeasonName" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">Start Date</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <input id="startDate" asp-for="seasonDto.StartDate" type="date"
+                        class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="seasonDto.StartDate" class="text-red-400 text-sm"></span>
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1">
+                        <span class="text-white font-medium">End Date</span>
+                        <span class="text-red-400">*</span>
+                    </span>
+
+                    <input id="endDate" asp-for="seasonDto.EndDate" type="date"
+                        class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                    <span asp-validation-for="seasonDto.EndDate" class="text-red-400 text-sm"></span>
+                </label>
+            </div>
+            <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                <div class="text-sm text-gray-200/80">Fields with <span class="text-red-400">*</span> are required.
+                </div>
+                <div class="flex gap-3">
+                    <button type="reset" id="resetBtn"
+                        class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                    <button type="submit"
+                        class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="confirmDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div class="modalBox !bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-white">Delete Season</h2>
+        </div>
+
+        <div class="p-4 rounded-lg bg-[#55005a]/60 border border-[#8a3fbf]/40">
+            <div class="flex items-start gap-3">
+                <div class="text-red-300 text-xl">⚠️</div>
+                <div>
+                    <p class="text-white text-base font-medium">
+                        Are you sure you want to delete this season?
+                    </p>
+                    <p class="text-red-300 text-sm mt-1">
+                        This action is permanent and cannot be undone.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="theme"
+            class="flex items-center gap-4 mt-4 p-4 rounded-2xl px-4 w-full h-fit overflow-hidden bg-[#1e0021]/50 border border-[#8a3fbf]/40">
+            <div class="flex justify-start items-center h-full">
+                <img id="photo" src="~/icon.png" class="w-auto h-24 object-contain cursor-pointer mb-0" alt="pl" />
+            </div>
+            <div class="flex flex-col justify-end mb-3 gap-2 h-full">
+                <div id="seasonName" class="text-white text-md lg:text-xl"></div>
+                <div id="seasonDate" class="text-gray-400 text-xs lg:text-md"></div>
+            </div>
+        </div>
+
+        <form id="confirmDeleteForm" asp-controller="Season" asp-action="Delete" method="post" asp-antiforgery="true"
+            class="h-auto p-2 mt-6" enctype="multipart/form-data" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="seasonId" name="seasonId" asp-for="seasonDto.SeasonId" />
+            <div class="flex flex-col md:flex-row justify-end gap-3">
+                <button type="button" onclick="hideModal('confirmDeleteModal')"
+                    class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                    class="text-white px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition hover:ring-2 hover:!ring-[#8a3fbf]">
+                    Confirm Delete
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
+        <div class="flex items-center justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "Season")"
+                class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
+                to
+                Home</a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
+                id="btnAddNewSeason">Add New</button>
+        </div>
+
+        <div class="flex flex-col md:flex-col xl:flex-row xl:items-center gap-4 w-full lg:w-fit">
+            <div
+                class="flex items-center justify-start lg:justify-end gap-2 w-full p-2 rounded-t-[10px] overflow-hidden overflow-x-scroll scrollbar-none">
+                <button id="filterBtnId"
+                    class="flex justify-center items-center text-white text-center text-sm w-fit px-3 py-[9px] rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    <i class="fa-solid fa-arrow-down-wide-short"></i>
+                </button>
+
+                <form asp-action="Index" asp-controller="Season" method="get">
+                    <button type="submit"
+                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                        Reset
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-x-scroll scrollbar-none">
+        <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
+            <thead class="bg-[#55005a]">
+                <tr>
+                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID</th>
+                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
+                    </th>
+                    <th class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Season Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Start Date
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        End Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[#55005a]">
+                @foreach (var season in Model.seasonDetailDtos)
+                {
+                    index++;
+                    <tr>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center">
+                                <div
+                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
+                                    @index</div>
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center gap-2">
+                                <button onclick="attachSeasonByIdForUpdate('@season.SeasonId')"
+                                    class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </button>
+                                <button onclick="showModal('confirmDeleteModal', this, 'modal-lg', true)"
+                                    class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    <input type="text" name="seasonId" value="@season.SeasonId" hidden />
+                                    <input type="text" name="seasonName" value="@season.SeasonName" hidden />
+                                    <input type="text" name="startDate" value="@season.StartDate" hidden />
+                                    <input type="text" name="endDate" value="@season.EndDate" hidden />
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-left text-sm text-white">@season.SeasonName</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-left text-sm text-white">@season.StartDate</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-left text-sm text-white">@season.EndDate
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/season/index.js" asp-append-version="true"></script>
+    <script src="~/js/season/delete.js" asp-append-version="true"></script>
+}

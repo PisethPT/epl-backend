@@ -40,46 +40,56 @@ namespace epl_backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromForm] UserLoginDto userLoginDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
+
+                var user = await repository.FindByEmailAsync(userLoginDto.Email!);
+                if (user is not null && await repository.CheckPasswordAsync(user, userLoginDto.Password!))
+                {
+                    var roleDto = await repository.GetRolesAsync(user);
+
+                    // Build claims identity
+                    var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId!),
+                    new Claim(ClaimTypes.Name, user.Email!),
+                    new Claim(ClaimTypes.Email, user.Email!)
+                };
+
+                    foreach (var role in roleDto.Roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    // Sign in (issue auth cookie)
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal,
+                        new AuthenticationProperties
+                        {
+                            IsPersistent = userLoginDto.RememberMe,
+                            ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+                        });
+                    return RedirectToAction("Dashboard", "Home");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred during login for email {Email}", userLoginDto.Email);
+                ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");
                 return View(viewModel);
             }
 
-            var user = await repository.FindByEmailAsync(userLoginDto.Email);
-            if (user is not null && await repository.CheckPasswordAsync(user, userLoginDto.Password))
-            {
-                var roleDto = await repository.GetRolesAsync(user);
-
-                // Build claims identity
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId!),
-                    new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(ClaimTypes.Email, user.Email)
-                };
-
-                foreach (var role in roleDto.Roles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-                }
-
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-
-                // Sign in (issue auth cookie)
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    principal,
-                    new AuthenticationProperties
-                    {
-                        IsPersistent = userLoginDto.RememberMe,
-                        ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
-                    });
-                return RedirectToAction("Dashboard", "Home");
-            }
-
-            ModelState.AddModelError(string.Empty, "Invalid email or password.");
-            return View(viewModel);
         }
 
         [HttpPost("logout")]
@@ -103,19 +113,19 @@ namespace epl_backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromForm] UserDto userDto)
         {
-            if (!ModelState.IsValid)
-                return RedirectToAction(nameof(Index));
-
-            var validation = FileValidator.Validate(userDto.PhotoFile);
-            if (!validation.IsValid)
-            {
-                ModelState.AddModelError(nameof(userDto.PhotoFile), validation.ErrorMessage ?? "Invalid file");
-                return RedirectToAction(nameof(Index));
-            }
-
             try
             {
-                if (await repository.FindByEmailAsync(userDto.Email) is not null)
+                if (!ModelState.IsValid)
+                    return RedirectToAction(nameof(Index));
+
+                var validation = FileValidator.Validate(userDto.PhotoFile);
+                if (!validation.IsValid)
+                {
+                    ModelState.AddModelError(nameof(userDto.PhotoFile), validation.ErrorMessage ?? "Invalid file");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                if (await repository.FindByEmailAsync(userDto.Email!) is not null)
                 {
                     ModelState.AddModelError(nameof(userDto.Email), "A user with this email already exists.");
                     return RedirectToAction(nameof(Index));
@@ -148,29 +158,6 @@ namespace epl_backend.Controllers
             }
         }
 
-        [HttpPost("get-user/{userId}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> FindUserByUserId([FromRoute] string userId)
-        {
-            try
-            {
-                var userDto = await repository.FindUserByIdAsync(userId);
-                if (userDto is null)
-                {
-                    ModelState.AddModelError(nameof(userId), "A user is not found.");
-                    return RedirectToAction(nameof(Index));
-                }
-                return Json(userDto);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting user {UserId}", userId);
-                ModelState.AddModelError(string.Empty, ex.Message);
-                viewModel.userDtos = await repository.GetAllUsersAsync();
-                return View(nameof(Index), viewModel);
-            }
-        }
-
         [HttpPost("update/{userId}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update([FromForm] UserDto userDto, [FromRoute] string userId)
@@ -190,7 +177,7 @@ namespace epl_backend.Controllers
                     }
                 }
 
-                if (!await repository.UserByExistEmail(userDto.Email, userId))
+                if (!await repository.UserByExistEmail(userDto.Email!, userId))
                 {
                     ModelState.AddModelError(nameof(userDto.Email), "A user with this email already exists.");
                     return RedirectToAction(nameof(Index));
@@ -250,6 +237,29 @@ namespace epl_backend.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error delete user {UserId}", userId);
+                ModelState.AddModelError(string.Empty, ex.Message);
+                viewModel.userDtos = await repository.GetAllUsersAsync();
+                return View(nameof(Index), viewModel);
+            }
+        }
+
+        [HttpPost("get-user/{userId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FindUserByUserId([FromRoute] string userId)
+        {
+            try
+            {
+                var userDto = await repository.FindUserByIdAsync(userId);
+                if (userDto is null)
+                {
+                    ModelState.AddModelError(nameof(userId), "A user is not found.");
+                    return RedirectToAction(nameof(Index));
+                }
+                return Json(userDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting user {UserId}", userId);
                 ModelState.AddModelError(string.Empty, ex.Message);
                 viewModel.userDtos = await repository.GetAllUsersAsync();
                 return View(nameof(Index), viewModel);

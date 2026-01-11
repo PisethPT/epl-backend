@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "t38ELif2a8nMbHo19NI7Htb69028GKXXTsFlfy4w3xQ=",
+  "Hash": "FX4yem+P5GXKIUmevHO5nx8gbFjuHcalRkVEKPNNLzo=",
   "Source": "epl-backend",
   "BasePath": "_content/epl-backend",
   "Mode": "Default",
@@ -584,12 +584,12 @@
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\user\\index.js"
     },
     {
-      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-ky8su6mxb7.gz",
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-5l81249ihe.gz",
       "SourceId": "epl-backend",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/epl-backend",
-      "RelativePath": "js/player/custom_select#[.{fingerprint=ky8su6mxb7}]?.js.gz",
+      "RelativePath": "js/player/custom_select#[.{fingerprint=5l81249ihe}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -598,8 +598,8 @@
       "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "bofacnj5vb",
-      "Integrity": "Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y=",
+      "Fingerprint": "wvh2q2ngtj",
+      "Integrity": "9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js"
@@ -687,6 +687,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\dll62izibn-spf9kjgi0x.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/shared/select_custom#[.{fingerprint=spf9kjgi0x}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\shared\\select_custom.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "yuwoqsqx4r",
+      "Integrity": "WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\shared\\select_custom.js"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\dp7du5jva0-h1s4sie4z3.gz",
@@ -1298,6 +1319,27 @@
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\o24em53lbi-wlmdlqu8f5.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/season/delete#[.{fingerprint=wlmdlqu8f5}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\delete.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "qcddj1w5lt",
+      "Integrity": "JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\delete.js"
+    },
+    {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\ok5ke3ca0y-muycvpuwrr.gz",
       "SourceId": "epl-backend",
       "SourceType": "Discovered",
@@ -1592,6 +1634,48 @@
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uol7v4lhvk-6m67ozfpqs.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/match/club_select#[.{fingerprint=6m67ozfpqs}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\club_select.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "iurxgvms1s",
+      "Integrity": "xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\club_select.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uv6v128ala-z74fqwijoy.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/match/index#[.{fingerprint=z74fqwijoy}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\index.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "1wzdxnb1c2",
+      "Integrity": "8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\index.js"
+    },
+    {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\v5rlsazl32-nvvlpmu67g.gz",
       "SourceId": "epl-backend",
       "SourceType": "Discovered",
@@ -1611,6 +1695,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\v5u25z2tw2-ogxohffscy.gz",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/season/index#[.{fingerprint=ogxohffscy}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\index.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "2mdfw9ncpe",
+      "Integrity": "qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\index.js"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\vpfkv464p0-zn4bmfe8mm.gz",
@@ -2117,6 +2222,48 @@
       "OriginalItemSpec": "wwwroot\\js\\global_modal.js"
     },
     {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\club_select.js",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/match/club_select#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6m67ozfpqs",
+      "Integrity": "wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\match\\club_select.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\index.js",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/match/index#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "z74fqwijoy",
+      "Integrity": "4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\match\\index.js"
+    },
+    {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\modal.js",
       "SourceId": "epl-backend",
       "SourceType": "Discovered",
@@ -2152,8 +2299,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "ky8su6mxb7",
-      "Integrity": "XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE=",
+      "Fingerprint": "5l81249ihe",
+      "Integrity": "ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\player\\custom_select.js"
@@ -2241,6 +2388,69 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\player\\nationality.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\delete.js",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/season/delete#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wlmdlqu8f5",
+      "Integrity": "TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\season\\delete.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\index.js",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/season/index#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ogxohffscy",
+      "Integrity": "aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\season\\index.js"
+    },
+    {
+      "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\shared\\select_custom.js",
+      "SourceId": "epl-backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\",
+      "BasePath": "_content/epl-backend",
+      "RelativePath": "js/shared/select_custom#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "spf9kjgi0x",
+      "Integrity": "0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\shared\\select_custom.js"
     },
     {
       "Identity": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\site.js",
@@ -7846,7 +8056,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7899,7 +8109,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7936,7 +8146,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -7983,7 +8193,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8044,7 +8254,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8089,7 +8299,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8144,7 +8354,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8205,7 +8415,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8250,7 +8460,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8305,7 +8515,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8358,7 +8568,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8395,7 +8605,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 07 Dec 2025 15:13:06 GMT"
+          "Value": "Sat, 20 Dec 2025 14:35:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -9990,6 +10200,602 @@
       ]
     },
     {
+      "Route": "js/match/club_select.6m67ozfpqs.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uol7v4lhvk-6m67ozfpqs.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002898550725"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "344"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 Jan 2026 13:07:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6m67ozfpqs"
+        },
+        {
+          "Name": "label",
+          "Value": "js/match/club_select.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/club_select.6m67ozfpqs.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\club_select.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1193"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 Jan 2026 13:07:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6m67ozfpqs"
+        },
+        {
+          "Name": "label",
+          "Value": "js/match/club_select.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/club_select.6m67ozfpqs.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uol7v4lhvk-6m67ozfpqs.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "344"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 Jan 2026 13:07:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6m67ozfpqs"
+        },
+        {
+          "Name": "label",
+          "Value": "js/match/club_select.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/club_select.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uol7v4lhvk-6m67ozfpqs.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002898550725"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "344"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 Jan 2026 13:07:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/club_select.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\club_select.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1193"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 Jan 2026 13:07:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wi4/UxoWnF2DopC/i/XyO4XZ0MGAjvOSF8+PjkUtCbc="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/club_select.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uol7v4lhvk-6m67ozfpqs.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "344"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 11 Jan 2026 13:07:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xqg4mzvxi8jMVIRSMHM2e50vw6HCSGsCc1bdQDTWElQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/index.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uv6v128ala-z74fqwijoy.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001422475107"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "702"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 13:10:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/index.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1670"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 13:10:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/index.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uv6v128ala-z74fqwijoy.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "702"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 13:10:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/index.z74fqwijoy.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uv6v128ala-z74fqwijoy.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001422475107"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "702"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 13:10:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "z74fqwijoy"
+        },
+        {
+          "Name": "label",
+          "Value": "js/match/index.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/index.z74fqwijoy.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1670"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 13:10:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "z74fqwijoy"
+        },
+        {
+          "Name": "label",
+          "Value": "js/match/index.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4YJI966KZV30qrGEGWGWwYfYI6OzvwrlZpoTihUpOQ0="
+        }
+      ]
+    },
+    {
+      "Route": "js/match/index.z74fqwijoy.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\uv6v128ala-z74fqwijoy.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "702"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 13:10:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "z74fqwijoy"
+        },
+        {
+          "Name": "label",
+          "Value": "js/match/index.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8WO0gquFetV9EhbFCU6FY7At72ip0+sXpKl8H5sjNDU="
+        }
+      ]
+    },
+    {
       "Route": "js/modal.js",
       "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\aodyo4xzir-pfynwzei9i.gz",
       "Selectors": [
@@ -10288,13 +11094,13 @@
       ]
     },
     {
-      "Route": "js/player/custom_select.js",
-      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-ky8su6mxb7.gz",
+      "Route": "js/player/custom_select.5l81249ihe.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-5l81249ihe.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000294637596"
+          "Quality": "0.001748251748"
         }
       ],
       "ResponseHeaders": [
@@ -10304,19 +11110,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3393"
+          "Value": "571"
         },
         {
           "Name": "ETag",
-          "Value": "\"Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y=\""
+          "Value": "\"9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 14 Dec 2025 12:46:42 GMT"
+          "Value": "Mon, 29 Dec 2025 12:28:36 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -10332,18 +11138,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE=\""
+          "Value": "W/\"ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "5l81249ihe"
+        },
+        {
+          "Name": "label",
+          "Value": "js/player/custom_select.js"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE="
+          "Value": "sha256-ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc="
         }
       ]
     },
     {
-      "Route": "js/player/custom_select.js",
+      "Route": "js/player/custom_select.5l81249ihe.js",
       "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -10353,7 +11167,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "12098"
+          "Value": "1435"
         },
         {
           "Name": "Content-Type",
@@ -10361,121 +11175,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE=\""
+          "Value": "\"ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 14 Dec 2025 12:46:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE="
-        }
-      ]
-    },
-    {
-      "Route": "js/player/custom_select.js.gz",
-      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-ky8su6mxb7.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3393"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 14 Dec 2025 12:46:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y="
-        }
-      ]
-    },
-    {
-      "Route": "js/player/custom_select.ky8su6mxb7.js",
-      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-ky8su6mxb7.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000294637596"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3393"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 14 Dec 2025 12:46:42 GMT"
+          "Value": "Mon, 29 Dec 2025 12:28:36 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "ky8su6mxb7"
+          "Value": "5l81249ihe"
         },
         {
           "Name": "label",
@@ -10483,13 +11197,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE="
+          "Value": "sha256-ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc="
         }
       ]
     },
     {
-      "Route": "js/player/custom_select.ky8su6mxb7.js",
-      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "Route": "js/player/custom_select.5l81249ihe.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-5l81249ihe.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -10498,7 +11212,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "12098"
+          "Value": "571"
         },
         {
           "Name": "Content-Type",
@@ -10506,56 +11220,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE=\""
+          "Value": "\"9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 14 Dec 2025 12:46:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "ky8su6mxb7"
-        },
-        {
-          "Name": "label",
-          "Value": "js/player/custom_select.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-XHK9dXsiwb0lv48gNiUTmmZ0XyoXkWKPd5cUN4j1asE="
-        }
-      ]
-    },
-    {
-      "Route": "js/player/custom_select.ky8su6mxb7.js.gz",
-      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-ky8su6mxb7.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3393"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 14 Dec 2025 12:46:42 GMT"
+          "Value": "Mon, 29 Dec 2025 12:28:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -10573,7 +11242,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "ky8su6mxb7"
+          "Value": "5l81249ihe"
         },
         {
           "Name": "label",
@@ -10581,7 +11250,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Jdo/Tz2qIvvx6dvsjsbz26GexaUK0UjJoCeNU/II97Y="
+          "Value": "sha256-9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-5l81249ihe.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001748251748"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "571"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:28:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\custom_select.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1435"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:28:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ucMfsEVUkudbiuZsRlBORl5YFCUmzDUKWxWkf6DVUoc="
+        }
+      ]
+    },
+    {
+      "Route": "js/player/custom_select.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\bvz0r8ge71-5l81249ihe.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "571"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:28:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9Cb3/BvECsr3XRRkPq2KdhoLQANF+b6ctQe7k9o8f34="
         }
       ]
     },
@@ -11774,6 +12580,900 @@
         {
           "Name": "integrity",
           "Value": "sha256-GtwF2OVSOSKWKKUwGM0+f/6V2v2mlEfwENooaUKaXiY="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/delete.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\o24em53lbi-wlmdlqu8f5.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001494768311"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "668"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:51:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/delete.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\delete.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1810"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:51:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/delete.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\o24em53lbi-wlmdlqu8f5.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "668"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:51:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/delete.wlmdlqu8f5.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\o24em53lbi-wlmdlqu8f5.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001494768311"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "668"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:51:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wlmdlqu8f5"
+        },
+        {
+          "Name": "label",
+          "Value": "js/season/delete.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/delete.wlmdlqu8f5.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\delete.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1810"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:51:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wlmdlqu8f5"
+        },
+        {
+          "Name": "label",
+          "Value": "js/season/delete.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TI/+nBiZYA73x096KIBTSCA9GGraMQjtPzPifzzOBZM="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/delete.wlmdlqu8f5.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\o24em53lbi-wlmdlqu8f5.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "668"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:51:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wlmdlqu8f5"
+        },
+        {
+          "Name": "label",
+          "Value": "js/season/delete.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JqRiJtUCfeXQGjAdC5u/C7ZPv5NJDyWXfSUvw+GUUaA="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/index.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\v5u25z2tw2-ogxohffscy.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001398601399"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "714"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:31:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/index.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1758"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:31:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/index.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\v5u25z2tw2-ogxohffscy.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "714"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:31:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/index.ogxohffscy.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\v5u25z2tw2-ogxohffscy.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001398601399"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "714"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:31:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ogxohffscy"
+        },
+        {
+          "Name": "label",
+          "Value": "js/season/index.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/index.ogxohffscy.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\index.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1758"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:31:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ogxohffscy"
+        },
+        {
+          "Name": "label",
+          "Value": "js/season/index.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aPzJ1O15JhYTdUkhsEfvPJbvrgS9E10bnIysXGW2npg="
+        }
+      ]
+    },
+    {
+      "Route": "js/season/index.ogxohffscy.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\v5u25z2tw2-ogxohffscy.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "714"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 13:31:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ogxohffscy"
+        },
+        {
+          "Name": "label",
+          "Value": "js/season/index.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qkaFbGzKnPUZTfT/EaSFRV2bPK+p4Soc6rOzu3MN/H4="
+        }
+      ]
+    },
+    {
+      "Route": "js/shared/select_custom.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\dll62izibn-spf9kjgi0x.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000328191664"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3046"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:12:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E="
+        }
+      ]
+    },
+    {
+      "Route": "js/shared/select_custom.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\shared\\select_custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10916"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:12:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E="
+        }
+      ]
+    },
+    {
+      "Route": "js/shared/select_custom.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\dll62izibn-spf9kjgi0x.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3046"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:12:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/shared/select_custom.spf9kjgi0x.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\dll62izibn-spf9kjgi0x.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000328191664"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3046"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:12:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "spf9kjgi0x"
+        },
+        {
+          "Name": "label",
+          "Value": "js/shared/select_custom.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E="
+        }
+      ]
+    },
+    {
+      "Route": "js/shared/select_custom.spf9kjgi0x.js",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\shared\\select_custom.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10916"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:12:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "spf9kjgi0x"
+        },
+        {
+          "Name": "label",
+          "Value": "js/shared/select_custom.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0Pc2XoqFkalknpPr8bD+/8ARdR+atx4GiGZSEYmeP1E="
+        }
+      ]
+    },
+    {
+      "Route": "js/shared/select_custom.spf9kjgi0x.js.gz",
+      "AssetFile": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\Debug\\net9.0\\compressed\\dll62izibn-spf9kjgi0x.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3046"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 12:12:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "spf9kjgi0x"
+        },
+        {
+          "Name": "label",
+          "Value": "js/shared/select_custom.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-WubT4+WGL9peln8PIne/0N8tMkdXk54WKvRCxRNu+IQ="
         }
       ]
     },

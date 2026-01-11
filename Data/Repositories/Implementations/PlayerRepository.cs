@@ -76,13 +76,13 @@ public class PlayerRepository : IPlayerRepository
         }
     }
 
-    public async Task<bool> PlayerExistingByClubAsync(PlayerDto playerDto, CancellationToken ct = default)
+    public async Task<bool> PlayerExistingByClubAsync(PlayerDto playerDto, int? playerId = 0, CancellationToken ct = default)
     {
         try
         {
             var cmd = new SqlCommand();
             cmd.CommandText = PlayerExistingByClubCommand;
-            cmd.Parameters.AddWithValue("@PlayerId", playerDto.PlayerId);
+            cmd.Parameters.AddWithValue("@PlayerId", playerId);
             cmd.Parameters.AddWithValue("@ClubId", playerDto.ClubId);
             cmd.Parameters.AddWithValue("@FirstName", playerDto.FirstName);
             cmd.Parameters.AddWithValue("@LastName", playerDto.LastName);
@@ -171,7 +171,7 @@ public class PlayerRepository : IPlayerRepository
                     };
                     playerDetailDtos.Add(item);
 
-                } while (await rdr.ReadAsync(ct));
+                } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
             }
 
             return playerDetailDtos;
@@ -211,7 +211,7 @@ public class PlayerRepository : IPlayerRepository
                 };
             }
 
-            return new PlayerDto();
+            return null!;
         }
         catch (SqlException ex)
         {

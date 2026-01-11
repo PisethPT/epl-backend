@@ -314,9 +314,6 @@
                 @(ViewBag.CurrentPage == 1 ? "onclick='return false;'" : "")>
                 <i class="fa-solid fa-chevron-left"></i>
             </a>
-            <span class="text-white px-3 py-1">
-                Page @ViewBag.CurrentPage of @ViewBag.TotalPages
-            </span>
             <a href="@Url.Action("Index", "Club", new { page = ViewBag.CurrentPage + 1 })"
                 class="bg-[#55005a] text-white px-3 py-1 rounded transition @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
                 @(ViewBag.CurrentPage == ViewBag.TotalPages ? "onclick='return false;'" : "")>

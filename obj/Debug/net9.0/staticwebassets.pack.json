@@ -41,6 +41,14 @@
       "PackagePath": "staticwebassets\\js\\global_modal.js"
     },
     {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\club_select.js",
+      "PackagePath": "staticwebassets\\js\\match\\club_select.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\match\\index.js",
+      "PackagePath": "staticwebassets\\js\\match\\index.js"
+    },
+    {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\modal.js",
       "PackagePath": "staticwebassets\\js\\modal.js"
     },
@@ -63,6 +71,18 @@
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\player\\nationality.js",
       "PackagePath": "staticwebassets\\js\\player\\nationality.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\delete.js",
+      "PackagePath": "staticwebassets\\js\\season\\delete.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\season\\index.js",
+      "PackagePath": "staticwebassets\\js\\season\\index.js"
+    },
+    {
+      "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\shared\\select_custom.js",
+      "PackagePath": "staticwebassets\\js\\shared\\select_custom.js"
     },
     {
       "Id": "D:\\Term-5 Cource\\PL\\epl-backend\\wwwroot\\js\\site.js",

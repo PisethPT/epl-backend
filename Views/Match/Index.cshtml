@@ -1,8 +1,974 @@
-﻿@{
+﻿@using epl_backend.Models.DTOs
+@using epl_backend.Models.ViewModels
+@model MatchViewModel
+@{
     ViewData["Title"] = "Match";
+    int index = 0;
+    int currentPage = int.TryParse(ViewBag.CurrentPage as string, out var cp) ? cp : 0;
+    int totalPages = int.TryParse(ViewBag.TotalPages as string, out var tp) ? tp : 0;
+
+    int pageWindow = 2;
+    int startPage = Math.Max(1, currentPage - pageWindow);
+    int endPage = Math.Min(totalPages, currentPage + pageWindow);
 }
-<div class="p-4 bg-[#37003c] rounded-lg shadow-lg">
-    <h1 class="text-2xl text-white font-bold mb-4">Welcome to the @ViewData["Title"]!</h1>
-    <p class="text-gray-300">This is the home page of the EPL backend application. Use the navigation menu to explore
-        different sections.</p>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+        id="errorAlertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
+        id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
+        </div>
+    </div>
+}
+
+
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
+
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4 bg-black/60">
+    <div id="modalBox"
+        class="bg-[#1e0021] rounded-2xl shadow-xl p-6 w-full max-w-5xl transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl font-semibold text-white">Create Match</h2>
+            <button onclick="closeModal()"
+                class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="flex border-b border-[#55005a] mb-4">
+            <button type="button" class="tab-btn px-4 py-2 font-medium text-[#8a3fbf] border-b-2 border-[#8a3fbf]"
+                data-tab="tab-match">
+                Match
+            </button>
+
+            <button type="button" class="tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
+                data-tab="tab-referee">
+                Referee
+            </button>
+
+            <button type="button" class="tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
+                data-tab="tab-lineup">
+                Club Lineup
+            </button>
+        </div>
+
+        <div>
+            <!-- TAB 1 : CREATE MATCH -->
+            <div id="tab-match" class="tab-content">
+                <form id="matchForm" asp-controller="Match" asp-action="Create" method="post" asp-antiforgery="true"
+                    class="h-auto p-2" enctype="multipart/form-data" novalidate>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="matchId" asp-for="matchDto.MatchId" />
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Match Date</span>
+                                <span class="text-red-400">*</span>
+                            </span> <input id="matchDate" asp-for="matchDto.MatchDate" type="date" data-date=""
+                                data-date-format="dddd, DD-MMM-YYYY"
+                                class="bg-[#55005a] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                            <span asp-validation-for="matchDto.MatchDate" class="text-red-400 text-sm"></span>
+                        </label>
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1"> <span class="text-white font-medium">Match
+                                    Time</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="matchTime" asp-for="matchDto.MatchTime" type="time"
+                                class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                            <span asp-validation-for="matchDto.MatchTime" class="text-red-400 text-sm"></span>
+                        </label>
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Season</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="seasonIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="seasonId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select season">
+                                <option value="">Select Season</option>
+                                @foreach (var season in Model.SelectListItemSeasons)
+                                {
+                                    <option value="@season.seasonId" data-img="/icon.png" data-sub="@season.dataSub">
+                                        @season.seasonName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Week</span> <span class="text-red-400">*</span>
+                            </span>
+                            <input id="matchWeek" asp-for="matchDto.MatchWeek" type="number" min="1" max="99"
+                                class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                            <span asp-validation-for="matchDto.MatchWeek" class="text-red-400 text-sm"></span>
+                        </label>
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Home Club</span> <span
+                                    class="text-red-400">*</span>
+                            </span>
+                            <select id="homeClub" class="js-custom-select" asp-for="matchDto.HomeClubId"
+                                data-show-image="true" data-placeholder="Select home club">
+                                <option value="">Select Home Club</option> @foreach (var club in
+                                Model.SelectListItemClubs) {
+                                    <option value="@club.ClubId" data-img="/upload/clubs/@club.ClubCrest"
+                                        data-sub="@club.ClubTheme"> @club.ClubName
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.HomeClubId" class="text-red-400 text-sm"></span>
+                        </label>
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Away Club</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <select id="awayClub" class="js-custom-select" asp-for="matchDto.AwayClubId"
+                                data-show-image="true" data-placeholder="Select away club">
+                                <option value="">Select Away Club</option>
+                                @foreach (var club in Model.SelectListItemClubs)
+                                {
+                                    <option value="@club.ClubId" data-img="/upload/clubs/@club.ClubCrest"
+                                        data-sub="@club.ClubTheme"> @club.ClubName
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.AwayClubId" class="text-red-400 text-sm"></span>
+                        </label>
+                        <label class="flex flex-col gap-2 w-fit">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Home Stadium</span>
+                            </span>
+                            <div class="flex items-center gap-4">
+                                <label class="relative inline-flex items-center cursor-pointer"> <input
+                                        id="isHomeStadium" type="checkbox" asp-for="matchDto.IsHomeStadium"
+                                        class="sr-only peer w-fit" />
+                                    <div
+                                        class="w-12 h-6 bg-[#55005a] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#8a3fbf] rounded-full peer peer-checked:bg-[#8a3fbf] transition-colors">
+                                    </div>
+                                    <div
+                                        class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-6">
+                                    </div>
+                                </label>
+                                <span class="text-sm text-gray-300 peer-checked:bg-[#8a3fbf]">
+                                    @(Model.matchDto.IsHomeStadium ? "Yes" : "No") </span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                        <div class="text-sm text-gray-200/80">Fields with
+                            <span class="text-red-400">*</span> are required.
+                        </div>
+                        <div class="flex gap-3"> <button type="reset" id="resetBtn"
+                                class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                            <button type="submit"
+                                class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB 2 : REFEREE -->
+            <div id="tab-referee" class="tab-content hidden">
+                <form class="space-y-4">
+                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-4">
+                        <!-- Referee -->
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Referee</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee">
+                                <option value="">Select Referee</option>
+                                @foreach (var referee in Model.SelectListItemReferees)
+                                {
+                                    <option value="@referee.RefereeId" data-sub="@referee.Nationality">
+                                        @referee.RefereeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Role</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeRoleIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeRoleId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select role">
+                                <option value="">Select Role</option>
+                                @foreach (var role in Model.SelectListItemRefereeRoles)
+                                {
+                                    <option value="@role.RefereeRoleId" data-sub="">
+                                        @role.RoleName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Badge Level</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeBadgeLevelIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeBadgeLevelId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee badge level">
+                                <option value="">Select Referee Badge Level</option>
+                                @foreach (var refereeBadge in Model.SelectListItemRefereeBadgeLevels)
+                                {
+                                    <option value="@refereeBadge.RefereeBadgeId" data-sub="">
+                                        @refereeBadge.BadgeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <!-- Assist Referee 1 -->
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Referee</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="assistReferee1IdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="assistReferee1Id" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee">
+                                <option value="">Select Referee</option>
+                                @foreach (var referee in Model.SelectListItemReferees)
+                                {
+                                    <option value="@referee.RefereeId" data-sub="@referee.Nationality">
+                                        @referee.RefereeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Role</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="assistReferee1RoleIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="assistReferee1RoleId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select role">
+                                <option value="">Select Role</option>
+                                @foreach (var role in Model.SelectListItemRefereeRoles)
+                                {
+                                    <option value="@role.RefereeRoleId" data-sub="">
+                                        @role.RoleName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Badge Level</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="assistReferee1BadgeLevelIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="assistReferee1BadgeLevelId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee badge level">
+                                <option value="">Select Referee Badge Level</option>
+                                @foreach (var refereeBadge in Model.SelectListItemRefereeBadgeLevels)
+                                {
+                                    <option value="@refereeBadge.RefereeBadgeId" data-sub="">
+                                        @refereeBadge.BadgeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <!-- Assist Referee 2 -->
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Referee</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="assistReferee2IdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="assistReferee2Id" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee">
+                                <option value="">Select Referee</option>
+                                @foreach (var referee in Model.SelectListItemReferees)
+                                {
+                                    <option value="@referee.RefereeId" data-sub="@referee.Nationality">
+                                        @referee.RefereeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Role</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="assistReferee2RoleIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="assistReferee2RoleId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select role">
+                                <option value="">Select Role</option>
+                                @foreach (var role in Model.SelectListItemRefereeRoles)
+                                {
+                                    <option value="@role.RefereeRoleId" data-sub="">
+                                        @role.RoleName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Badge Level</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="assistReferee2BadgeLevelIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="assistReferee2BadgeLevelId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee badge level">
+                                <option value="">Select Referee Badge Level</option>
+                                @foreach (var refereeBadge in Model.SelectListItemRefereeBadgeLevels)
+                                {
+                                    <option value="@refereeBadge.RefereeBadgeId" data-sub="">
+                                        @refereeBadge.BadgeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <!-- Fourth Official -->
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Referee</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeFourthOfficialIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeFourthOfficialId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee">
+                                <option value="">Select Referee</option>
+                                @foreach (var referee in Model.SelectListItemReferees)
+                                {
+                                    <option value="@referee.RefereeId" data-sub="@referee.Nationality">
+                                        @referee.RefereeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Role</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeFourthOfficialRoleIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeFourthOfficialRoleId" class="js-custom-select"
+                                asp-for="matchDto.SeasonId" data-show-image="true" data-placeholder="Select role">
+                                <option value="">Select Role</option>
+                                @foreach (var role in Model.SelectListItemRefereeRoles)
+                                {
+                                    <option value="@role.RefereeRoleId" data-sub="">
+                                        @role.RoleName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Badge Level</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeFourthOfficialBadgeLevelIdHidden" asp-for="matchDto.SeasonId"
+                                type="hidden" />
+                            <select id="refereeFourthOfficialBadgeLevelId" class="js-custom-select"
+                                asp-for="matchDto.SeasonId" data-show-image="true"
+                                data-placeholder="Select referee badge level">
+                                <option value="">Select Referee Badge Level</option>
+                                @foreach (var refereeBadge in Model.SelectListItemRefereeBadgeLevels)
+                                {
+                                    <option value="@refereeBadge.RefereeBadgeId" data-sub="">
+                                        @refereeBadge.BadgeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <!-- VAR -->
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Referee</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeVARIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeVARId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee">
+                                <option value="">Select Referee</option>
+                                @foreach (var referee in Model.SelectListItemReferees)
+                                {
+                                    <option value="@referee.RefereeId" data-sub="@referee.Nationality">
+                                        @referee.RefereeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Role</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeVARRoleIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeVARRoleId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select role">
+                                <option value="">Select Role</option>
+                                @foreach (var role in Model.SelectListItemRefereeRoles)
+                                {
+                                    <option value="@role.RefereeRoleId" data-sub="">
+                                        @role.RoleName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Badge Level</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <input id="refereeVARBadgeLevelIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
+                            <select id="refereeVARBadgeLevelId" class="js-custom-select" asp-for="matchDto.SeasonId"
+                                data-show-image="true" data-placeholder="Select referee badge level">
+                                <option value="">Select Referee Badge Level</option>
+                                @foreach (var refereeBadge in Model.SelectListItemRefereeBadgeLevels)
+                                {
+                                    <option value="@refereeBadge.RefereeBadgeId" data-sub="">
+                                        @refereeBadge.BadgeName </option>
+                                }
+                            </select>
+                            <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"></span>
+                        </label>
+
+                    </div>
+                    <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                        <div class="text-sm text-gray-200/80">Fields with
+                            <span class="text-red-400">*</span> are required.
+                        </div>
+                        <div class="flex gap-3"> <button type="reset" id="resetBtn"
+                                class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB 3 : MATCH LINEUP -->
+            <div id="tab-lineup" class="tab-content hidden relative h-[520px] overflow-hidden">
+
+                <!-- OPEN DRAWER BUTTON -->
+                @* <button id="openDrawerBtn" onclick="openLineupDrawer()"
+                    class="absolute top-3 left-3 z-20 bg-[#8a3fbf] text-white px-3 py-1.5 rounded-lg text-sm hover:bg-[#6b2fa0]">
+                    Players
+                </button> *@
+
+                <div class="flex h-full">
+                    <!-- LEFT DRAWER id="lineupDrawer" -->
+                    <div class="w-96 bg-[#55005a] border-r border-[#55005a] rounded-l-2xl">
+                        <!-- transform -translate-x-full transition-transform duration-300 --/>
+
+                        <!-- Drawer Header -->
+                        @* <div class="flex items-center justify-between p-3 border-b border-[#55005a]">
+                            <span class="text-white font-semibold">Available Players</span>
+                            <button onclick="closeLineupDrawer()" class="w-7 h-7 flex items-center justify-center rounded-full bg-[#55005a]
+                           hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
+                                <i class="fa-solid fa-xmark text-white text-sm"></i>
+                            </button>
+                        </div> *@
+
+                        <!-- Players -->
+                        <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                @foreach (var player in Model.SelectListItemPlayer)
+                                {
+                                    <div draggable="true" ondragstart="onPlayerDrag(event)"
+                                        data-player-id="@player.PlayerId"
+                                        data-player-name="@player.FirstName @player.LastName"
+                                        data-player-img="/upload/players/@player.Photo"
+                                        data-player-clubtheme="@player.ClubTheme"
+                                        class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
+
+                                        <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
+                                            style="background-color: @player.ClubTheme">
+                                            <img src="/upload/players/@player.Photo" class="h-[4rem] mt-5 object-contain" />
+                                        </div>
+
+                                        <div>
+                                            <p class="text-sm text-white font-medium">@player.FirstName</p>
+                                            <p class="text-xs text-white font-medium">@player.LastName</p>
+                                            <p class="text-xs text-gray-300 mt-2">@player.Position • #@player.PlayerNumber
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAIN PITCH -->
+                    <div class="flex-1 relative bg-[#1e0021]">
+
+                        <!-- Pitch Lines -->
+                        <div class="absolute inset-4 border-2 border-[#55005a] rounded-md"></div>
+
+                        <!-- Center Line -->
+                        <div class="absolute top-1/2 left-4 right-4 border-t-2 border-[#55005a]"></div>
+
+                        <!-- Center Circle -->
+                        <div
+                            class="absolute top-1/2 left-1/2 w-28 h-28 border-2 border-[#55005a] rounded-full -translate-x-1/2 -translate-y-1/2">
+                        </div>
+
+                        <!-- Center Spot -->
+                        <div
+                            class="absolute top-1/2 left-1/2 w-2 h-2 bg-[#55005a] rounded-full -translate-x-1/2 -translate-y-1/2">
+                        </div>
+
+                        <!-- Top Penalty Box -->
+                        <div class="absolute top-4 left-1/2 w-2/3 h-24 border-2 border-[#55005a] -translate-x-1/2">
+                        </div>
+
+                        <!-- Bottom Penalty Box -->
+                        <div class="absolute bottom-4 left-1/2 w-2/3 h-24 border-2 border-[#55005a] -translate-x-1/2">
+                        </div>
+
+                        <!-- Formation + Slots -->
+                        <div class="relative z-10 h-full flex flex-col justify-between pt-10 pb-6">
+
+                            <!-- FORMATION SLOTS -->
+                            <div id="formationSlots" class="flex flex-col justify-between h-full">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- FORMATION CONTROL -->
+                    <div class="w-64 bg-[#1e0021] border-r border-[#1e0021] rounded-r-2xl">
+                        <div class="flex p-2">
+
+                            <div class="flex gap-2 items-center w-full">
+                                <span class="text-white text-sm">Formation</span>
+                                <select id="formationSelect"
+                                    class="w-full bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+                                    onchange="renderFormation(this.value)">
+                                    <option value="4-3-3">4-3-3</option>
+                                    <option value="4-2-3-1">4-2-3-1</option>
+                                    <option value="4-4-2">4-4-2</option>
+                                    <option value="3-5-2">3-5-2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
+        <div class="flex items-center justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "Match")"
+                class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
+                to
+                Home</a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
+                id="btnAddNewMatch">Add New</button>
+        </div>
+
+        <div class="flex flex-col md:flex-col xl:flex-row xl:items-center gap-4 w-full lg:w-fit">
+            <div
+                class="flex items-center justify-start lg:justify-end gap-2 w-full p-2 rounded-t-[10px] overflow-hidden overflow-x-scroll scrollbar-none">
+                <button id="filterBtnId"
+                    class="flex justify-center items-center text-white text-center text-sm w-fit px-3 py-[9px] rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    <i class="fa-solid fa-arrow-down-wide-short"></i>
+                </button>
+
+                <button id="sessionBtnId"
+                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    Premier League
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <button id="sessionBtnId"
+                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    2025/26
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <button id="sessionBtnId"
+                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    MW @Model.MatchWeekDto.Week
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <button id="clubBtnId"
+                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    Clubs
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <form asp-action="Index" asp-controller="Match" method="get">
+                    <button type="submit"
+                        class="flex justify-center items-center gap-1 text-gray-500 text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                        Reset
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-1 flex-col gap-4 my-4">
+        <div class="flex justify-center items-center w-full gap-10">
+            <a href="@Url.Action("Index", "Match", new { seasonId = Model.MatchWeekDto.SeasonId, week = Model.MatchWeekDto.PrevWeek })"
+                class="flex items-center justify-center rounded-full bg-[#55005a] w-10 h-10 @(Model.MatchWeekDto.PrevWeek == 0 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                aria-disabled="@(Model.MatchWeekDto.PrevWeek == 0)">
+                <i class="fa-solid fa-chevron-left text-white"></i>
+            </a>
+            <div class="flex justify-center items-center flex-col">
+                <span class="text-white text-xl font-bold">@Model.MatchWeekDto.MatchWeek</span>
+                <span class="text-white text-sm">@Model.MatchWeekDto.MatchWeekDate</span>
+            </div>
+            <a href="@Url.Action("Index", "Match", new { seasonId = Model.MatchWeekDto.SeasonId, week = Model.MatchWeekDto.NextWeek })"
+                class="flex items-center justify-center rounded-full bg-[#55005a] w-10 h-10 @(Model.MatchWeekDto.NextWeek == 0 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]") 
+                aria-disabled=" @(Model.MatchWeekDto.NextWeek == 0)">
+                <i class="fa-solid fa-chevron-right text-white"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="overflow-x-scroll scrollbar-none">
+        <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
+            <thead class="bg-[#55005a]">
+                <tr>
+                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID</th>
+                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
+                    </th>
+                    <th
+                        class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Home Club</th>
+                    <th
+                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Score</th>
+                    <th
+                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Match
+                    </th>
+                    <th
+                        class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Score</th>
+                    <th
+                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                        Away Club</th>
+                </tr>
+            </thead>
+            <tbody class="bg-transparent divide-y divide-[#55005a]">
+                @foreach (var match in Model.matchDetailDtos)
+                {
+                    index++;
+                    <tr>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center">
+                                <div
+                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
+                                    @index</div>
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                            <div class="flex justify-center items-center gap-2">
+
+                                @if (match.KickoffStatus == "Upcoming")
+                                {
+                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <i class="fa-solid fa-pencil"></i>
+                                    </button>
+                                    <button onclick="showModal('confirmDeleteModal', this, 'modal-lg', true)"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <input type="text" name="seasonId" value="@match.MatchId" hidden />
+                                        <input type="text" name="seasonName" value="@match.MatchId" hidden />
+                                        <input type="text" name="startDate" value="@match.MatchId" hidden />
+                                        <input type="text" name="endDate" value="@match.MatchId" hidden />
+                                        <i class="fa-solid fa-circle-minus"></i>
+                                    </button>
+                                }
+                                else if (match.KickoffStatus == "Live")
+                                {
+                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-white hover:bg-gray-300 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <i class="fa-solid fa-ellipsis text-black"></i>
+                                    </button>
+                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#9c36b5] hover:bg-[#8b30a1] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <i class="fa-solid fa-hourglass-half text-white"></i>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-white hover:bg-gray-300 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                        <i class="fa-solid fa-ellipsis text-black"></i>
+                                    </button>
+                                }
+
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-white">
+                            <div class="flex justify-center items-center flex-col gap-2">
+                                <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                                    style="background-color: @match.HomeClubTheme;">
+                                    <img src="/upload/clubs/@(string.IsNullOrEmpty(match.HomeClubCrest) ? "" : match.HomeClubCrest)"
+                                        class="w-auto h-12 object-contain cursor-pointer" alt="@match.HomeClubName" />
+                                </div>
+                                <span>@match.HomeClubName</span>
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-center text-lg font-bold text-white">
+                            @match.HomeClubScore</td>
+                        <td class="px-6 py-2 whitespace-nowrap text-center text-sm text-white">
+                            <div
+                                class="flex justify-center items-center flex-col gap-2 p-2 rounded-2xl bg-gradient-to-r from-[@(match.HomeClubTheme)]/10 to-[@(match.AwayClubTheme)]/10 shadow relative overflow-hidden">
+                                <div class="absolute opacity-5 left-0">
+                                    <img src="/icon.png" alt="" class="mt-10 object-contain" />
+                                </div>
+                                <div class="text-lg font-bold">@match.MatchDate</div>
+                                <div class="text-sm text-gray-300">@match.MatchTime • @match.KickoffStadium</div>
+                                <span class="text-sm text-gray-300">@match.SeasonName</span>
+
+                                @if (!string.IsNullOrEmpty(match.KickoffStatus))
+                                {
+                                    <div class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-medium text-white bg-@(
+                                         match.KickoffStatus == "Live" ? "red-600" :
+                                         match.KickoffStatus == "Upcoming" ? "yellow-600" :
+                                         match.KickoffStatus == "Finished" ? "green-600" : "gray-600")/80">
+                                        @match.KickoffStatus
+                                    </div>
+                                }
+                            </div>
+                        </td>
+                        <td class="px-2 py-4 whitespace-nowrap text-center text-lg font-bold text-white">
+                            @match.AwayClubScore</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-white">
+                            <div class="flex justify-center items-center flex-col gap-2">
+                                <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                                    style="background-color: @match.AwayClubTheme;">
+                                    <img src="/upload/clubs/@(string.IsNullOrEmpty(match.AwayClubCrest) ? "" : match.AwayClubCrest)"
+                                        class="w-auto h-12 object-contain cursor-pointer" alt="@match.AwayClubName" />
+                                </div>
+                                <span>@match.AwayClubName</span>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="@(ViewBag.TotalPages > 20 ? "flex" : "hidden") items-center mt-4 border-t-2 border-[#55005a] pt-4">
+        <div class="text-sm text-gray-400">
+            Total Matches: @ViewBag.TotalCount
+            Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+        </div>
+
+        <div class="ml-auto flex items-center gap-4">
+            <a href="@Url.Action("Index", "Match", new { page = ViewBag.CurrentPage - 1 })"
+                class="px-3 py-1 rounded bg-[#55005a] text-white transition
+           @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                aria-disabled="@(ViewBag.CurrentPage == 1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+
+            <a href="@Url.Action("Index", "Match", new { page = ViewBag.CurrentPage + 1 })"
+                class="px-3 py-1 rounded bg-[#55005a] text-white transition
+           @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                aria-disabled="@(ViewBag.CurrentPage == ViewBag.TotalPages)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/js/match/club_select.js" asp-append-version="true"></script>
+    <script src="/js/match/index.js" asp-append-version="true"></script>
+
+    <script>
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn =>
+        {
+            btn.addEventListener('click', () =>
+            {
+                tabBtns.forEach(b =>
+                {
+                    b.classList.remove('text-[#8a3fbf]', 'border-b-2', 'border-[#8a3fbf]');
+                    b.classList.add('text-gray-400');
+                });
+
+                tabContents.forEach(c => c.classList.add('hidden'));
+
+                btn.classList.add('text-[#8a3fbf]', 'border-b-2', 'border-[#8a3fbf]');
+                btn.classList.remove('text-gray-400');
+
+                document.getElementById(btn.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        function openLineupDrawer()
+        {
+            document.getElementById('lineupDrawer').classList.remove('-translate-x-full');
+            document.getElementById('openDrawerBtn').classList.add('hidden');
+        }
+
+        function closeLineupDrawer()
+        {
+            document.getElementById('lineupDrawer').classList.add('-translate-x-full');
+            document.getElementById('openDrawerBtn').classList.remove('hidden');
+        }
+
+        const formations = {
+            "4-3-3": [1, 4, 3, 3],
+            "4-2-3-1": [1, 4, 2, 3, 1],
+            "4-4-2": [1, 4, 4, 2],
+            "3-5-2": [1, 3, 5, 2]
+        };
+
+        let draggedPlayer = null;
+
+        function renderFormation(key)
+        {
+            const container = document.getElementById('formationSlots');
+            container.innerHTML = '';
+
+            formations[key].forEach(count =>
+            {
+                const row = document.createElement('div');
+                row.className = 'flex justify-center gap-6 mb-6';
+
+                for (let i = 0; i < count; i++)
+                {
+                    const slot = document.createElement('div');
+
+                    slot.className = `
+                                        w-14 h-14 rounded-2xl
+                                        border-2 border-dashed border-white/60
+                                        bg-[#1e0021]
+                                        flex items-center justify-center
+                                        hover:border-[#8a3fbf]
+                                        transition
+                                    `;
+
+                    slot.dataset.filled = 'false';
+                    slot.ondragover = e => e.preventDefault();
+                    slot.ondrop = e => onDropPlayer(e, slot);
+
+                    slot.innerHTML = `<span class="text-white/50 text-lg">+</span>`;
+                    row.appendChild(slot);
+                }
+
+                container.appendChild(row);
+            });
+        }
+
+        function onPlayerDrag(e)
+        {
+            const card = e.currentTarget;
+
+            draggedPlayer = {
+                id: card.dataset.playerId,
+                name: card.dataset.playerName,
+                img: card.dataset.playerImg,
+                clubTheme: card.dataset.playerClubtheme
+            };
+
+            e.dataTransfer.setData('text/plain', draggedPlayer.id);
+        }
+
+        function onDropPlayer(e, slot)
+        {
+            e.preventDefault();
+
+            if (!draggedPlayer) return;
+            if (slot.dataset.filled === 'true') return;
+
+            /* prevent duplicate players */
+            if (document.querySelector(`[data-player-slot="${draggedPlayer.id}"]`))
+            {
+                alert('Player already placed');
+                return;
+            }
+
+            slot.classList.add('relative');
+            slot.innerHTML = `
+                    <div class="w-full h-full rounded-xl flex items-center justify-center overflow-hidden"
+                         data-player-slot="${draggedPlayer.id}"
+                         style="background-color: ${draggedPlayer.clubTheme};">
+                        <img src="${draggedPlayer.img}"
+                             class="h-[3.2rem] mt-2 object-contain pointer-events-none" />
+                    </div>
+                    <button onclick="clearSlot(this)"
+                        class="absolute -top-2 -right-2 z-20
+                               w-5 h-5 bg-red-600 text-white
+                               rounded-full text-xs
+                               flex items-center justify-center
+                               hover:bg-red-700">
+                        ✕
+                    </button>
+                `;
+
+            slot.dataset.filled = 'true';
+            draggedPlayer = null;
+        }
+
+        function clearSlot(btn)
+        {
+            const slot = btn.closest('[data-filled]');
+
+            slot.innerHTML = `<span class="text-white/50 text-lg">+</span>`;
+            slot.dataset.filled = 'false';
+        }
+
+        renderFormation('4-3-3');
+
+    </script>
+}

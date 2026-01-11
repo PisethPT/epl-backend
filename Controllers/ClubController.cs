@@ -35,25 +35,25 @@ namespace epl_backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromForm] ClubDto clubDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            var validation = FileValidator.Validate(
-                clubDto.CrestFile,
-                allowedExtensions: new[] { ".png", ".jpg", ".jpeg", ".svg", ".webp" },
-                maxBytes: 2 * 1024 * 1024 // 2 MB
-            );
-
-            if (!validation.IsValid)
-            {
-                ModelState.AddModelError(nameof(clubDto.CrestFile), validation.ErrorMessage ?? "Invalid file.");
-                return RedirectToAction(nameof(Index));
-            }
-
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var validation = FileValidator.Validate(
+                    clubDto.CrestFile,
+                    allowedExtensions: new[] { ".png", ".jpg", ".jpeg", ".svg", ".webp" },
+                    maxBytes: 2 * 1024 * 1024 // 2 MB
+                );
+
+                if (!validation.IsValid)
+                {
+                    ModelState.AddModelError(nameof(clubDto.CrestFile), validation.ErrorMessage ?? "Invalid file.");
+                    return RedirectToAction(nameof(Index));
+                }
+
                 if (!string.IsNullOrWhiteSpace(clubDto.Name) && await _clubRepository.ExistsByNameAsync(clubDto.Name))
                 {
                     ModelState.AddModelError(nameof(clubDto.Name), "A club with this name already exists.");
@@ -88,58 +88,33 @@ namespace epl_backend.Controllers
             }
         }
 
-        // POST: ClubController/Delete
-        [HttpPost("get-club/{clubId}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> GetClubById([FromRoute] int clubId)
-        {
-            try
-            {
-                var clubDto = await _clubRepository.GetClubByIdAsync(clubId);
-                if (clubDto is null)
-                {
-                    ModelState.AddModelError(nameof(clubId), "A club is not found.");
-                    return RedirectToAction(nameof(Index));
-                }
-
-                return Json(clubDto);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting club {ClubName}", clubId);
-                ModelState.AddModelError(string.Empty, ex.Message);
-                viewModel.clubDtos = await _clubRepository.GetAllClubsAsync();
-                return View(nameof(Index), viewModel);
-            }
-        }
-
         // POST: ClubController/Update
         [HttpPost("update/{clubId}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update([FromForm] ClubDto clubDto, [FromRoute] int clubId)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            if (string.IsNullOrEmpty(clubDto.Crest))
-            {
-                var validation = FileValidator.Validate(
-                    clubDto.CrestFile,
-                    allowedExtensions: new[] { ".png", ".jpg", ".jpeg", ".svg" },
-                    maxBytes: 2 * 1024 * 1024 // 2 MB
-                );
-
-                if (!validation.IsValid)
-                {
-                    ModelState.AddModelError(nameof(clubDto.CrestFile), validation.ErrorMessage ?? "Invalid file.");
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                if (string.IsNullOrEmpty(clubDto.Crest))
+                {
+                    var validation = FileValidator.Validate(
+                        clubDto.CrestFile,
+                        allowedExtensions: new[] { ".png", ".jpg", ".jpeg", ".svg" },
+                        maxBytes: 2 * 1024 * 1024 // 2 MB
+                    );
+
+                    if (!validation.IsValid)
+                    {
+                        ModelState.AddModelError(nameof(clubDto.CrestFile), validation.ErrorMessage ?? "Invalid file.");
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+
                 if (!string.IsNullOrWhiteSpace(clubDto.Name) && await _clubRepository.ExistsByNameAsync(clubDto.Name, clubId))
                 {
                     ModelState.AddModelError(nameof(clubDto.Name), "A club with this name already exists.");
@@ -202,6 +177,31 @@ namespace epl_backend.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error delete club {ClubId}", clubId);
+                ModelState.AddModelError(string.Empty, ex.Message);
+                viewModel.clubDtos = await _clubRepository.GetAllClubsAsync();
+                return View(nameof(Index), viewModel);
+            }
+        }
+
+        // POST: ClubController/Delete
+        [HttpPost("get-club/{clubId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetClubById([FromRoute] int clubId)
+        {
+            try
+            {
+                var clubDto = await _clubRepository.GetClubByIdAsync(clubId);
+                if (clubDto is null)
+                {
+                    ModelState.AddModelError(nameof(clubId), "A club is not found.");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return Json(clubDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting club {ClubName}", clubId);
                 ModelState.AddModelError(string.Empty, ex.Message);
                 viewModel.clubDtos = await _clubRepository.GetAllClubsAsync();
                 return View(nameof(Index), viewModel);

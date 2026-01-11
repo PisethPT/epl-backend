@@ -8,6 +8,7 @@ public class ClubDto
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Club name is required.")]
+    [RegularExpression(@"^\S+(\s+\S+)*$", ErrorMessage = "Club name cannot be empty or only whitespace.")]
     public string? Name { get; set; }
 
     public string? Founded { get; set; }
