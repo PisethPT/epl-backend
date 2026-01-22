@@ -536,11 +536,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Term-5 Cource\\PL\\epl-backend\\epl-backend.csproj",
-      "projectName": "epl-backend",
-      "projectPath": "D:\\Term-5 Cource\\PL\\epl-backend\\epl-backend.csproj",
+      "projectUniqueName": "D:\\Term-5 Cource\\PL\\PremierLeague_Backend\\PremierLeague_Backend.csproj",
+      "projectName": "PremierLeague_Backend",
+      "projectPath": "D:\\Term-5 Cource\\PL\\PremierLeague_Backend\\PremierLeague_Backend.csproj",
       "packagesPath": "C:\\Users\\Admin168\\.nuget\\packages\\",
-      "outputPath": "D:\\Term-5 Cource\\PL\\epl-backend\\obj\\",
+      "outputPath": "D:\\Term-5 Cource\\PL\\PremierLeague_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

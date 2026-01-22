@@ -27,7 +27,7 @@ public class MatchRepository : IMatchRepository
             cmd.Parameters.AddWithValue("@MatchTime", matchDto.MatchTime.ToTimeSpan());
             cmd.Parameters.AddWithValue("@HomeClubId", matchDto.HomeClubId);
             cmd.Parameters.AddWithValue("@AwayClubId", matchDto.AwayClubId);
-            cmd.Parameters.AddWithValue("@IsHomeStadium", matchDto.IsHomeStadium);
+            cmd.Parameters.Add("@IsHomeStadium", System.Data.SqlDbType.Bit).Value = matchDto.IsHomeStadium;
             cmd.Parameters.AddWithValue("@SeasonId", matchDto.SeasonId);
             cmd.Parameters.AddWithValue("@MatchWeek", matchDto.MatchWeek);
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("epl-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+093ef73ad729818ca918484da5a5293f74ddb14d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f23b1d4aef8e74228ca8ae7e6b9d65a31144189")]
 [assembly: System.Reflection.AssemblyProductAttribute("epl-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("epl-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

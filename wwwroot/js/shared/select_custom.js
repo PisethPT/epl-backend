@@ -25,7 +25,7 @@ export const CustomSelect = (function () {
           ">": "&gt;",
           '"': "&quot;",
           "'": "&#39;",
-        }[m])
+        })[m],
     );
   }
 
@@ -115,11 +115,11 @@ export const CustomSelect = (function () {
             : "";
         const subtitle = it.subtitle
           ? `<div class="text-xs text-gray-400 truncate">${escapeHtml(
-              it.subtitle
+              it.subtitle,
             )}</div>`
           : "";
         return `<li role="option" data-idx="${idx}" data-value="${escapeHtml(
-          it.value
+          it.value,
         )}"
                  class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-[#3a003c] ${
                    selectedValue == it.value ? "bg-[#55005a]" : ""
@@ -193,7 +193,7 @@ export const CustomSelect = (function () {
       filtered = items.filter(
         (it) =>
           it.label.toLowerCase().includes(Q) ||
-          (it.subtitle || "").toLowerCase().includes(Q)
+          (it.subtitle || "").toLowerCase().includes(Q),
       );
       renderList(ul, filtered, cfg, selected ? selected.value : null);
     }

@@ -1,0 +1,381 @@
+﻿@using System.Collections
+@using epl_backend.Models.DTOs
+@using epl_backend.Models.ViewModels
+@model LineupViewModel
+@{
+    ViewData["Title"] = "Lineup";
+    int index = 0;
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+        id="errorAlertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
+        id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
+        </div>
+    </div>
+}
+
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
+
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4 bg-black/60">
+    <div id="modalBox"
+        class="bg-[#1e0021] rounded-2xl shadow-xl p-6 w-full max-w-5xl transition-all duration-300 scale-90 opacity-0"
+        onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl font-semibold text-white">Create Match</h2>
+            <button onclick="closeModal()"
+                class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="flex border-b border-[#55005a] mb-4">
+            <button type="button" class="tab-btn px-4 py-2 font-medium text-[#8a3fbf] border-b-2 border-[#8a3fbf]"
+                data-tab="tab-match">
+                Match
+            </button>
+
+            <button type="button" class="tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
+                data-tab="tab-home-club-lineup">
+                Home Club Lineup
+            </button>
+
+            <button type="button" class="tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
+                data-tab="tab-away-club-lineup">
+                Away Club Lineup
+            </button>
+        </div>
+
+        <div>
+            <!-- TAB 1 : MATCH -->
+            <div id="tab-match" class="tab-content">
+                <form id="lineupForm" asp-controller="Match" asp-action="Create" method="post" asp-antiforgery="true"
+                    class="h-auto p-2" enctype="multipart/form-data" novalidate>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="matchId" asp-for="LineupDto.MatchId" />
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                        <label class="flex flex-col gap-2">
+                            <span class="flex items-center gap-1">
+                                <span class="text-white font-medium">Season</span>
+                                <span class="text-red-400">*</span>
+                            </span>
+                            <select id="matchSelectId" class="js-match-select" asp-for="LineupDto.MatchId"
+                                data-placeholder="Select Match">
+
+                                @foreach (var lineup in Model.SelectListItemMatchForLineups)
+                                {
+                                    <option value="@lineup.MatchId" data-sub="@lineup.MatchSubContent"
+                                        data-home-img="/upload/clubs/@lineup.HomeClubCrest"
+                                        data-away-img="/upload/clubs/@lineup.AwayClubCrest"
+                                        data-home-theme="@lineup.HomeTheme" data-away-theme="@lineup.AwayTheme">
+                                        @lineup.MatchContent
+                                    </option>
+                                }
+                            </select>
+
+                            <span asp-validation-for="LineupDto.MatchId" class="text-red-400 text-sm"></span>
+                        </label>
+                    </div>
+                    <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                        <div class="text-sm text-gray-200/80">Fields with
+                            <span class="text-red-400">*</span> are required.
+                        </div>
+                        <div class="flex gap-3"> <button type="reset" id="resetBtn"
+                                class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                            <button type="submit"
+                                class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB 2 : HOME CLUB MATCH LINEUP -->
+            <div id="tab-home-club-lineup" class="tab-content hidden relative h-[520px] overflow-hidden">
+                <div class="flex h-full">
+                    <div class="w-96 bg-[#55005a] border-r border-[#55005a] rounded-l-2xl">
+                        <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
+                            <div id="homeClubPlayerId" class="grid grid-cols-2 gap-2">
+                                @foreach (var player in Model.SelectListItemHomeClubPlayer)
+                                {
+                                    <div data-player-id="@player.PlayerId" data-player-firstname="@player.FirstName"
+                                        data-player-lastname="@player.LastName" data-player-position="@player.Position"
+                                        data-player-positionid="@player.PositionId"
+                                        data-player-playernumber="@player.PlayerNumber"
+                                        data-player-img="/upload/players/@player.Photo"
+                                        data-player-clubtheme="@player.ClubTheme"
+                                        class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
+
+                                        <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
+                                            style="background-color: @player.ClubTheme">
+                                            <img src="/upload/players/@player.Photo" class="h-[4rem] mt-5 object-contain"
+                                                draggable="true" ondragstart="onPlayerDrag(event, 'home')" />
+                                        </div>
+
+                                        <div>
+                                            <p class="text-sm text-white font-medium">@player.FirstName</p>
+                                            <p class="text-xs text-white font-medium">@player.LastName</p>
+                                            <p class="text-xs text-gray-300 mt-2">@player.Position • #@player.PlayerNumber
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAIN PITCH -->
+                    <div class="flex-1 relative bg-[#1e0021]">
+                        <div class="absolute inset-4 border-2 border-[#55005a] rounded-2xl"></div>
+                        <div class="absolute top-1/2 left-4 right-4 border-t-2 border-[#55005a]"></div>
+                        <div
+                            class="absolute top-1/2 left-1/2 w-28 h-28 border-2 border-[#55005a] rounded-full -translate-x-1/2 -translate-y-1/2">
+                        </div>
+                        <div
+                            class="absolute top-1/2 left-1/2 w-2 h-2 bg-[#55005a] rounded-full -translate-x-1/2 -translate-y-1/2">
+                        </div>
+                        <div class="absolute top-4 left-1/2 w-2/3 h-24 border-2 border-[#55005a] -translate-x-1/2">
+                        </div>
+                        <div class="absolute bottom-4 left-1/2 w-2/3 h-24 border-2 border-[#55005a] -translate-x-1/2">
+                        </div>
+
+                        <div class="relative z-10 h-full flex flex-col justify-between pt-10 pb-6">
+                            <!-- FORMATION SLOTS -->
+                            <div id="homeClubFormationSlots" class="flex flex-col justify-between h-full">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORMATION CONTROL -->
+                    <div class="w-96 flex flex-col gap-6 bg-[#1e0021]">
+                        <div class="text-gray-400 text-md font-medium">• Manager: <span
+                                class="text-lg font-medium text-[#8a3fbf] whitespace-nowrap"> Mikel Arteta</span>
+                        </div>
+
+                        <div class="flex flex-col gap-2 mt-2 h-full">
+                            <div class="flex !justify-between items-center">
+                                <span class="text-gray-400 text-md font-medium whitespace-nowrap">• Substitution</span>
+
+                                <div class="flex gap-2 items-center pe-1">
+                                    <span class="text-gray-400 text-md font-medium whitespace-nowrap">• Formation</span>
+                                    <select id="homeClubFormation"
+                                        class="!w-full bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+                                        onchange="renderFormation('home', this.value)">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="w-full h-full bg-[#55005a] border-[#55005a] rounded-r-2xl">
+                                <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        @foreach (var player in Enumerable.Range(0, 9))
+                                        {
+                                            <div data-player-id="0" data-player-name="" data-player-img="/upload/players"
+                                                data-player-clubtheme=""
+                                                class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
+
+                                                <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
+                                                    style="background-color: #55005a">
+                                                    <img src="/upload/players/placeholder.png"
+                                                        class="h-[4rem] mt-5 object-contain" draggable="true"
+                                                        ondragstart="onPlayerDrag(event)" />
+                                                </div>
+
+                                                <div>
+                                                    <p class="text-sm text-white font-medium">Unknow</p>
+                                                    <p class="text-xs text-white font-medium">Unknow</p>
+                                                    <p class="text-xs text-gray-300 mt-2">FW • #10
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3 : AWAY CLUB MATCH LINEUP -->
+            <div id="tab-away-club-lineup" class="tab-content hidden relative h-[520px] overflow-hidden">
+                <div class="flex h-full">
+                    <div class="w-96 bg-[#55005a] border-r border-[#55005a] rounded-l-2xl">
+                        <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
+                            <div id="awayClubPlayerId" class="grid grid-cols-2 gap-2">
+                                @foreach (var player in Model.SelectListItemAwayClubPlayer)
+                                {
+                                    <div data-player-id="@player.PlayerId" data-player-firstname="@player.FirstName"
+                                        data-player-lastname="@player.LastName" 
+                                        data-player-position="@player.Position"
+                                        data-player-positionid="@player.PositionId"
+                                        data-player-playernumber="@player.PlayerNumber"
+                                        data-player-img="/upload/players/@player.Photo"
+                                        data-player-clubtheme="@player.ClubTheme"
+                                        class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
+
+                                        <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
+                                            style="background-color: @player.ClubTheme">
+                                            <img src="/upload/players/@player.Photo" class="h-[4rem] mt-5 object-contain"
+                                                draggable="true" ondragstart="onPlayerDrag(event, 'away')" />
+                                        </div>
+
+                                        <div>
+                                            <p class="text-sm text-white font-medium">@player.FirstName</p>
+                                            <p class="text-xs text-white font-medium">@player.LastName</p>
+                                            <p class="text-xs text-gray-300 mt-2">@player.Position • #@player.PlayerNumber
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAIN PITCH -->
+                    <div class="flex-1 relative bg-[#1e0021]">
+                        <div class="absolute inset-4 border-2 border-[#55005a] rounded-2xl"></div>
+                        <div class="absolute top-1/2 left-4 right-4 border-t-2 border-[#55005a]"></div>
+                        <div
+                            class="absolute top-1/2 left-1/2 w-28 h-28 border-2 border-[#55005a] rounded-full -translate-x-1/2 -translate-y-1/2">
+                        </div>
+                        <div
+                            class="absolute top-1/2 left-1/2 w-2 h-2 bg-[#55005a] rounded-full -translate-x-1/2 -translate-y-1/2">
+                        </div>
+                        <div class="absolute top-4 left-1/2 w-2/3 h-24 border-2 border-[#55005a] -translate-x-1/2">
+                        </div>
+                        <div class="absolute bottom-4 left-1/2 w-2/3 h-24 border-2 border-[#55005a] -translate-x-1/2">
+                        </div>
+                        <div class="relative z-10 h-full flex flex-col justify-between pt-10 pb-6">
+                            <div id="awayClubFormationSlots" class="flex flex-col justify-between h-full">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- FORMATION CONTROL -->
+                    <div class="w-96 flex flex-col gap-6 bg-[#1e0021]">
+                        <div class="text-gray-400 text-md font-medium">• Manager: <span
+                                class="text-lg font-medium text-[#8a3fbf] whitespace-nowrap"> Andoni Iraola</span>
+                        </div>
+
+                        <div class="flex flex-col gap-2 mt-2 h-full">
+                            <div class="flex !justify-between items-center pe-1">
+                                <span class="text-gray-400 text-md font-medium whitespace-nowrap">• Substitution</span>
+
+                                <div class="flex gap-2 items-center">
+                                    <span class="text-gray-400 text-md font-medium whitespace-nowrap">• Formation</span>
+                                    <select id="awayClubFormation"
+                                        class="!w-full bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+                                        onchange="renderFormation('away', this.value)">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="w-full h-full bg-[#55005a] border-[#55005a] rounded-r-2xl">
+                                <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        @foreach (var player in Enumerable.Range(0, 5))
+                                        {
+                                            <div data-player-id="0" data-player-name="" data-player-img="/upload/players"
+                                                data-player-clubtheme=""
+                                                class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
+
+                                                <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
+                                                    style="background-color: #55005a">
+                                                    <img src="/upload/players/placeholder.png"
+                                                        class="h-[4rem] mt-5 object-contain" draggable="true"
+                                                        ondragstart="onPlayerDrag(event, 'away')" />
+                                                </div>
+
+                                                <div>
+                                                    <p class="text-sm text-white font-medium">Unknow</p>
+                                                    <p class="text-xs text-white font-medium">Unknow</p>
+                                                    <p class="text-xs text-gray-300 mt-2">FW • #10
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
+        <div class="flex items-center justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "Match")"
+                class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
+                to
+                Home</a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
+                id="btnAddNewLineup">Add New</button>
+        </div>
+
+        <div class="overflow-x-scroll scrollbar-none">
+            <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
+                <thead class="bg-[#55005a]">
+                    <tr>
+                        <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID
+                        </th>
+                        <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
+                        </th>
+                        <th
+                            class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Home Club</th>
+                        <th
+                            class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Score</th>
+                        <th
+                            class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Match
+                        </th>
+                        <th
+                            class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Score</th>
+                        <th
+                            class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Away Club</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-transparent divide-y divide-[#55005a]">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+        <script src="/js/lineup/index.js" asp-append-version="true"></script>
+        <script src="/js/lineup/formation.js" asp-append-version="true"></script>
+}

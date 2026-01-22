@@ -10,4 +10,6 @@ public interface ISelectListItems
     Task<List<SelectListItemReferee>> SelectListItemRefereeAsync(CancellationToken ct = default);
     Task<List<SelectListItemRefereeRole>> SelectListItemRefereeRoleAsync(CancellationToken ct = default);
     Task<List<SelectListItemRefereeBadgeLevel>> SelectListItemRefereeBadgeLevelAsync(CancellationToken ct = default);
+    Task<List<SelectListItemMatchForLineup>> SelectListItemMatchForLineupAsync(CancellationToken ct = default);
+    Task<List<SelectListItemFormation>> SelectListItemFormationAsync(CancellationToken ct = default);
 }

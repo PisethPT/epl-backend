@@ -13,8 +13,6 @@ public class MatchViewModel
     public List<SelectListItemSeason> SelectListItemSeasons { get; set; }
     public List<SelectListItemPlayerLineupByClubId> SelectListItemPlayer { get; set; }
     public List<SelectListItemReferee> SelectListItemReferees { get; set; }
-    public List<SelectListItemRefereeRole> SelectListItemRefereeRoles { get; set; }
-    public List<SelectListItemRefereeBadgeLevel> SelectListItemRefereeBadgeLevels { get; set; }
     public MatchWeekDto MatchWeekDto { get; set; }
     public MatchViewModel()
     {
@@ -26,9 +24,6 @@ public class MatchViewModel
         this.SelectListItemSeasons = new();
         this.SelectListItemPlayer = new();
         this.SelectListItemReferees = new();
-        this.SelectListItemRefereeRoles = new();
-        this.SelectListItemRefereeBadgeLevels = new();
-
         this.MatchWeekDto = new();
     }
 }

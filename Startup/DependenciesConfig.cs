@@ -18,6 +18,7 @@ public static class DependenciesConfig
         builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
         builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
         builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+        builder.Services.AddScoped<ILineupRepository, LineupRepository>();
 
         // select list item
         builder.Services.AddScoped<ISelectListItems, SelectListItems>();

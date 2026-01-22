@@ -43,8 +43,6 @@ namespace epl_backend.Controllers
                 viewModel.SelectListItemPlayer = await selectList.SelectListItemPlayerLineupByClubIdAsync(1, 1);
 
                 viewModel.SelectListItemReferees = await selectList.SelectListItemRefereeAsync();
-                viewModel.SelectListItemRefereeRoles = await selectList.SelectListItemRefereeRoleAsync();
-                viewModel.SelectListItemRefereeBadgeLevels = await selectList.SelectListItemRefereeBadgeLevelAsync();
 
                 int totalCount = viewModel.matchDetailDtos.Count(); //await repository.CountMatchesAsync(positionJson, clubIdJson);
                 int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
@@ -73,11 +71,18 @@ namespace epl_backend.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var errors = string.Join(" | ", ModelState.Values
-                        .SelectMany(v => v.Errors)
-                        .Select(e => e.ErrorMessage));
+                    var errors = ModelState
+                        .Where(ms => ms.Value!.Errors.Count > 0)
+                        .ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value!.Errors.Select(e => e.ErrorMessage).ToArray()
+                        );
 
-                    throw new Exception($"Form validation failed: {errors}");
+                    return BadRequest(new
+                    {
+                        Message = "Validation failed",
+                        Errors = errors
+                    });
                 }
 
                 var matchSeasonDto = await repository.GetMatchWeekAsync();
@@ -138,7 +143,6 @@ namespace epl_backend.Controllers
                 return View(nameof(Index), viewModel);
             }
         }
-
 
     }
 }

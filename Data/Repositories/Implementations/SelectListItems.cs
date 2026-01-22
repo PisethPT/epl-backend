@@ -1,4 +1,3 @@
-using System.Data;
 using System.Data.SqlClient;
 using epl_backend.Data.Repositories.Interfaces;
 using epl_backend.Models.SelectListItems;
@@ -22,7 +21,7 @@ public class SelectListItems : ISelectListItems
             var cmd = new SqlCommand();
             cmd.CommandText = SelectListItemClubCommands;
             using var rdr = await execute.ExecuteReaderAsync(cmd);
-            var selectListItemClub = new List<SelectListItemClub>();
+            var SelectListItem = new List<SelectListItemClub>();
             if (rdr is not null)
             {
                 do
@@ -34,11 +33,77 @@ public class SelectListItems : ISelectListItems
                         ClubCrest = rdr.IsDBNull(rdr.GetOrdinal("ClubCrest")) ? "" : rdr.GetString(rdr.GetOrdinal("ClubCrest")),
                         ClubTheme = rdr.IsDBNull(rdr.GetOrdinal("ClubTheme")) ? "" : rdr.GetString(rdr.GetOrdinal("ClubTheme"))
                     };
-                    selectListItemClub.Add(item);
+                    SelectListItem.Add(item);
 
                 } while (await rdr.ReadAsync(ct));
             }
-            return selectListItemClub;
+            return SelectListItem;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<List<SelectListItemFormation>> SelectListItemFormationAsync(CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = SelectListItemFormationCommands;
+            using var rdr = await execute.ExecuteReaderAsync(cmd);
+            var SelectListItem = new List<SelectListItemFormation>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    var item = new SelectListItemFormation
+                    (
+                        rdr.GetInt32(rdr.GetOrdinal("FormationId")),
+                        rdr.IsDBNull(rdr.GetOrdinal("PrimaryFormation")) ? "" : rdr.GetString(rdr.GetOrdinal("PrimaryFormation")),
+                        rdr.IsDBNull(rdr.GetOrdinal("Tag")) ? "" : rdr.GetString(rdr.GetOrdinal("Tag"))
+                    );
+                    SelectListItem.Add(item);
+
+                } while (await rdr.ReadAsync(ct));
+            }
+            return SelectListItem;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<List<SelectListItemMatchForLineup>> SelectListItemMatchForLineupAsync(CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = SelectListItemMatchForLineupCommands;
+            using var rdr = await execute.ExecuteReaderAsync(cmd);
+            var SelectListItem = new List<SelectListItemMatchForLineup>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    var item = new SelectListItemMatchForLineup
+                    (
+                        rdr.GetInt32(rdr.GetOrdinal("MatchId")),
+                        rdr.GetInt32(rdr.GetOrdinal("HomeClubId")),
+                        rdr.GetInt32(rdr.GetOrdinal("AwayClubId")),
+                        rdr.IsDBNull(rdr.GetOrdinal("HomeClubCrest")) ? "" : rdr.GetString(rdr.GetOrdinal("HomeClubCrest")),
+                        rdr.IsDBNull(rdr.GetOrdinal("AwayClubCrest")) ? "" : rdr.GetString(rdr.GetOrdinal("AwayClubCrest")),
+                        rdr.IsDBNull(rdr.GetOrdinal("HomeClubTheme")) ? "" : rdr.GetString(rdr.GetOrdinal("HomeClubTheme")),
+                        rdr.IsDBNull(rdr.GetOrdinal("AwayClubTheme")) ? "" : rdr.GetString(rdr.GetOrdinal("AwayClubTheme")),
+                        rdr.IsDBNull(rdr.GetOrdinal("MatchContent")) ? "" : rdr.GetString(rdr.GetOrdinal("MatchContent")),
+                        rdr.IsDBNull(rdr.GetOrdinal("MatchSubContent")) ? "" : rdr.GetString(rdr.GetOrdinal("MatchSubContent"))
+                    );
+                    SelectListItem.Add(item);
+
+                } while (await rdr.ReadAsync(ct));
+            }
+            return SelectListItem;
         }
         catch (SqlException ex)
         {
@@ -52,8 +117,10 @@ public class SelectListItems : ISelectListItems
         {
             var cmd = new SqlCommand();
             cmd.CommandText = SelectListItemPlayerLineupByClubIdCommands;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
+            cmd.Parameters.AddWithValue("@ClubId", clubId);
             using var rdr = await execute.ExecuteReaderAsync(cmd);
-            var SelectListItemPlayer = new List<SelectListItemPlayerLineupByClubId>();
+            var SelectListItem = new List<SelectListItemPlayerLineupByClubId>();
             if (rdr is not null)
             {
                 do
@@ -72,11 +139,11 @@ public class SelectListItems : ISelectListItems
                         rdr.GetInt32(rdr.GetOrdinal("PositionId")),
                         rdr.IsDBNull(rdr.GetOrdinal("Position")) ? "" : rdr.GetString(rdr.GetOrdinal("Position"))
                     );
-                    SelectListItemPlayer.Add(item);
+                    SelectListItem.Add(item);
 
                 } while (await rdr.ReadAsync(ct));
             }
-            return SelectListItemPlayer;
+            return SelectListItem;
         }
         catch (SqlException ex)
         {
@@ -91,7 +158,7 @@ public class SelectListItems : ISelectListItems
             var cmd = new SqlCommand();
             cmd.CommandText = SelectListItemRefereeCommands;
             using var rdr = await execute.ExecuteReaderAsync(cmd);
-            var selectListItem = new List<SelectListItemReferee>();
+            var SelectListItem = new List<SelectListItemReferee>();
             if (rdr is not null)
             {
                 do
@@ -103,11 +170,11 @@ public class SelectListItems : ISelectListItems
                         rdr.IsDBNull(rdr.GetOrdinal("DefaultRole")) ? "" : rdr.GetString(rdr.GetOrdinal("DefaultRole")),
                         rdr.IsDBNull(rdr.GetOrdinal("Nationality")) ? "" : rdr.GetString(rdr.GetOrdinal("Nationality"))
                     );
-                    selectListItem.Add(item);
+                    SelectListItem.Add(item);
 
                 } while (await rdr.ReadAsync(ct));
             }
-            return selectListItem;
+            return SelectListItem;
         }
         catch (SqlException ex)
         {
@@ -122,7 +189,7 @@ public class SelectListItems : ISelectListItems
             var cmd = new SqlCommand();
             cmd.CommandText = SelectListItemRefereeBadgeLevelCommands;
             using var rdr = await execute.ExecuteReaderAsync(cmd);
-            var selectListItem = new List<SelectListItemRefereeBadgeLevel>();
+            var SelectListItem = new List<SelectListItemRefereeBadgeLevel>();
             if (rdr is not null)
             {
                 do
@@ -132,11 +199,11 @@ public class SelectListItems : ISelectListItems
                         rdr.GetInt32(rdr.GetOrdinal("RefereeBadgeId")),
                         rdr.IsDBNull(rdr.GetOrdinal("BadgeName")) ? "" : rdr.GetString(rdr.GetOrdinal("BadgeName"))
                     );
-                    selectListItem.Add(item);
+                    SelectListItem.Add(item);
 
                 } while (await rdr.ReadAsync(ct));
             }
-            return selectListItem;
+            return SelectListItem;
         }
         catch (SqlException ex)
         {
@@ -180,7 +247,7 @@ public class SelectListItems : ISelectListItems
             var cmd = new SqlCommand();
             cmd.CommandText = SelectListItemSeasonCommands;
             using var rdr = await execute.ExecuteReaderAsync(cmd);
-            var selectListItemSeason = new List<SelectListItemSeason>();
+            var SelectListItem = new List<SelectListItemSeason>();
             if (rdr is not null)
             {
                 do
@@ -190,14 +257,15 @@ public class SelectListItems : ISelectListItems
                         rdr.IsDBNull(rdr.GetOrdinal("SeasonName")) ? "" : rdr.GetString(rdr.GetOrdinal("SeasonName")),
                         rdr.IsDBNull(rdr.GetOrdinal("DataSub")) ? "" : rdr.GetString(rdr.GetOrdinal("DataSub"))
                     );
-                    selectListItemSeason.Add(item);
+                    SelectListItem.Add(item);
                 } while (await rdr.ReadAsync(ct));
             }
-            return selectListItemSeason;
+            return SelectListItem;
         }
         catch (SqlException ex)
         {
             throw new Exception(ex.Message);
         }
     }
+
 }

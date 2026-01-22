@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PremierLeague_Backend.props" />
+</Project>

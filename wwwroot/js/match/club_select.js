@@ -28,45 +28,13 @@
     placeholder: "Referee",
   });
 
-  window.refereeRoleInst = CustomSelect.init(
-    document.getElementById("refereeRoleId"),
-    {
-      showImage: false,
-      placeholder: "Referee Role",
-    }
-  );
-
-  window.refereeBadgeLevelInst = CustomSelect.init(
-    document.getElementById("refereeBadgeLevelId"),
-    {
-      showImage: false,
-      placeholder: "Referee Badge Level",
-    }
-  );
-
   // assist referee 1
   window.assistReferee1Inst = CustomSelect.init(
     document.getElementById("assistReferee1Id"),
     {
       showImage: false,
       placeholder: "Referee",
-    }
-  );
-
-  window.assistReferee1RoleInst = CustomSelect.init(
-    document.getElementById("assistReferee1RoleId"),
-    {
-      showImage: false,
-      placeholder: "Referee Role",
-    }
-  );
-
-  window.assistReferee1BadgeLevelInst = CustomSelect.init(
-    document.getElementById("assistReferee1BadgeLevelId"),
-    {
-      showImage: false,
-      placeholder: "Referee Badge Level",
-    }
+    },
   );
 
   // assist referee 2
@@ -75,23 +43,7 @@
     {
       showImage: false,
       placeholder: "Referee",
-    }
-  );
-
-  window.assistReferee2RoleInst = CustomSelect.init(
-    document.getElementById("assistReferee2RoleId"),
-    {
-      showImage: false,
-      placeholder: "Referee Role",
-    }
-  );
-
-  window.assistReferee2BadgeLevelInst = CustomSelect.init(
-    document.getElementById("assistReferee2BadgeLevelId"),
-    {
-      showImage: false,
-      placeholder: "Referee Badge Level",
-    }
+    },
   );
 
   // fourth official
@@ -100,23 +52,7 @@
     {
       showImage: false,
       placeholder: "Referee",
-    }
-  );
-
-  window.refereeFourthOfficialRoleInst = CustomSelect.init(
-    document.getElementById("refereeFourthOfficialRoleId"),
-    {
-      showImage: false,
-      placeholder: "Referee Role",
-    }
-  );
-
-  window.refereeFourthOfficialBadgeLevelInst = CustomSelect.init(
-    document.getElementById("refereeFourthOfficialBadgeLevelId"),
-    {
-      showImage: false,
-      placeholder: "Referee Badge Level",
-    }
+    },
   );
 
   // VAR
@@ -125,30 +61,6 @@
     {
       showImage: false,
       placeholder: "Referee",
-    }
-  );
-
-  window.refereeVARRoleInst = CustomSelect.init(
-    document.getElementById("refereeVARRoleId"),
-    {
-      showImage: false,
-      placeholder: "Referee Role",
-    }
-  );
-
-  window.refereeVARBadgeLevelInst = CustomSelect.init(
-    document.getElementById("refereeVARBadgeLevelId"),
-    {
-      showImage: false,
-      placeholder: "Referee Badge Level",
-    }
-  );
-
-  window.formationSelectInst = CustomSelect.init(
-    document.getElementById("formationSelect"),
-    {
-      showImage: false,
-      placeholder: "Formation",
-    }
+    },
   );
 })();

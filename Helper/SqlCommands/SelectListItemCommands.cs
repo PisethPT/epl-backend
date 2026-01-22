@@ -8,4 +8,6 @@ public static class SelectListItemCommands
     public static string SelectListItemRefereeCommands => "PL_SelectListItemReferee";
     public static string SelectListItemRefereeRoleCommands => "PL_SelectListItemRefereeRole";
     public static string SelectListItemRefereeBadgeLevelCommands => "PL_SelectListItemRefereeBadgeLevel";
+    public static string SelectListItemMatchForLineupCommands => "PL_SelectListItemMatchForLineup";
+    public static string SelectListItemFormationCommands => "PL_SelectListItemFormation";
 }
