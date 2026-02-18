@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Goal\" />
     <Folder Include="Views\Lineup\" />
+    <Folder Include="Views\PlayerStat\" />
     <Folder Include="wwwroot\json\" />
     <Folder Include="wwwroot\js\lineup\" />
     <Folder Include="wwwroot\js\match\" />

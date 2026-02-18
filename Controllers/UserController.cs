@@ -1,14 +1,14 @@
 using System.Security.Claims;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Helper;
-using epl_backend.Models.DTOs;
-using epl_backend.Models.ViewModels;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Helper;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace epl_backend.Controllers
+namespace PremierLeague_Backend.Controllers
 {
     [Route("auth")]
     public class UserController : Controller

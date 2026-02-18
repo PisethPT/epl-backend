@@ -1,6 +1,6 @@
 ﻿@using System.Collections
-@using epl_backend.Models.DTOs
-@using epl_backend.Models.ViewModels
+@using PremierLeague_Backend.Models.DTOs
+@using PremierLeague_Backend.Models.ViewModels
 @model LineupViewModel
 @{
     ViewData["Title"] = "Lineup";
@@ -34,6 +34,7 @@
     </div>
 }
 
+
 <div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
 
 <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4 bg-black/60">
@@ -42,7 +43,7 @@
         onclick="event.stopPropagation()">
 
         <div class="flex justify-between items-center mb-3">
-            <h2 class="text-xl font-semibold text-white">Create Match</h2>
+            <h2 class="text-xl font-semibold text-white">Create Lineup</h2>
             <button onclick="closeModal()"
                 class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
                 <i class="fa-solid fa-xmark"></i>
@@ -76,10 +77,10 @@
                     <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
                         <label class="flex flex-col gap-2">
                             <span class="flex items-center gap-1">
-                                <span class="text-white font-medium">Season</span>
+                                <span class="text-white font-medium">Match</span>
                                 <span class="text-red-400">*</span>
                             </span>
-                            <select id="matchSelectId" class="js-match-select" asp-for="LineupDto.MatchId"
+                            <select id="matchSelectId" class="js-custom-select" asp-for="LineupDto.MatchId"
                                 data-placeholder="Select Match">
 
                                 @foreach (var lineup in Model.SelectListItemMatchForLineups)
@@ -115,30 +116,6 @@
                     <div class="w-96 bg-[#55005a] border-r border-[#55005a] rounded-l-2xl">
                         <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
                             <div id="homeClubPlayerId" class="grid grid-cols-2 gap-2">
-                                @foreach (var player in Model.SelectListItemHomeClubPlayer)
-                                {
-                                    <div data-player-id="@player.PlayerId" data-player-firstname="@player.FirstName"
-                                        data-player-lastname="@player.LastName" data-player-position="@player.Position"
-                                        data-player-positionid="@player.PositionId"
-                                        data-player-playernumber="@player.PlayerNumber"
-                                        data-player-img="/upload/players/@player.Photo"
-                                        data-player-clubtheme="@player.ClubTheme"
-                                        class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
-
-                                        <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
-                                            style="background-color: @player.ClubTheme">
-                                            <img src="/upload/players/@player.Photo" class="h-[4rem] mt-5 object-contain"
-                                                draggable="true" ondragstart="onPlayerDrag(event, 'home')" />
-                                        </div>
-
-                                        <div>
-                                            <p class="text-sm text-white font-medium">@player.FirstName</p>
-                                            <p class="text-xs text-white font-medium">@player.LastName</p>
-                                            <p class="text-xs text-gray-300 mt-2">@player.Position • #@player.PlayerNumber
-                                            </p>
-                                        </div>
-                                    </div>
-                                }
                             </div>
                         </div>
                     </div>
@@ -222,31 +199,6 @@
                     <div class="w-96 bg-[#55005a] border-r border-[#55005a] rounded-l-2xl">
                         <div class="overflow-y-auto scrollbar-none h-full p-2 space-y-2">
                             <div id="awayClubPlayerId" class="grid grid-cols-2 gap-2">
-                                @foreach (var player in Model.SelectListItemAwayClubPlayer)
-                                {
-                                    <div data-player-id="@player.PlayerId" data-player-firstname="@player.FirstName"
-                                        data-player-lastname="@player.LastName" 
-                                        data-player-position="@player.Position"
-                                        data-player-positionid="@player.PositionId"
-                                        data-player-playernumber="@player.PlayerNumber"
-                                        data-player-img="/upload/players/@player.Photo"
-                                        data-player-clubtheme="@player.ClubTheme"
-                                        class="flex items-center gap-3 bg-[#1e0021] p-2 rounded-2xl cursor-grab hover:ring-2 hover:ring-[#8a3fbf]">
-
-                                        <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
-                                            style="background-color: @player.ClubTheme">
-                                            <img src="/upload/players/@player.Photo" class="h-[4rem] mt-5 object-contain"
-                                                draggable="true" ondragstart="onPlayerDrag(event, 'away')" />
-                                        </div>
-
-                                        <div>
-                                            <p class="text-sm text-white font-medium">@player.FirstName</p>
-                                            <p class="text-xs text-white font-medium">@player.LastName</p>
-                                            <p class="text-xs text-gray-300 mt-2">@player.Position • #@player.PlayerNumber
-                                            </p>
-                                        </div>
-                                    </div>
-                                }
                             </div>
                         </div>
                     </div>
@@ -326,7 +278,6 @@
     </div>
 </div>
 
-
 <div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
     <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
         <div class="flex items-center justify-between lg:justify-start gap-4">
@@ -373,9 +324,10 @@
         </div>
 
     </div>
+</div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-        <script src="/js/lineup/index.js" asp-append-version="true"></script>
-        <script src="/js/lineup/formation.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/js/lineup/index.js" asp-append-version="true"></script>
+    <script src="/js/lineup/formation.js" asp-append-version="true"></script>
 }

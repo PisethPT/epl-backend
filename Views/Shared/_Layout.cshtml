@@ -8,363 +8,378 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PL - @title </title>
+    <title>Premier League - @title </title>
     <link rel="icon" href="~/icon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
 
-    @RenderSection("Styles", required: false)
-</head>
+        @RenderSection("Styles", required: false)
+    </head>
 
-<body class="min-h-screen bg-[#1e0021] text-slate-800 antialiased">
-    <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-30 lg:hidden" aria-hidden="true"></div>
+    <body class="min-h-screen bg-[#1e0021] text-slate-800 antialiased">
+        <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-30 lg:hidden" aria-hidden="true"></div>
 
-    <aside id="sidebar"
-        class="fixed left-0 top-0 h-screen w-64 bg-[#1e0021] text-slate-100 shadow-xl transform -translate-x-full lg:translate-x-0 transition-transform z-40"
-        role="navigation" aria-label="Main sidebar">
-        <div class="h-16 flex items-center px-4 border-b border-[#410544]">
-            <a asp-controller="Home" asp-action="Index" class="flex items-center gap-3">
-                <img src="~/icon.png" alt="logo" class="w-fit h-8 ">
-                <span class="text-lg font-semibold" id="adminPanel">Premier League</span>
-            </a>
-        </div>
-
-        <nav class="px-2 py-4" aria-label="Sidebar menu">
-            <ul class="space-y-1">
-                <li>
-                    <a asp-controller="Home" asp-action="Dashboard"
-                        class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
-                        id="menu-dashboard" role="link">
-                        <i class="fas fa-tachometer-alt menu-icon w-4 text-center"></i>
-                        <span class="menu-label truncate ml-2">Dashboard</span>
+        <aside id="sidebar"
+               class="fixed left-0 top-0 h-screen w-64 bg-[#1e0021] text-slate-100 shadow-xl transform -translate-x-full lg:translate-x-0 transition-transform z-40"
+               role="navigation" aria-label="Main sidebar">
+            <div class="h-16 flex items-center px-4 border-b border-[#410544]">
+                <a asp-controller="Home" asp-action="Index" class="flex items-center gap-3">
+                    <img src="~/icon.png" alt="logo" class="w-fit h-8 ">
+                        <span class="text-lg font-semibold" id="adminPanel">Premier League</span>
                     </a>
-                </li>
-
-                <li>
-                    <a asp-controller="Player" asp-action="Index"
-                        class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
-                        id="menu-players" role="link">
-                        <i class="fas fa-users menu-icon w-4 text-center"></i>
-                        <span class="menu-label truncate ml-2">Players</span>
-                    </a>
-                </li>
-
-                <li class="relative has-submenu">
-                    <button type="button"
-                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
-                        aria-expanded="false">
-                        <span class="flex items-center gap-3">
-                            <i class="fa-solid fa-cube menu-icon w-4 text-center"></i>
-                            <span class="menu-label truncate ml-2">Clubs</span>
-                        </span>
-                        <i class="fas fa-chevron-right text-sm"></i>
-                    </button>
-
-                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
-                        aria-hidden="true">
-                        <li>
-                            <a href="/clubs/all-club"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
-                                id="menu-all-club">
-                                <i class="fa-solid fa-shapes menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">All Clubs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Goal" asp-action="Index"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-futbol menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Goals</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Assist" asp-action="Index"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-handshake-angle menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Assists</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="relative has-submenu">
-                    <button type="button"
-                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
-                        aria-expanded="false">
-                        <span class="flex items-center gap-3">
-                            <i class="fa-solid fa-square-poll-horizontal menu-icon w-4 text-center"></i>
-                            <span class="menu-label truncate ml-2">Stats</span>
-                        </span>
-                        <i class="fas fa-chevron-right text-sm"></i>
-                    </button>
-
-                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
-                        aria-hidden="true">
-                        <li>
-                            <a asp-controller="Stats" asp-action="ClubStat"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-folder menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Club Stat</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Stats" asp-action="PlayerStat"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Player Stat</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="relative has-submenu">
-                    <button type="button"
-                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
-                        aria-expanded="false">
-                        <span class="flex items-center gap-3">
-                            <i class="fa-solid fa-newspaper menu-icon w-4 text-center"></i>
-                            <span class="menu-label truncate ml-2">News</span>
-                        </span>
-                        <i class="fas fa-chevron-right text-sm"></i>
-                    </button>
-
-                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
-                        aria-hidden="true">
-                        <li>
-                            <a asp-controller="News" asp-action="ClubNews"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-folder menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Club News</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="News" asp-action="PlayerNews"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Goals</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="News" asp-action="MatchNews"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Match News</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="relative has-submenu">
-                    <button type="button"
-                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
-                        aria-expanded="false">
-                        <span class="flex items-center gap-3">
-                            <i class="fa-solid fa-clapperboard menu-icon w-4 text-center"></i>
-                            <span class="menu-label truncate ml-2">Videos</span>
-                        </span>
-                        <i class="fas fa-chevron-right text-sm"></i>
-                    </button>
-
-                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
-                        aria-hidden="true">
-                        <li>
-                            <a asp-controller="Video" asp-action="ClubVideos"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-folder menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Club Videos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Video" asp-action="PlayerVideos"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Player Videos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Video" asp-action="SeriesVideo"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Series Video</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="relative has-submenu">
-                    <button type="button"
-                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
-                        aria-expanded="false">
-                        <span class="flex items-center gap-3">
-                            <i class="fa-solid fa-calendar-days menu-icon w-4 text-center"></i>
-                            <span class="menu-label truncate ml-2">Matches</span>
-                        </span>
-                        <i class="fas fa-chevron-right text-sm"></i>
-                    </button>
-
-                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
-                        aria-hidden="true">
-                        <li>
-                            <a asp-controller="Match" asp-action="Index"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-calendar-check menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Match</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Match" asp-action="Recap"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-file-lines menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Recap</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Match" asp-action="Highlights"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-highlighter menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Highlights</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Lineup" asp-action="Index"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-arrows-down-to-people menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Lineup</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Match" asp-action="MatchInfo"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-circle-info menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Match Info</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a asp-controller="Table" asp-action="Index"
-                        class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
-                        id="menu-table" role="link">
-                        <i class="fa-solid fa-table-list menu-icon w-4 text-center"></i>
-                        <span class="menu-label truncate ml-2">Table</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a asp-controller="Season" asp-action="Index"
-                        class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                        <i class="fa-solid fa-cloud-sun menu-icon w-4 text-center"></i>
-                        <span class="menu-label truncate ml-2">Seasons</span>
-                    </a>
-                </li>
-
-                <li class="relative has-submenu">
-                    <button type="button"
-                        class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
-                        aria-expanded="false">
-                        <span class="flex items-center gap-3">
-                            <i class="fas fa-cog menu-icon w-4 text-center"></i>
-                            <span class="menu-label truncate ml-2">Settings</span>
-                        </span>
-                        <i class="fas fa-chevron-right text-sm"></i>
-                    </button>
-
-                    <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
-                        aria-hidden="true">
-                        <li>
-                            <a href="/auth/all-user"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-users-gear menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Users</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="User" asp-action="Permissions"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-user-shield menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Permissions</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="User" asp-action="ResetPassword"
-                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
-                                <i class="fa-solid fa-key menu-icon w-4 text-center"></i>
-                                <span class="menu-label truncate ml-2">Reset Password</span>
-                            </a>
-                        </li>
-                        <li>
-                            <form method="post" action="/auth/logout">
-                                @Html.AntiForgeryToken()
-                                <button type="submit"
-                                    class="menu-item flex items-center gap-3 px-3 py-2 rounded-md w-full hover:bg-[#410544] transition">
-                                    <i class="fa-solid fa-right-from-bracket menu-icon w-4 text-center"></i>
-                                    <span class="menu-label truncate ml-2">Logout</span>
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </aside>
-
-    <div id="page" class="min-h-screen transition-margin lg:ml-64 bg-[#1e0021]">
-        <header class="bg-[#1e0021] sticky top-0 shadow-xl z-20">
-            <div class="bg-[#1e0021] px-4">
-                <div class="flex items-center justify-between h-16">
-                    <div class="flex items-center gap-2">
-                        <button id="sidebarToggle" class="px-2.5 py-1 rounded-full bg-[#37003c] outline-none"
-                            aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
-                            <i class="fas fa-bars text-lg text-white"></i>
-                        </button>
-                        <h1 class="text-lg font-semibold text-white">@title</h1>
-                    </div>
-
-                    <div class="flex items-center gap-4">
-                        <div class="relative">
-                            <button class="px-2 py-1 rounded-md hover:bg-[#410544]" id="notifBtn"
-                                aria-label="Notifications" type="button">
-                                <i class="fas fa-bell text-white"></i>
-                                <span
-                                    class="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-semibold leading-none text-white bg-[#37003c] rounded-full">3</span>
-                            </button>
-                        </div>
-
-                        <div class="relative">
-                            <button class="flex items-center gap-2 px-2 py-1 rounded-md" id="userBtn" type="button"
-                                aria-haspopup="true">
-                                <img src="https://ui-avatars.com/api/?name=PL+Admin&background=37003c&color=fff"
-                                    alt="PL Admin" class="w-8 h-8 rounded-full" />
-                                <span class="hidden sm:inline text-white">Premier League</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
+
+                <nav class="px-2 py-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden h-full"
+                     aria-label="Sidebar menu">
+                    <ul class="space-y-1">
+                        <li>
+                            <a asp-controller="Home" asp-action="Dashboard"
+                                   class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
+                                   id="menu-dashboard" role="link">
+                                <i class="fas fa-tachometer-alt menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Player" asp-action="Index"
+                                   class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
+                                   id="menu-players" role="link">
+                                <i class="fas fa-users menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Players</span>
+                            </a>
+                        </li>
+
+                        <li class="relative has-submenu">
+                            <button type="button"
+                                    class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                                    aria-expanded="false">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-cube menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">Clubs</span>
+                                </span>
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+
+                            <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                                aria-hidden="true">
+                                <li>
+                                    <a href="/clubs/all-club"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
+                                           id="menu-all-club">
+                                        <i class="fa-solid fa-shapes menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">All Clubs</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Goal" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-futbol menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Goals</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Assist" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-handshake-angle menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Assists</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="relative has-submenu">
+                            <button type="button"
+                                    class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                                    aria-expanded="false">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-square-poll-horizontal menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">Stats</span>
+                                </span>
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+
+                            <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                                aria-hidden="true">
+                                <li>
+                                    <a asp-controller="PlayerStat" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Player Stat</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="ClubStat" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-folder menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Club Stat</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="relative has-submenu">
+                            <button type="button"
+                                    class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                                    aria-expanded="false">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-newspaper menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">News</span>
+                                </span>
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+
+                            <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                                aria-hidden="true">
+                                <li>
+                                    <a asp-controller="News" asp-action="ClubNews"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-folder menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Club News</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="News" asp-action="PlayerNews"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Goals</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="News" asp-action="MatchNews"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Match News</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="relative has-submenu">
+                            <button type="button"
+                                    class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                                    aria-expanded="false">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-clapperboard menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">Videos</span>
+                                </span>
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+
+                            <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                                aria-hidden="true">
+                                <li>
+                                    <a asp-controller="Video" asp-action="ClubVideos"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-folder menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Club Videos</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Video" asp-action="PlayerVideos"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-balance-scale menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Player Videos</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Video" asp-action="SeriesVideo"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fas fa-warehouse menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Series Video</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="relative has-submenu">
+                            <button type="button"
+                                    class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                                    aria-expanded="false">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-calendar-days menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">Matches</span>
+                                </span>
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+
+                            <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                                aria-hidden="true">
+                                <li>
+                                    <a asp-controller="Match" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-calendar-check menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Match</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Goal" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-futbol menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Goals</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Assist" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-handshake-angle menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Assists</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Card" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-clipboard menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Cards</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Match" asp-action="Recap"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-file-lines menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Recap</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Match" asp-action="Highlights"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-highlighter menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Highlights</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Lineup" asp-action="Index"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-arrows-down-to-people menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Lineup</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Match" asp-action="MatchInfo"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-circle-info menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Match Info</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Table" asp-action="Index"
+                                   class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition"
+                                   id="menu-table" role="link">
+                                <i class="fa-solid fa-table-list menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Table</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Season" asp-action="Index"
+                                   class="menu-item group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                <i class="fa-solid fa-cloud-sun menu-icon w-4 text-center"></i>
+                                <span class="menu-label truncate ml-2">Seasons</span>
+                            </a>
+                        </li>
+
+                        <li class="relative has-submenu">
+                            <button type="button"
+                                    class="w-full menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition justify-between submenu-toggle"
+                                    aria-expanded="false">
+                                <span class="flex items-center gap-3">
+                                    <i class="fas fa-cog menu-icon w-4 text-center"></i>
+                                    <span class="menu-label truncate ml-2">Settings</span>
+                                </span>
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </button>
+
+                            <ul class="submenu mt-1 ml-3 space-y-1 max-h-0 overflow-hidden transition-[max-height] duration-300"
+                                aria-hidden="true">
+                                <li>
+                                    <a href="/auth/all-user"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-users-gear menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Users</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="User" asp-action="Permissions"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-user-shield menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Permissions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="User" asp-action="ResetPassword"
+                                           class="menu-item flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#410544] transition">
+                                        <i class="fa-solid fa-key menu-icon w-4 text-center"></i>
+                                        <span class="menu-label truncate ml-2">Reset Password</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <form method="post" action="/auth/logout">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit"
+                                                class="menu-item flex items-center gap-3 px-3 py-2 rounded-md w-full hover:bg-[#410544] transition">
+                                            <i class="fa-solid fa-right-from-bracket menu-icon w-4 text-center"></i>
+                                            <span class="menu-label truncate ml-2">Logout</span>
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div id="page" class="min-h-screen transition-margin lg:ml-64 bg-[#1e0021]">
+                <header class="bg-[#1e0021] sticky top-0 shadow-xl z-20">
+                    <div class="bg-[#1e0021] px-4">
+                        <div class="flex items-center justify-between h-16">
+                            <div class="flex items-center gap-2">
+                                <button id="sidebarToggle" class="px-2.5 py-1 rounded-full bg-[#37003c] outline-none"
+                                        aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+                                    <i class="fas fa-bars text-lg text-white"></i>
+                                </button>
+                                <h1 class="text-lg font-semibold text-white">@title</h1>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <div class="relative">
+                                    <button class="px-2 py-1 rounded-md hover:bg-[#410544]" id="notifBtn"
+                                            aria-label="Notifications" type="button">
+                                        <i class="fas fa-bell text-white"></i>
+                                        <span
+                                        class="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-semibold leading-none text-white bg-[#37003c] rounded-full">3</span>
+                                    </button>
+                                </div>
+
+                                <div class="relative">
+                                    <button class="flex items-center gap-2 px-2 py-1 rounded-md" id="userBtn" type="button"
+                                            aria-haspopup="true">
+                                        <img src="https://ui-avatars.com/api/?name=PL+Admin&background=37003c&color=fff"
+                                             alt="PL Admin" class="w-8 h-8 rounded-full" />
+                                        <span class="hidden sm:inline text-white">Premier League</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main id="mainContent" class="p-4">
+                    @RenderBody()
+                </main>
             </div>
-        </header>
 
-        <main id="mainContent" class="p-4">
-            @RenderBody()
-        </main>
+            <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="~/js/_layout.js" asp-append-version="true"></script>
+            <script src="~/js/modal.js" asp-append-version="true"></script>
+            <script src="~/js/color_picker.js" asp-append-version="true"></script>
+            <script src="~/js/upload_file.js" asp-append-version="true"></script>
+            @RenderSection("Scripts", required: false)
+        </body>
 
-        @* <footer class="border-t border-[#1e0021] mb-auto fixed bottom-0 w-full bg-[#1e0021] shadow-lg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-white">
-                &copy; @DateTime.Now.Year - epl - <a asp-controller="Home" asp-action="Privacy"
-                    class="underline">Privacy</a>
-            </div>
-        </footer> *@
-    </div>
-
-    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/_layout.js" asp-append-version="true"></script>
-    <script src="~/js/modal.js" asp-append-version="true"></script>
-    <script src="~/js/color_picker.js" asp-append-version="true"></script>
-    <script src="~/js/upload_file.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
-</body>
-
-</html>
+    </html>

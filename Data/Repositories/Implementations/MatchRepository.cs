@@ -1,12 +1,11 @@
-using System;
 using System.Data.SqlClient;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Helper.SqlCommands;
-using epl_backend.Models.DTOs;
-using epl_backend.Services.Interfaces;
-using static epl_backend.Helper.SqlCommands.MatchCommands;
+using System.Text.Json;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Services.Interfaces;
+using static PremierLeague_Backend.Helper.SqlCommands.MatchCommands;
 
-namespace epl_backend.Data.Repositories.Implementations;
+namespace PremierLeague_Backend.Data.Repositories.Implementations;
 
 public class MatchRepository : IMatchRepository
 {
@@ -30,6 +29,7 @@ public class MatchRepository : IMatchRepository
             cmd.Parameters.Add("@IsHomeStadium", System.Data.SqlDbType.Bit).Value = matchDto.IsHomeStadium;
             cmd.Parameters.AddWithValue("@SeasonId", matchDto.SeasonId);
             cmd.Parameters.AddWithValue("@MatchWeek", matchDto.MatchWeek);
+            cmd.Parameters.AddWithValue("@MatchReferees", JsonSerializer.Serialize(matchDto.MatchReferees));
 
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
@@ -51,11 +51,14 @@ public class MatchRepository : IMatchRepository
         }
     }
 
-    public Task<bool> DeleteMatchAsync(int matchId)
+    public async Task<bool> DeleteMatchAsync(int matchId)
     {
         try
         {
-            return null!;
+            var cmd = new SqlCommand();
+            cmd.CommandText = DeleteMatchCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
         catch (SqlException ex)
         {
@@ -80,12 +83,13 @@ public class MatchRepository : IMatchRepository
         }
     }
 
-    public async Task<bool> FindMatchAlreadyExistsOnTheSelectedDate(DateOnly matchDate, int homeClubId, int awayClubId)
+    public async Task<bool> FindMatchAlreadyExistsOnTheSelectedDate(int? matchId, DateOnly matchDate, int homeClubId, int awayClubId)
     {
         try
         {
             var cmd = new SqlCommand();
             cmd.CommandText = FindMatchAlreadyExistsOnTheSelectedDateCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
             cmd.Parameters.AddWithValue("@MatchDate", matchDate.ToDateTime(TimeOnly.MinValue));
             cmd.Parameters.AddWithValue("@HomeClubId", homeClubId);
             cmd.Parameters.AddWithValue("@AwayClubId", awayClubId);
@@ -98,10 +102,28 @@ public class MatchRepository : IMatchRepository
         }
     }
 
-    public Task<MatchDto> FindMatchByIdAsync(int matchId)
+    public async Task<MatchDto> FindMatchByIdAsync(int matchId)
     {
         try
         {
+            var cmd = new SqlCommand();
+            cmd.CommandText = FindMatchByIdCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
+            var rdr = await execute.ExecuteReaderAsync(cmd);
+            if (rdr is not null)
+            {
+                return new MatchDto
+                {
+                    MatchId = rdr.GetInt32(rdr.GetOrdinal("MatchId")),
+                    MatchDate = DateOnly.FromDateTime(rdr.GetDateTime(rdr.GetOrdinal("MatchDate"))),
+                    MatchTime = TimeOnly.FromTimeSpan(rdr.GetTimeSpan(rdr.GetOrdinal("MatchTime"))),
+                    HomeClubId = rdr.GetInt32(rdr.GetOrdinal("HomeClubId")),
+                    AwayClubId = rdr.GetInt32(rdr.GetOrdinal("AwayClubId")),
+                    IsHomeStadium = rdr.GetBoolean(rdr.GetOrdinal("IsHomeStadium")),
+                    SeasonId = rdr.GetInt32(rdr.GetOrdinal("SeasonId")),
+                    MatchWeek = rdr.GetInt32(rdr.GetOrdinal("MatchWeek"))
+                };
+            }
             return null!;
         }
         catch (SqlException ex)
@@ -144,7 +166,40 @@ public class MatchRepository : IMatchRepository
         }
     }
 
-    public async Task<List<MatchDetailDto>> GetAllMatchAsync(int? seasonId, int week, int? page = 1, string? seasonJson = null, string? matchWeekJson = null, string? clubIdJson = null, CancellationToken ct = default)
+    public async Task<List<MatchRefereeDto>> FindMatchRefereeByMatchIdAsync(int matchId, CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = FindMatchRefereeByMatchIdCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
+            var rdr = await execute.ExecuteReaderAsync(cmd);
+            var matchReferees = new List<MatchRefereeDto>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    var matchReferee = new MatchRefereeDto
+                    {
+                        MatchRefereeId = rdr.IsDBNull(rdr.GetOrdinal("MatchRefereeId")) ? 0 : rdr.GetInt32(rdr.GetOrdinal("MatchRefereeId")),
+                        MatchId = rdr.IsDBNull(rdr.GetOrdinal("MatchId")) ? 0 : rdr.GetInt32(rdr.GetOrdinal("MatchId")),
+                        RefereeId = rdr.IsDBNull(rdr.GetOrdinal("RefereeId")) ? 0 : rdr.GetInt32(rdr.GetOrdinal("RefereeId")),
+                        RoleId = rdr.IsDBNull(rdr.GetOrdinal("RoleId")) ? 0 : rdr.GetInt32(rdr.GetOrdinal("RoleId"))
+                    };
+                    matchReferees.Add(matchReferee);
+
+                } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
+
+            }
+            return matchReferees;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<List<MatchDetailDto>> GetAllMatchAsync(int? seasonId, int week, int? page = 1, int? competitionId = 1, string? clubIdJson = null, CancellationToken ct = default)
     {
         try
         {
@@ -153,6 +208,8 @@ public class MatchRepository : IMatchRepository
             cmd.Parameters.AddWithValue("@Page", page);
             cmd.Parameters.AddWithValue("@SeasonId", seasonId);
             cmd.Parameters.AddWithValue("@Week", week);
+            cmd.Parameters.AddWithValue("@CompetitionId", competitionId);
+            cmd.Parameters.AddWithValue("@ClubIdJson", clubIdJson ?? (object)DBNull.Value);
             var rdr = await execute.ExecuteReaderAsync(cmd);
             var matches = new List<MatchDetailDto>();
             if (rdr is not null)
@@ -185,6 +242,76 @@ public class MatchRepository : IMatchRepository
                 } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
             }
             return matches;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<(int matchWeek, int seasonId)> GetCurrentMatchWeekAndSeasonIdAsync(CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = GetCurrentMatchWeekAndSeasonIdCommand;
+            var rdr = await execute.ExecuteReaderAsync(cmd);
+            if (rdr is not null)
+            {
+                return (rdr.GetInt32(rdr.GetOrdinal("MatchWeek")), rdr.GetInt32(rdr.GetOrdinal("SeasonId")));
+            }
+            return (1, 4); // Default match week and season id
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<MatchInfoMatchDetailsDto?> GetMatchInfoMatchDetailsByMatchIdAsync(int matchId, CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = GetMatchDetailCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
+            var rdr = await execute.ExecuteReaderAsync(cmd);
+            if (rdr is not null)
+            {
+                return new MatchInfoMatchDetailsDto(
+                    Kickoff: rdr.IsDBNull(rdr.GetOrdinal("Kickoff")) ? null : rdr.GetString(rdr.GetOrdinal("Kickoff")),
+                    Stadium: rdr.IsDBNull(rdr.GetOrdinal("Stadium")) ? null : rdr.GetString(rdr.GetOrdinal("Stadium")),
+                    Attendance: rdr.IsDBNull(rdr.GetOrdinal("Attendance")) ? null : rdr.GetString(rdr.GetOrdinal("Attendance"))
+                );
+            }
+            return null;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<List<MatchInfoMatchOfficialsDto>> GetMatchInfoMatchOfficialsByMatchIdAsync(int matchId, CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = PL_GetMatchOfficialCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchId);
+            var rdr = await execute.ExecuteReaderAsync(cmd);
+            var matchOfficials = new List<MatchInfoMatchOfficialsDto>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    matchOfficials.Add(new MatchInfoMatchOfficialsDto(
+                        RefereeRole: rdr.IsDBNull(rdr.GetOrdinal("RefereeRole")) ? string.Empty : rdr.GetString(rdr.GetOrdinal("RefereeRole")),
+                        RefereeName: rdr.IsDBNull(rdr.GetOrdinal("RefereeName")) ? string.Empty : rdr.GetString(rdr.GetOrdinal("RefereeName"))
+                    ));
+                } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
+            }
+            return matchOfficials;
         }
         catch (SqlException ex)
         {
@@ -249,11 +376,23 @@ public class MatchRepository : IMatchRepository
         }
     }
 
-    public Task<bool> UpdateMatchAsync(MatchDto matchDto)
+    public async Task<bool> UpdateMatchAsync(MatchDto matchDto)
     {
         try
         {
-            return null!;
+            var cmd = new SqlCommand();
+            cmd.CommandText = UpdateMatchCommand;
+            cmd.Parameters.AddWithValue("@MatchId", matchDto.MatchId);
+            cmd.Parameters.AddWithValue("@MatchDate", matchDto.MatchDate.ToDateTime(TimeOnly.MinValue));
+            cmd.Parameters.AddWithValue("@MatchTime", matchDto.MatchTime.ToTimeSpan());
+            cmd.Parameters.AddWithValue("@HomeClubId", matchDto.HomeClubId);
+            cmd.Parameters.AddWithValue("@AwayClubId", matchDto.AwayClubId);
+            cmd.Parameters.Add("@IsHomeStadium", System.Data.SqlDbType.Bit).Value = matchDto.IsHomeStadium;
+            cmd.Parameters.AddWithValue("@SeasonId", matchDto.SeasonId);
+            cmd.Parameters.AddWithValue("@MatchWeek", matchDto.MatchWeek);
+            cmd.Parameters.AddWithValue("@MatchReferees", JsonSerializer.Serialize(matchDto.MatchReferees));
+
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
         catch (SqlException ex)
         {

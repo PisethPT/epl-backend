@@ -1,5 +1,7 @@
 is_global = true
 build_property.TargetFramework = net9.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v9.0
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
@@ -24,6 +26,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2x1YlxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Term-5 Cource/PL/PremierLeague_Backend/Views/Goal/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Term-5 Cource/PL/PremierLeague_Backend/Views/Home/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Term-5 Cource/PL/PremierLeague_Backend/Views/Match/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0Y2hcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Term-5 Cource/PL/PremierLeague_Backend/Views/PlayerStat/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyU3RhdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Term-5 Cource/PL/PremierLeague_Backend/Views/Player/Index.cshtml]

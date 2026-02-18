@@ -1,6 +1,4 @@
-using System;
-
-namespace epl_backend.Models.Entities;
+namespace PremierLeague_Backend.Models.Entities;
 
 public class Club
 {

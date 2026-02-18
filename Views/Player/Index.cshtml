@@ -1,5 +1,5 @@
-﻿@using epl_backend.Models.Enums
-@using epl_backend.Models.ViewModels
+﻿@using PremierLeague_Backend.Models.Enums
+@using PremierLeague_Backend.Models.ViewModels
 @model PlayerViewModel
 @{
     ViewData["Title"] = "Player";
@@ -15,7 +15,7 @@
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
-        id="errorAlertPanel">
+         id="errorAlertPanel">
         <ul>
             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {
@@ -31,7 +31,7 @@
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
-        id="infoAlertPanel">
+         id="infoAlertPanel">
         <span>@TempData["SuccessMessage"]</span>
         <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
             <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
@@ -43,18 +43,18 @@
 <div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
 <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
     <div id="modalBox" class="bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
-        onclick="event.stopPropagation()">
+         onclick="event.stopPropagation()">
 
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-semibold text-white" id="modalTitle">Create New User</h2>
             <button onclick="closeModal()"
-                class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                    class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
                 <i class="fa-solid fa-xmark text-white"></i>
             </button>
         </div>
 
         <form id="playerForm" asp-controller="Player" asp-action="Create" method="post" asp-antiforgery="true"
-            class="h-auto p-2" enctype="multipart/form-data" novalidate>
+              class="h-auto p-2" enctype="multipart/form-data" novalidate>
             @Html.AntiForgeryToken()
             <input type="hidden" id="playerId" asp-for="PlayerDto.PlayerId" />
             <input type="hidden" id="photo" asp-for="PlayerDto.Photo" />
@@ -65,7 +65,7 @@
                         <span class="text-red-400">*</span>
                     </span>
                     <input id="firstName" asp-for="PlayerDto.FirstName" type="text"
-                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                           class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                     <span asp-validation-for="PlayerDto.FirstName" class="text-red-400 text-sm"></span>
                 </label>
 
@@ -75,7 +75,7 @@
                         <span class="text-red-400">*</span>
                     </span>
                     <input id="lastName" asp-for="PlayerDto.LastName" type="text"
-                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                           class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                     <span asp-validation-for="PlayerDto.LastName" class="text-red-400 text-sm"></span>
                 </label>
 
@@ -85,7 +85,7 @@
                     </span>
 
                     <input id="dateOfBirth" asp-for="PlayerDto.DateOfBirth" type="date"
-                        class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                           class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                     <span asp-validation-for="PlayerDto.DateOfBirth" class="text-red-400 text-sm"></span>
                 </label>
 
@@ -94,7 +94,7 @@
                         <span class="text-white font-medium">Place Of Birth</span>
                     </span>
                     <select id="placeOfBirth" asp-for="PlayerDto.PlaceOfBirth" class="js-custom-select"
-                        data-show-image="true" data-placeholder="Select player's place of birth">
+                            data-show-image="true" data-placeholder="Select player's place of birth">
                         <option value="">Select Player's Place of Birth</option>
                     </select>
                     <span asp-validation-for="PlayerDto.PlaceOfBirth" class="text-red-400 text-sm"></span>
@@ -105,7 +105,7 @@
                         <span class="text-white font-medium">Nationality</span>
                     </span>
                     <select id="nationality" asp-for="PlayerDto.Nationality" class="js-custom-select"
-                        data-show-image="true" data-placeholder="Select player's nationality">
+                            data-show-image="true" data-placeholder="Select player's nationality">
                         <option value="">Select Player's Nationality</option>
                     </select>
                     <span asp-validation-for="PlayerDto.Nationality" class="text-red-400 text-sm"></span>
@@ -116,8 +116,8 @@
                         <span class="text-white font-medium">Preferred Foot</span>
                     </span>
                     <select id="preferredFoot" class="js-custom-select" id="preferredFoot"
-                        asp-for="PlayerDto.PreferredFoot" asp-items="@Html.GetEnumSelectList<PreferredFoot>()"
-                        data-placeholder="Select player's preferred foot">
+                            asp-for="PlayerDto.PreferredFoot" asp-items="@Html.GetEnumSelectList<PreferredFoot>()"
+                            data-placeholder="Select player's preferred foot">
                         <option value="">Select Player's Preferred Foot</option>
                     </select>
                     <span asp-validation-for="PlayerDto.PreferredFoot" class="text-red-400 text-sm"></span>
@@ -128,7 +128,7 @@
                         <span class="text-white font-medium">Height</span>
                     </span>
                     <input id="height" asp-for="PlayerDto.Height" type="text"
-                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                           class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                     <span asp-validation-for="PlayerDto.Height" class="text-red-400 text-sm"></span>
                 </label>
 
@@ -137,7 +137,7 @@
                         <span class="text-white font-medium">Position</span>
                     </span>
                     <select id="position" class="js-custom-select" asp-for="PlayerDto.Position"
-                        data-placeholder="Select player's position" asp-items="@Html.GetEnumSelectList<Position>()">
+                            data-placeholder="Select player's position" asp-items="@Html.GetEnumSelectList<Position>()">
                         <option value="">Select Player's Position</option>
                     </select>
                     <span asp-validation-for="PlayerDto.Position" class="text-red-400 text-sm"></span>
@@ -148,7 +148,7 @@
                         <span class="text-white font-medium">Player Number</span>
                     </span>
                     <input id="playerNumber" asp-for="PlayerDto.PlayerNumber" type="number" min="1" max="99" step="1"
-                        class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                           class="bg-[#55005a] text-white placeholder:text-gray-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                     <span asp-validation-for="PlayerDto.PlayerNumber" class="text-red-400 text-sm"></span>
                 </label>
 
@@ -157,8 +157,8 @@
                         <span class="text-white font-medium">Joined Club</span>
                     </span>
                     <select id="joinedClub" class="js-custom-select" asp-for="PlayerDto.JoinedClub"
-                        name="PlayerDto.JoinedClub" asp-items="Model.JoinedClubSelectListItem"
-                        data-placeholder="Select player's joined club" required>
+                            name="PlayerDto.JoinedClub" asp-items="Model.JoinedClubSelectListItem"
+                            data-placeholder="Select player's joined club">
                         <option value="">Select Player's Joined Club</option>
                     </select>
                     <span asp-validation-for="PlayerDto.JoinedClub" class="text-red-400 text-sm"></span>
@@ -169,12 +169,12 @@
                         <span class="text-white font-medium">Player's Club</span>
                     </span>
                     <select id="playerClub" class="js-custom-select" asp-for="PlayerDto.ClubId" data-show-image="true"
-                        data-placeholder="Select player's club">
+                            data-placeholder="Select player's club">
                         <option value="">Select Player's Club</option>
                         @foreach (var club in Model.SelectListItemClubs)
                         {
                             <option value="@club.ClubId" data-img="/upload/clubs/@club.ClubCrest"
-                                data-sub="@club.ClubTheme">
+                                    data-sub="@club.ClubTheme">
                                 @club.ClubName
                             </option>
                         }
@@ -189,609 +189,732 @@
                     </span>
 
                     <div id="dropZone" class="relative flex flex-col items-center justify-center gap-3 border-2 border-dashed border-white/20 rounded-lg p-4 bg-white/3 cursor-pointer
-                            hover:border-white/40 transition">
-                        <input id="fileInput" asp-for="PlayerDto.PhotoFile" type="file" accept="image/*"
-                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            aria-label="Upload user photo">
-                        <span asp-validation-for="PlayerDto.PhotoFile"></span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M7 16V7a1 1 0 011-1h3m6 11v-5a1 1 0 00-1-1h-3M7 16l3-3 2 2 4-4 3 3" />
-                        </svg>
-                        <div class="text-center">
-                            <div class="text-gray-500 font-medium">Drag & drop file or click to browse</div>
-                            <div class="text-xs text-gray-200/70">PNG, JPG, SVG, WEBP — max 2 MB</div>
-                        </div>
-
-                        <div id="previewArea" class="hidden mt-3 w-full flex items-center justify-between gap-3">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="flex justify-center items-center h-20 w-20 pt-2 rounded-md bg-white/5 border border-white/10 overflow-hidden">
-                                    <img id="filePreview" src="" alt="file preview" class="h-auto w-14 object-contain">
-                                </div>
-                                <div class="flex flex-col">
-                                    <div id="fileName" class="text-white text-sm font-medium">filename.png</div>
-                                    <div id="fileSize" class="text-white text-xs text-gray-200/70">120 KB</div>
-                                </div>
+                        hover:border-white/40 transition">
+                        <input id="fileInput" asp-for="PlayerDto.PhotoFile" type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                               aria-label="Upload user photo">
+                            <span asp-validation-for="PlayerDto.PhotoFile"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white/80" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                      d="M7 16V7a1 1 0 011-1h3m6 11v-5a1 1 0 00-1-1h-3M7 16l3-3 2 2 4-4 3 3" />
+                            </svg>
+                            <div class="text-center">
+                                <div class="text-gray-500 font-medium">Drag & drop file or click to browse</div>
+                                <div class="text-xs text-gray-200/70">PNG, JPG, SVG, WEBP — max 2 MB</div>
                             </div>
 
-                            <div class="flex items-center gap-2">
-                                <button type="button" id="removePhoto"
-                                    class="px-3 py-1 text-white bg-[#55005a] rounded text-sm hover:bg-[#3a0531] z-10">Remove</button>
+                            <div id="previewArea" class="hidden mt-3 w-full flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex justify-center items-center h-20 w-20 pt-2 rounded-md bg-white/5 border border-white/10 overflow-hidden">
+                                        <img id="filePreview" src="" alt="file preview" class="h-auto w-14 object-contain">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div id="fileName" class="text-white text-sm font-medium">filename.png</div>
+                                        <div id="fileSize" class="text-white text-xs text-gray-200/70">120 KB</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <button type="button" id="removePhoto"
+                                            class="px-3 py-1 text-white bg-[#55005a] rounded text-sm hover:bg-[#3a0531] z-10">Remove</button>
+                                </div>
                             </div>
                         </div>
+                        <p id="fileError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
                     </div>
-                    <p id="fileError" class="text-xs text-rose-300 hidden">File is too large or invalid format.</p>
                 </div>
-            </div>
 
-            <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
-                <div class="text-sm text-gray-200/80">Fields with <span class="text-red-400">*</span> are required.
-                </div>
-                <div class="flex gap-3">
-                    <button type="reset" id="resetBtn"
-                        class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
-                    <button type="submit"
-                        class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div id="confirmDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
-    <div class="modalBox !bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
-        onclick="event.stopPropagation()">
-
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold text-white">Delete Player</h2>
-        </div>
-
-        <div class="p-4 rounded-lg bg-[#55005a]/60 border border-[#8a3fbf]/40">
-            <div class="flex items-start gap-3">
-                <div class="text-red-300 text-xl">⚠️</div>
-                <div>
-                    <p class="text-white text-base font-medium">
-                        Are you sure you want to delete this player?
-                    </p>
-                    <p class="text-red-300 text-sm mt-1">
-                        This action is permanent and cannot be undone.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div id="clubTheme" class="flex items-center gap-4 mt-4 rounded-2xl px-4 w-full h-[150px] overflow-hidden">
-            <div class="flex h-full float-end">
-                <img id="photo" src="" class="w-auto h-50 mt-4 object-contain cursor-pointer mb-0" alt="player" />
-            </div>
-            <div class="flex flex-col justify-end mb-3 gap-1 h-full">
-                <div id="firstName" class="text-white text-md lg:text-2xl"></div>
-                <div id="lastName" class="text-white text-xl lg:text-4xl"></div>
-                <div class="flex gap-4 mt-2">
-                    <div class="flex gap-1">
-                        <img id="clubCrest" src="" class="w-auto h-5 object-contain cursor-pointer" alt="club" />
-                        <div id="clubName" class="text-white text-xs lg:text-sm"></div>
+                <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                    <div class="text-sm text-gray-200/80">Fields with <span class="text-red-400">*</span> are required.</div>
+                    <div class="flex gap-3">
+                        <button type="reset" id="resetBtn"
+                                class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                        <button type="submit"
+                                class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
                     </div>
-                    <div class="flex gap-1">
-                        <div id="playerNumber" class="text-white text-xs lg:text-sm font-bold"></div>
-                        <span id="period" class="text-white text-xs lg:text-sm font-bold">•</span>
-                        <div id="position" class="text-white text-xs lg:text-sm"></div>
-                    </div>
-
                 </div>
-            </div>
-        </div>
-
-        <form id="confirmDeleteForm" asp-controller="Player" asp-action="Delete" method="post" asp-antiforgery="true"
-            class="h-auto p-2 mt-6" enctype="multipart/form-data" novalidate>
-            @Html.AntiForgeryToken()
-            <input type="hidden" id="playerId" name="playerId" asp-for="PlayerDto.PlayerId" />
-            <div class="flex flex-col md:flex-row justify-end gap-3">
-                <button type="button" onclick="hideModal('confirmDeleteModal')"
-                    class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">
-                    Cancel
-                </button>
-
-                <button type="submit"
-                    class="text-white px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition hover:ring-2 hover:!ring-[#8a3fbf]">
-                    Confirm Delete
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Backdrop -->
-<div id="drawerBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
-
-<!-- Filters Drawer -->
-<div id="filterDrawer"
-    class="fixed top-0 right-0 h-full w-full md:w-[25rem] !bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50">
-    <div class="flex flex-col items-end p-6 gap-4">
-        <button id="closeFilterDrawer" class="w-5 text-gray-500 hover:text-red-500 text-md">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <div class="flex justify-between w-full">
-            <h2 class="text-white text-2xl font-bold">Filters</h2>
-            <form asp-controller="Player" asp-action="Index" method="get">
-                <button id="btnResetFilter" type="submit"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-2xl bg-[#290d2c] text-nowrap  cursor-pointer">
-                    Reset
-                    <i class="fa-solid fa-arrow-rotate-left"></i>
-                </button>
             </form>
         </div>
     </div>
 
-    <div class="p-6">
-        <div class="flex flex-col gap-4">
-            <div class="flex flex-col gap-3">
-                <div class="flex justify-between">
-                    <span class="text-white text-lg ">Competitions</span>
-                    <i class="fa-solid fa-chevron-right text-white text-lg cursor-pointer"></i>
-                </div>
-                <div
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
-                    Premier League
-                </div>
-                <div class="border-[#37003c] border-b-2 mt-4"></div>
+    <div id="confirmDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+        <div class="modalBox !bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+             onclick="event.stopPropagation()">
+
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-white">Delete Player</h2>
             </div>
 
-            <div class="flex flex-col gap-3 mt-2">
-                <div id="showSessionDrawer" class="flex justify-between cursor-pointer">
-                    <span class="text-white text-lg ">Sessions</span>
-                    <i class="fa-solid fa-chevron-right text-white text-lg"></i>
-                </div>
-                <div
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
-                    2025/26
-                </div>
-                <div class="border-[#37003c] border-b-2 mt-4"></div>
-            </div>
-
-            <div class="flex flex-col gap-3 mt-2">
-                <div id="showClubDrawer" class="flex justify-between cursor-pointer">
-                    <span class="text-white text-lg ">Clubs</span>
-                    <i class="fa-solid fa-chevron-right text-white text-lg"></i>
-                </div>
-                <div class="border-[#37003c] border-b-2 mt-4"></div>
-            </div>
-
-            <div class="flex flex-col gap-3 mt-2">
-                <div id="showPositionDrawer" class="flex justify-between cursor-pointer">
-                    <span class="text-white text-lg ">Positions</span>
-                    <i class="fa-solid fa-chevron-right text-white text-lg"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Sessions Drawer -->
-<div id="sessionDrawer"
-    class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
-    <div class="p-6">
-        <div class="flex justify-between">
-            <button id="backSessionDrawer" class="w-5 text-gray-500 hover:text-red-500">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-            <button id="closeSessionDrawer" class="w-5 text-gray-500 hover:text-red-500">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-
-        <h2 class="text-white text-2xl font-bold mt-4">Sessions</h2>
-    </div>
-
-    <div class="flex-1 overflow-y-auto scrollbar-none p-6">
-        <ul class="space-y-8">
-            <!-- Item -->
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2025/26</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer" checked>
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2024/25</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2023/24</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2022/23</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2021/22</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2020/21</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2019/20</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2018/19</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2017/18</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white font-medium">2016/17</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2015/16</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2014/15</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2013/14</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2012/13</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2011/12</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-
-            <li class="flex items-center justify-between">
-                <span class="text-white text-lg font-medium">2010/11</span>
-                <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
-            </li>
-        </ul>
-    </div>
-
-    <div class="p-6 border-t border-white/10">
-        <button class="bg-white text-md text-[#1e0021] text-center
-               w-full py-2 rounded-3xl cursor-pointer">
-            Save
-        </button>
-    </div>
-
-</div>
-
-<!-- Clubs Drawer -->
-<div id="clubDrawer"
-    class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
-    <div class="p-6">
-        <div class="flex justify-between">
-            <button id="backClubDrawer" class="w-5 text-gray-500 hover:text-red-500">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-            <button id="closeClubDrawer" class="w-5 text-gray-500 hover:text-red-500">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-
-        <h2 class="text-white text-2xl font-bold mt-4">Clubs</h2>
-    </div>
-
-    <form asp-action="Index" asp-controller="Player" method="get" class="flex flex-col flex-1 overflow-hidden mt-4">
-        @if (Model.SelectedPositions != null)
-        {
-            @foreach (var pos in Model.SelectedPositions)
-            {
-                <input type="hidden" name="positions" value="@pos" />
-            }
-        }
-        <div class="flex-1 px-6 space-y-6 my-4  overflow-y-auto scrollbar-none">
-            @foreach (var club in Model.SelectListItemClubs)
-            {
-                <label class="flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-2">
-                        <div class="flex justify-center items-center">
-                            <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
-                                style="background-color: @club.ClubTheme">
-                                <img src="~/upload/clubs/@club.ClubCrest" class="w-auto h-12 object-contain cursor-pointer"
-                                    alt="@club.ClubName" />
-                            </div>
-                        </div>
-                        <span class="text-white text-lg font-medium">@club.ClubName</span>
+            <div class="p-4 rounded-lg bg-[#55005a]/60 border border-[#8a3fbf]/40">
+                <div class="flex items-start gap-3">
+                    <div class="text-red-300 text-xl">⚠️</div>
+                    <div>
+                        <p class="text-white text-base font-medium">
+                            Are you sure you want to delete this player?
+                        </p>
+                        <p class="text-red-300 text-sm mt-1">
+                            This action is permanent and cannot be undone.
+                        </p>
                     </div>
-                    <input type="checkbox" value="@club.ClubId" name="clubIds"
-                        class="w-5 h-5 rounded border-white bg-transparent checked:bg-white checked:border-white accent-white"
-                        @(Model.SelectedClubIds.Contains(club.ClubId) ? "checked" : "")>
-                </label>
-            }
-        </div>
+                </div>
+            </div>
 
-        <div class="p-6 border-t border-white/10">
-            <button type="submit" class="bg-white text-md text-[#1e0021] text-center
-               w-full py-2 rounded-3xl cursor-pointer">
-                Save
-            </button>
-        </div>
-    </form>
-</div>
+            <div id="clubTheme" class="flex items-center gap-4 mt-4 rounded-2xl px-4 w-full h-[150px] overflow-hidden">
+                <div class="flex h-full float-end">
+                    <img id="photo" src="" class="w-auto h-50 mt-4 object-contain cursor-pointer mb-0" alt="player" />
+                </div>
+                <div class="flex flex-col justify-end mb-3 gap-1 h-full">
+                    <div id="firstName" class="text-white text-md lg:text-2xl"></div>
+                    <div id="lastName" class="text-white text-xl lg:text-4xl"></div>
+                    <div class="flex gap-4 mt-2">
+                        <div class="flex gap-1">
+                            <img id="clubCrest" src="" class="w-auto h-5 object-contain cursor-pointer" alt="club" />
+                            <div id="clubName" class="text-white text-xs lg:text-sm"></div>
+                        </div>
+                        <div class="flex gap-1">
+                            <div id="playerNumber" class="text-white text-xs lg:text-sm font-bold"></div>
+                            <span id="period" class="text-white text-xs lg:text-sm font-bold">•</span>
+                            <div id="position" class="text-white text-xs lg:text-sm"></div>
+                        </div>
 
-<!-- Positions Drawer -->
-<div id="positionDrawer" class="fixed top-0 right-0 h-full w-full md:w-[25rem]
-           bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
-    <div class="p-6">
-        <div class="flex justify-between">
-            <button id="backPositionDrawer" class="text-gray-500 hover:text-red-500">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-            <button id="closePositionDrawer" class="text-gray-500 hover:text-red-500">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
+                    </div>
+                </div>
+            </div>
 
-        <h2 class="text-white text-2xl font-bold mt-4">Positions</h2>
+            <form id="confirmDeleteForm" asp-controller="Player" asp-action="Delete" method="post" asp-antiforgery="true"
+                  class="h-auto p-2 mt-6" enctype="multipart/form-data" novalidate>
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="playerId" name="playerId" asp-for="PlayerDto.PlayerId" />
+                <div class="flex flex-col md:flex-row justify-end gap-3">
+                    <button type="button" onclick="hideModal('confirmDeleteModal')"
+                            class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            class="text-white px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition hover:ring-2 hover:!ring-[#8a3fbf]">
+                        Confirm Delete
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <form id="positionForm" asp-action="Index" asp-controller="Player" method="get"
-        class="flex flex-col flex-1 overflow-hidden mt-4">
-        @if (Model.SelectedClubIds != null)
-        {
-            @foreach (var clubId in Model.SelectedClubIds)
-            {
-                <input type="hidden" name="clubIds" value="@clubId" />
-            }
-        }
-        <div class="flex-1 px-6 space-y-6 overflow-y-auto">
-            <label class="flex items-center justify-between cursor-pointer">
-                <span class="text-white text-lg font-medium">Goalkeeper</span>
-                <input type="checkbox" name="positions" value="0"
-                    class="w-5 h-5 rounded border-white bg-transparent accent-white"
-                    @(Model.SelectedPositions.Contains(0) ? "checked" : "")>
-            </label>
+    <!-- Backdrop -->
+    <div id="drawerBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
 
-            <label class="flex items-center justify-between cursor-pointer">
-                <span class="text-white text-lg font-medium">Defender</span>
-                <input type="checkbox" name="positions" value="1"
-                    class="w-5 h-5 rounded border-white bg-transparent accent-white"
-                    @(Model.SelectedPositions.Contains(1) ? "checked" : "")>
-            </label>
-
-            <label class="flex items-center justify-between cursor-pointer">
-                <span class="text-white text-lg font-medium">Midfielder</span>
-                <input type="checkbox" name="positions" value="2"
-                    class="w-5 h-5 rounded border-white bg-transparent accent-white"
-                    @(Model.SelectedPositions.Contains(2) ? "checked" : "")>
-            </label>
-
-            <label class="flex items-center justify-between cursor-pointer">
-                <span class="text-white text-lg font-medium">Forward</span>
-                <input type="checkbox" name="positions" value="3"
-                    class="w-5 h-5 rounded border-white bg-transparent accent-white"
-                    @(Model.SelectedPositions.Contains(3) ? "checked" : "")>
-            </label>
-        </div>
-
-        <div class="p-6 border-t border-white/10">
-            <button type="submit" class="bg-white text-[#1e0021] text-md w-full py-2 rounded-3xl">
-                Save
+    <!-- Filters Drawer -->
+    <div id="filterDrawer"
+         class="fixed top-0 right-0 h-full w-full md:w-[25rem] !bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex flex-col items-end p-6 gap-4">
+            <button id="closeFilterDrawer" class="w-5 text-gray-500 hover:text-red-500 text-md">
+                <i class="fa-solid fa-xmark"></i>
             </button>
-        </div>
-    </form>
-</div>
 
-<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
-    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
-        <div class="flex items-center justify-between lg:justify-start gap-4">
-            <a href="@Url.Action("Index", "Player")"
-                class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
-                to
-                Home</a>
-
-            <button onclick="openModal('modal-8xl', true)"
-                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
-                id="btnAddNewPlayer">Add New</button>
-        </div>
-
-        <div class="flex flex-col md:flex-col xl:flex-row xl:items-center gap-4 w-full lg:w-fit">
-            <div
-                class="flex items-center justify-start lg:justify-end gap-2 w-full p-2 rounded-t-[10px] overflow-hidden overflow-x-scroll scrollbar-none">
-                <button id="filterBtnId"
-                    class="flex justify-center items-center text-white text-center text-sm w-fit px-3 py-[9px] rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    <i class="fa-solid fa-arrow-down-wide-short"></i>
-                </button>
-
-                <button id="sessionBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    2025/26
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <button id="clubBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    Clubs
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <button id="positionBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    Position
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <form asp-action="Index" asp-controller="Player" method="get">
-                    <button type="submit"
-                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+            <div class="flex justify-between w-full">
+                <h2 class="text-white text-2xl font-bold">Filters</h2>
+                <form asp-controller="Player" asp-action="Index" method="get">
+                    <button id="btnResetFilter" type="submit"
+                            class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-2xl bg-[#290d2c] text-nowrap  cursor-pointer">
                         Reset
                         <i class="fa-solid fa-arrow-rotate-left"></i>
                     </button>
                 </form>
             </div>
+        </div>
 
-            <input type="text"
-                class="text-white bg-transparent !w-full lg:!w-[500px] ml-auto px-4 py-2 border-[#624d64] border-2 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
-                placeholder="Search Players..." id="playerSearchInput" onkeyup="filterPlayer()" />
+        <div class="p-6">
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-3">
+                    <div class="flex justify-between">
+                        <span class="text-white text-lg ">Competitions</span>
+                        <i class="fa-solid fa-chevron-right text-white text-lg cursor-pointer"></i>
+                    </div>
+                    <div
+                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
+                        Premier League
+                    </div>
+                    <div class="border-[#37003c] border-b-2 mt-4"></div>
+                </div>
+
+                <div class="flex flex-col gap-3 mt-2">
+                    <div id="showSessionDrawer" class="flex justify-between cursor-pointer">
+                        <span class="text-white text-lg ">Sessions</span>
+                        <i class="fa-solid fa-chevron-right text-white text-lg"></i>
+                    </div>
+                    <div
+                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
+                        2025/26
+                    </div>
+                    <div class="border-[#37003c] border-b-2 mt-4"></div>
+                </div>
+
+                <div class="flex flex-col gap-3 mt-2">
+                    <div id="showClubDrawer" class="flex justify-between cursor-pointer">
+                        <span class="text-white text-lg ">Clubs</span>
+                        <i class="fa-solid fa-chevron-right text-white text-lg"></i>
+                    </div>
+                    <div class="border-[#37003c] border-b-2 mt-4"></div>
+                </div>
+
+                <div class="flex flex-col gap-3 mt-2">
+                    <div id="showPositionDrawer" class="flex justify-between cursor-pointer">
+                        <span class="text-white text-lg ">Positions</span>
+                        <i class="fa-solid fa-chevron-right text-white text-lg"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="overflow-x-scroll scrollbar-none">
-        <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
-            <thead class="bg-[#55005a]">
-                <tr>
-                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID</th>
-                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
-                    </th>
-                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Photo</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Position
-                    </th>
-                    <th
-                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Player
-                        Number</th>
-                    <th class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Preferred
-                        Foot</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Height</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Date of
-                        Birth</th>
-                    <th
-                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Place of
-                        Birth</th>
-                    <th
-                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Nationality</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider ">
-                        Club</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Joined Club
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="bg-transparent divide-y divide-[#55005a]">
-                @foreach (var player in Model.PlayerDetailDtos)
+    <!-- Sessions Drawer -->
+    <div id="sessionDrawer"
+         class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+        <div class="p-6">
+            <div class="flex justify-between">
+                <button id="backSessionDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button id="closeSessionDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <h2 class="text-white text-2xl font-bold mt-4">Sessions</h2>
+        </div>
+
+        <div class="flex-1 overflow-y-auto scrollbar-none p-6">
+            <ul class="space-y-8">
+                <!-- Item -->
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2025/26</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer" checked>
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2024/25</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2023/24</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2022/23</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2021/22</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2020/21</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2019/20</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2018/19</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2017/18</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white font-medium">2016/17</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2015/16</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2014/15</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2013/14</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2012/13</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2011/12</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2010/11</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-6 border-t border-white/10">
+            <button class="bg-white text-md text-[#1e0021] text-center
+                w-full py-2 rounded-3xl cursor-pointer">
+                Save
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Sessions Drawer -->
+    <div id="sessionDrawer"
+         class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+        <div class="p-6">
+            <div class="flex justify-between">
+                <button id="backSessionDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button id="closeSessionDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <h2 class="text-white text-2xl font-bold mt-4">Sessions</h2>
+        </div>
+
+        <div class="flex-1 overflow-y-auto scrollbar-none p-6">
+            <ul class="space-y-8">
+                <!-- Item -->
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2025/26</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer" checked>
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2024/25</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2023/24</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2022/23</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2021/22</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2020/21</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2019/20</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2018/19</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2017/18</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white font-medium">2016/17</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2015/16</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2014/15</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2013/14</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2012/13</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2011/12</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+
+                <li class="flex items-center justify-between">
+                    <span class="text-white text-lg font-medium">2010/11</span>
+                    <input type="radio" name="season" class="w-5 h-5 accent-white cursor-pointer">
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-6 border-t border-white/10">
+            <button class="bg-white text-md text-[#1e0021] text-center
+                w-full py-2 rounded-3xl cursor-pointer">
+                Save
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Clubs Drawer -->
+    <div id="clubDrawer"
+         class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+        <div class="p-6">
+            <div class="flex justify-between">
+                <button id="backClubDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button id="closeClubDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <h2 class="text-white text-2xl font-bold mt-4">Clubs</h2>
+        </div>
+
+        <form asp-action="Index" asp-controller="Player" method="get" class="flex flex-col flex-1 overflow-hidden mt-4">
+            @if (Model.SelectedPositions != null)
+            {
+                @foreach (var pos in Model.SelectedPositions)
                 {
-                    index++;
-                    <tr>
-                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
-                            <div class="flex justify-center items-center">
-                                <div
-                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
-                                    @index</div>
-                            </div>
-                        </td>
-
-                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
-                            <div class="flex justify-center items-center gap-2">
-                                <button onclick="attachPlayerByIdForUpdate('@player.PlayerId')"
-                                    class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </button>
-                                <button onclick="showModal('confirmDeleteModal', this, 'modal-lg', true)"
-                                    class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                    <input type="text" name="playerId" value="@player.PlayerId" hidden />
-                                    <input type="text" name="firstName" value="@player.FirstName" hidden />
-                                    <input type="text" name="lastName" value="@player.LastName" hidden />
-                                    <input type="text" name="position" value="@player.Position" hidden />
-                                    <input type="text" name="playerNumber" value="@player.PlayerNumber" hidden />
-                                    <input type="text" name="photo" value="@player.Photo" hidden />
-                                    <input type="text" name="clubTheme" value="@player.ClubTheme" hidden />
-                                    <input type="text" name="clubName" value="@player.ClubName" hidden />
-                                    <input type="text" name="clubCrest" value="@player.ClubCrest" hidden />
-                                    <i class="fa-solid fa-circle-minus"></i>
-                                </button>
-                            </div>
-                        </td>
-
-                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                    <input type="hidden" name="positions" value="@pos" />
+                }
+            }
+            <div class="flex-1 px-6 space-y-6 my-4  overflow-y-auto scrollbar-none">
+                @foreach (var club in Model.SelectListItemClubs)
+                {
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-2">
                             <div class="flex justify-center items-center">
                                 <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
-                                    style="background-color: @player.ClubTheme;">
-                                    <img src="~/upload/players/@(string.IsNullOrEmpty(player.Photo) ? "placeholder.png" : player.Photo)"
-                                        class="w-auto h-[4rem] mt-5 object-contain cursor-pointer"
-                                        alt="@player.FirstName @player.LastName" />
+                                     style="background-color: @club.ClubTheme">
+                                    <img src="~/upload/clubs/@club.ClubCrest" class="w-auto h-12 object-contain cursor-pointer"
+                                         alt="@club.ClubName" />
                                 </div>
                             </div>
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.FirstName @player.LastName</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.Position</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">@player.PlayerNumber</td>
-                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">@player.PreferredFoot</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.Height</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.DateOfBirth</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">@player.PlaceOfBirth</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">
-                            <div class="flex flex-col gap-2 items-center">
-                                <img src="@player.NationalityIcon" class="w-[26px] h-auto object-contain cursor-pointer"
-                                    alt="@player.Nationality" />
-                                <span>@player.Nationality</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
-                            <div class="flex flex-col gap-2 items-center">
-                                <img src="~/upload/clubs/@(string.IsNullOrEmpty(player.ClubCrest) ? "" : player.ClubCrest)"
-                                    class="w-auto h-7 object-contain cursor-pointer" alt="@player.ClubName" />
-                                <span>@player.ClubName</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
-                            @player.JoinedClub
-                        </td>
-                    </tr>
+                            <span class="text-white text-lg font-medium">@club.ClubName</span>
+                        </div>
+                        <input type="checkbox" value="@club.ClubId" name="clubIds"
+                               class="w-5 h-5 rounded border-white bg-transparent checked:bg-white checked:border-white accent-white"
+                        @(Model.SelectedClubIds.Contains(club.ClubId) ? "checked" : "")>
+                    </label>
                 }
-            </tbody>
-        </table>
+            </div>
+
+            <div class="p-6 border-t border-white/10">
+                <button type="submit" class="bg-white text-md text-[#1e0021] text-center
+                    w-full py-2 rounded-3xl cursor-pointer">
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
 
-    <div class="flex items-center mt-4 border-t-2 border-[#55005a] pt-4">
-        <div class="text-sm text-gray-400">
-            Total Player: @ViewBag.TotalCount
-            Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+    <!-- Positions Drawer -->
+    <div id="positionDrawer" class="fixed top-0 right-0 h-full w-full md:w-[25rem]
+        bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+        <div class="p-6">
+            <div class="flex justify-between">
+                <button id="backPositionDrawer" class="text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button id="closePositionDrawer" class="text-gray-500 hover:text-red-500">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <h2 class="text-white text-2xl font-bold mt-4">Positions</h2>
         </div>
 
-        <div class="ml-auto flex items-center gap-4">
-            <a href="@Url.Action("Index", "Player", new { page = ViewBag.CurrentPage - 1, positions = Model.SelectedPositions, clubIds = Model.SelectedClubIds })"
-                class="px-3 py-1 rounded bg-[#55005a] text-white transition
-           @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
-                aria-disabled="@(currentPage == 1)">
-                <i class="fa-solid fa-chevron-left"></i>
-            </a>
+        <form id="positionForm" asp-action="Index" asp-controller="Player" method="get"
+              class="flex flex-col flex-1 overflow-hidden mt-4">
+            @if (Model.SelectedClubIds != null)
+            {
+                @foreach (var clubId in Model.SelectedClubIds)
+                {
+                    <input type="hidden" name="clubIds" value="@clubId" />
+                }
+            }
+            <div class="flex-1 px-6 space-y-6 overflow-y-auto">
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-white text-lg font-medium">Goalkeeper</span>
+                    <input type="checkbox" name="positions" value="0"
+                           class="w-5 h-5 rounded border-white bg-transparent accent-white"
+                    @(Model.SelectedPositions.Contains(0) ? "checked" : "")>
+                </label>
 
-            <a href="@Url.Action("Index", "Player", new { page = ViewBag.CurrentPage + 1, positions = Model.SelectedPositions, clubIds = Model.SelectedClubIds })"
-                class="px-3 py-1 rounded bg-[#55005a] text-white transition
-           @(ViewBag.CurrentPage == @ViewBag.TotalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
-                aria-disabled="@(ViewBag.CurrentPage == ViewBag.TotalPages)">
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-        </div>
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-white text-lg font-medium">Defender</span>
+                    <input type="checkbox" name="positions" value="1"
+                           class="w-5 h-5 rounded border-white bg-transparent accent-white"
+                    @(Model.SelectedPositions.Contains(1) ? "checked" : "")>
+                </label>
+
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-white text-lg font-medium">Midfielder</span>
+                    <input type="checkbox" name="positions" value="2"
+                           class="w-5 h-5 rounded border-white bg-transparent accent-white"
+                    @(Model.SelectedPositions.Contains(2) ? "checked" : "")>
+                </label>
+
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-white text-lg font-medium">Forward</span>
+                    <input type="checkbox" name="positions" value="3"
+                           class="w-5 h-5 rounded border-white bg-transparent accent-white"
+                    @(Model.SelectedPositions.Contains(3) ? "checked" : "")>
+                </label>
+            </div>
+
+            <div class="p-6 border-t border-white/10">
+                <button type="submit" class="bg-white text-[#1e0021] text-md w-full py-2 rounded-3xl">
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/player/index.js" asp-append-version="true"></script>
-    <script src="~/js/player/custom_select.js" asp-append-version="true"></script>
-    <script src="~/js/player/filter.js" asp-append-version="true"></script>
-    <script src="~/js/player/delete.js" asp-append-version="true"></script>
-    <script src="~/js/player/nationality.js" asp-append-version="true"></script>
-}
+    <div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+        <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
+            <div class="flex items-center justify-between lg:justify-start gap-4">
+                <a href="@Url.Action("Index", "Player")"
+                       class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
+                    to
+                    Home</a>
+
+                    <button onclick="openModal('modal-8xl', true)"
+                            class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
+                            id="btnAddNewPlayer">Add New</button>
+                </div>
+
+                <div class="flex flex-col md:flex-col xl:flex-row xl:items-center gap-4 w-full lg:w-fit">
+                    <div
+                        class="flex items-center justify-start lg:justify-end gap-2 w-full p-2 rounded-t-[10px] overflow-hidden overflow-x-scroll scrollbar-none">
+                        <button id="filterBtnId"
+                                class="flex justify-center items-center text-white text-center text-sm w-fit px-3 py-[9px] rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        </button>
+
+                        <button id="sessionBtnId"
+                                class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                            2025/26
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+
+                        <button id="clubBtnId"
+                                class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                            @{
+                                if (Model.SelectedClubIds != null && Model.SelectedClubIds.Count > 0)
+                                                    {
+                                                    if(Model.SelectedClubIds.Count > 1){
+                                <text>@Model.SelectListItemClubs.FirstOrDefault(c => c.ClubId ==
+                                                            Model.SelectedClubIds.First())?.ClubName +@(Model.SelectedClubIds.Count - 1) </text>
+                                                    }
+                                                    else
+                                {
+                                    <text>@Model.SelectListItemClubs.FirstOrDefault(c => c.ClubId ==
+                                                                Model.SelectedClubIds.First())?.ClubName</text>
+                                                        ;
+                                }
+                                                    }
+                                                    else
+                                {
+                                    <text>Clubs</text>
+                                }
+                            }
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+
+                        <button id="positionBtnId"
+                                class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                            Position
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+
+                        <form asp-action="Index" asp-controller="Player" method="get">
+                            @{
+                                bool isReset = Model.SelectedClubIds?.Count > 0 || Model.SelectedPositions.Count > 0 ? true : false;
+                            }
+                            <button type="submit" @(isReset ? "" : "disabled")
+                                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] hover:ring-2 hover:!ring-[#8a3fbf] @(isReset ? "" : "opacity-50 cursor-not-allowed pointer-events-none")">
+                                Reset
+                                <i class="fa-solid fa-arrow-rotate-left"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <input type="text"
+                           class="text-white bg-transparent !w-full lg:!w-[500px] ml-auto px-4 py-2 border-[#624d64] border-2 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]"
+                           placeholder="Search Players..." id="playerSearchInput" onkeyup="filterPlayer()" />
+                </div>
+            </div>
+
+            <div class="overflow-x-scroll scrollbar-none">
+                <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
+                                        <thead class="bg-[#55005a]">
+                                            <tr>
+                                                <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID</th>
+                                                <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
+                                                </th>
+                                                <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Photo</th>
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Position
+                                                </th>
+                                                <th
+                                                    class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                    Player Number</th>
+                                                    <th class="px-2 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                        Preferred Foot</th>
+                                                        <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Height</th>
+                                                        <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                            Date of Birth</th>
+                                                            <th
+                                                                class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                                Place of Birth</th>
+                                                                <th
+                                                                    class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                                    Nationality</th>
+                                                                    <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider ">Club</th>
+                                                                    <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                                        Joined Club</th>
+                                                                    </tr>
+                                                                </thead>
+                                            <tbody class="bg-transparent divide-y divide-[#55005a]">
+                                                @foreach (var player in Model.PlayerDetailDtos)
+                                                {
+                                                    index++;
+                                                    <tr>
+                                                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                                            <div class="flex justify-center items-center">
+                                                                <div
+                                                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
+                                                                    @index</div>
+                                                                </div>
+                                                            </td>
+
+                                                            <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                                                <div class="flex justify-center items-center gap-2">
+                                                                    <button onclick="attachPlayerByIdForUpdate('@player.PlayerId')"
+                                                                            class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                        <i class="fa-solid fa-pencil"></i>
+                                                                    </button>
+                                                                    <button onclick="showModal('confirmDeleteModal', this, 'modal-lg', true)"
+                                                                            class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                        <input type="text" name="playerId" value="@player.PlayerId" hidden />
+                                                                        <input type="text" name="firstName" value="@player.FirstName" hidden />
+                                                                        <input type="text" name="lastName" value="@player.LastName" hidden />
+                                                                        <input type="text" name="position" value="@player.Position" hidden />
+                                                                        <input type="text" name="playerNumber" value="@player.PlayerNumber" hidden />
+                                                                        <input type="text" name="photo" value="@player.Photo" hidden />
+                                                                        <input type="text" name="clubTheme" value="@player.ClubTheme" hidden />
+                                                                        <input type="text" name="clubName" value="@player.ClubName" hidden />
+                                                                        <input type="text" name="clubCrest" value="@player.ClubCrest" hidden />
+                                                                        <i class="fa-solid fa-circle-minus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+
+                                                            <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                                                <div class="flex justify-center items-center">
+                                                                    <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                                                                         style="background-color: @player.ClubTheme;">
+                                                                        <img src="~/upload/players/@(string.IsNullOrEmpty(player.Photo) ? "placeholder.png" : player.Photo)"
+                                                                             class="w-auto h-[4rem] mt-5 object-contain cursor-pointer"
+                                                                             alt="@player.FirstName @player.LastName" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.FirstName @player.LastName</td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@(player.Position == Position.None ? "" : player.Position)</td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">@(player.PlayerNumber == 0 ? "" : player.PlayerNumber)</td>
+                                                            <td class="px-2 py-4 whitespace-nowrap text-sm text-white">@(player.PreferredFoot == PreferredFoot.None ? "" :  player.PreferredFoot)</td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.Height</td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">@player.DateOfBirth</td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">@player.PlaceOfBirth</td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-center">
+                                                                <div class="flex flex-col gap-2 items-center">
+                                                                    <img src="@player.NationalityIcon" class="w-[26px] h-auto object-contain cursor-pointer"
+                                                                         alt="@player.Nationality" />
+                                                                    <span>@player.Nationality</span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                                                                <div class="flex flex-col gap-2 items-center">
+                                                                    <img src="~/upload/clubs/@(string.IsNullOrEmpty(player.ClubCrest) ? "" : player.ClubCrest)"
+                                                                         class="w-auto h-7 object-contain cursor-pointer" alt="@player.ClubName" />
+                                                                    <span>@player.ClubName</span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-white">
+                                                                @player.JoinedClub
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="flex items-center mt-4 border-t-2 border-[#55005a] pt-4">
+                                            <div class="text-sm text-gray-400">
+                                                Total Player: @ViewBag.TotalCount
+                                                Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+                                            </div>
+
+                                            <div class="ml-auto flex items-center gap-4">
+                                                <a href="@Url.Action("Index", "Player", new { page = ViewBag.CurrentPage - 1, positions = Model.SelectedPositions, clubIds = Model.SelectedClubIds })"
+                                                       class="px-3 py-1 rounded bg-[#55005a] text-white transition
+                                                    @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                                                       aria-disabled="@(currentPage == 1)">
+                                                    <i class="fa-solid fa-chevron-left"></i>
+                                                </a>
+
+                                                <a href="@Url.Action("Index", "Player", new { page = ViewBag.CurrentPage + 1, positions = Model.SelectedPositions, clubIds = Model.SelectedClubIds })"
+                                                       class="px-3 py-1 rounded bg-[#55005a] text-white transition
+                                                    @(ViewBag.CurrentPage == @ViewBag.TotalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                                                       aria-disabled="@(ViewBag.CurrentPage == ViewBag.TotalPages)">
+                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @section Scripts {
+                                        <partial name="_ValidationScriptsPartial" />
+                                        <script src="~/js/player/index.js" asp-append-version="true"></script>
+                                        <script src="~/js/player/custom_select.js" asp-append-version="true"></script>
+                                        <script src="~/js/player/filter.js" asp-append-version="true"></script>
+                                        <script src="~/js/player/delete.js" asp-append-version="true"></script>
+                                        <script src="~/js/player/nationality.js" asp-append-version="true"></script>
+                                    }

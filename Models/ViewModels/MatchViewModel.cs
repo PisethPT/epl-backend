@@ -1,7 +1,8 @@
-using epl_backend.Models.DTOs;
-using epl_backend.Models.SelectListItems;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.SelectListItems;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace epl_backend.Models.ViewModels;
+namespace PremierLeague_Backend.Models.ViewModels;
 
 public class MatchViewModel
 {
@@ -13,7 +14,14 @@ public class MatchViewModel
     public List<SelectListItemSeason> SelectListItemSeasons { get; set; }
     public List<SelectListItemPlayerLineupByClubId> SelectListItemPlayer { get; set; }
     public List<SelectListItemReferee> SelectListItemReferees { get; set; }
+    public List<SelectListItem> MatchWeekSelectListItem { get; set; }
+    public List<SelectListItem> SeasonsSelectListItem { get; set; }
     public MatchWeekDto MatchWeekDto { get; set; }
+    public List<int> SelectedClubIds { get; set; } = new();
+
+    public MatchInfoMatchDetailsDto? MatchDetailsDto { get; set; }
+    public List<MatchInfoMatchOfficialsDto> MatchOfficialsDtos { get; set; }
+
     public MatchViewModel()
     {
         this.matchDetailDtos = new();
@@ -24,6 +32,10 @@ public class MatchViewModel
         this.SelectListItemSeasons = new();
         this.SelectListItemPlayer = new();
         this.SelectListItemReferees = new();
+        this.MatchWeekSelectListItem = new();
+        this.SeasonsSelectListItem = new();
+        this.MatchOfficialsDtos = new();
+
         this.MatchWeekDto = new();
     }
 }

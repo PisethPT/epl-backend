@@ -1,5 +1,6 @@
-﻿@using epl_backend.Models.DTOs
-@using epl_backend.Models.ViewModels
+﻿@using PremierLeague_Backend.Models.DTOs
+@using PremierLeague_Backend.Models.ViewModels
+@using System.Collections
 @model MatchViewModel
 @{
     ViewData["Title"] = "Match";
@@ -15,7 +16,7 @@
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
-        id="errorAlertPanel">
+         id="errorAlertPanel">
         <ul>
             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {
@@ -31,7 +32,7 @@
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
-        id="infoAlertPanel">
+         id="infoAlertPanel">
         <span>@TempData["SuccessMessage"]</span>
         <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
             <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
@@ -39,36 +40,37 @@
     </div>
 }
 
+
 <div id="modalBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"></div>
 
-<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4 bg-black/60">
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
     <div id="modalBox"
-        class="bg-[#1e0021] rounded-2xl shadow-xl p-6 w-full max-w-5xl transition-all duration-300 scale-90 opacity-0"
-        onclick="event.stopPropagation()">
+         class="bg-[#1e0021] rounded-2xl shadow-xl p-6 w-full max-w-5xl transition-all duration-300 scale-90 opacity-0"
+         onclick="event.stopPropagation()">
 
         <div class="flex justify-between items-center mb-3">
-            <h2 class="text-xl font-semibold text-white">Create Match</h2>
+            <h2 class="text-xl font-semibold text-white" id="modalTitle">Create Match</h2>
             <button onclick="closeModal()"
-                class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
+                    class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
 
         <div class="flex border-b border-[#55005a] mb-4">
             <button type="button" class="tab-btn px-4 py-2 font-medium text-[#8a3fbf] border-b-2 border-[#8a3fbf]"
-                data-tab="tab-match">
+                    data-tab="tab-match">
                 Match
             </button>
 
             <button type="button" class="tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
-                data-tab="tab-referee">
+                    data-tab="tab-referee">
                 Referee
             </button>
         </div>
 
         <div>
             <form id="matchForm" asp-controller="Match" asp-action="Create" method="post" asp-antiforgery="true"
-                novalidate class="h-auto p-2">
+                  novalidate class="h-auto p-2">
                 <!-- TAB 1 : CREATE MATCH -->
                 <div id="tab-match" class="tab-content">
                     @Html.AntiForgeryToken()
@@ -79,18 +81,18 @@
                                 <span class="text-white font-medium">Match Date</span>
                                 <span class="text-red-400">*</span>
                             </span> <input id="matchDate" asp-for="matchDto.MatchDate" type="date" data-date=""
-                                data-date-format="dddd, DD-MMM-YYYY"
-                                class="bg-[#55005a] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                                           data-date-format="dddd, DD-MMM-YYYY"
+                                           class="bg-[#55005a] text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                             <span asp-validation-for="matchDto.MatchDate" class="text-red-400 text-sm"></span>
                         </label>
 
                         <label class="flex flex-col gap-2">
                             <span class="flex items-center gap-1"> <span class="text-white font-medium">Match
-                                    Time</span>
+                                Time</span>
                                 <span class="text-red-400">*</span>
                             </span>
                             <input id="matchTime" asp-for="matchDto.MatchTime" type="time"
-                                class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                                   class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                             <span asp-validation-for="matchDto.MatchTime" class="text-red-400 text-sm"></span>
                         </label>
 
@@ -101,7 +103,7 @@
                             </span>
                             <input id="seasonIdHidden" asp-for="matchDto.SeasonId" type="hidden" />
                             <select id="seasonId" class="js-custom-select" asp-for="matchDto.SeasonId"
-                                data-show-image="true" data-placeholder="Select season">
+                                    data-show-image="true" data-placeholder="Select season">
                                 <option value="">Select Season</option> @foreach (var season in
                                 Model.SelectListItemSeasons) {
                                     <option value="@season.seasonId" data-img="/icon.png" data-sub="@season.dataSub">
@@ -110,7 +112,7 @@
                                 }
                             </select>
                             <span asp-validation-for="matchDto.SeasonId" class="text-red-400 text-sm"
-                                id="seasonId-validation"></span>
+                                  id="seasonId-validation"></span>
                         </label>
 
                         <label class="flex flex-col gap-2">
@@ -118,26 +120,26 @@
                                 <span class="text-white font-medium">Week</span> <span class="text-red-400">*</span>
                             </span>
                             <input id="matchWeek" asp-for="matchDto.MatchWeek" type="number" min="1" max="99"
-                                class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
+                                   class="bg-[#55005a] text-white placeholder:text-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8a3fbf]" />
                             <span asp-validation-for="matchDto.MatchWeek" class="text-red-400 text-sm"></span>
                         </label>
 
                         <label class="flex flex-col gap-2">
                             <span class="flex items-center gap-1">
                                 <span class="text-white font-medium">Home Club</span> <span
-                                    class="text-red-400">*</span>
+                                class="text-red-400">*</span>
                             </span>
                             <select id="homeClub" class="js-custom-select" asp-for="matchDto.HomeClubId"
-                                data-show-image="true" data-placeholder="Select home club">
+                                    data-show-image="true" data-placeholder="Select home club">
                                 <option value="">Select Home Club</option> @foreach (var club in
                                 Model.SelectListItemClubs) {
                                     <option value="@club.ClubId" data-img="/upload/clubs/@club.ClubCrest"
-                                        data-sub="@club.ClubTheme"> @club.ClubName
+                                            data-sub="@club.ClubTheme"> @club.ClubName
                                     </option>
                                 }
                             </select>
                             <span asp-validation-for="matchDto.HomeClubId" class="text-red-400 text-sm"
-                                id="homeClubId-validation"></span>
+                                  id="homeClubId-validation"></span>
                         </label>
 
                         <label class="flex flex-col gap-2">
@@ -146,18 +148,18 @@
                                 <span class="text-red-400">*</span>
                             </span>
                             <select id="awayClub" class="js-custom-select" asp-for="matchDto.AwayClubId"
-                                data-placeholder="Select away club" data-show-image="true">
+                                    data-placeholder="Select away club" data-show-image="true">
                                 <option value="" selected>Select Away Club</option>
                                 @foreach (var club in Model.SelectListItemClubs)
                                 {
                                     <option value="@club.ClubId" data-img="/upload/clubs/@club.ClubCrest"
-                                        data-sub="@club.ClubTheme">
+                                            data-sub="@club.ClubTheme">
                                         @club.ClubName
                                     </option>
                                 }
                             </select>
                             <span asp-validation-for="matchDto.AwayClubId" class="text-red-400 text-sm"
-                                id="awayClubId-validation"></span>
+                                  id="awayClubId-validation"></span>
                         </label>
 
                         <label class="flex flex-col gap-2 w-fit">
@@ -166,9 +168,9 @@
                             </span>
                             <div class="flex items-center gap-4">
                                 <label class="relative inline-flex items-center cursor-pointer">
-                                    <input id="isHomeStadium" type="checkbox"
-                                        class="sr-only peer" />
-                                    <input id="isHomeStadiumHidden" type="hidden" name="matchDto.IsHomeStadium" value="false" />
+                                    <input id="isHomeStadium" type="checkbox" class="sr-only peer" checked />
+                                    <input id="isHomeStadiumHidden" type="hidden" name="matchDto.IsHomeStadium"
+                                           value="true" />
                                     <div
                                         class="w-12 h-6 bg-[#55005a] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#8a3fbf] rounded-full peer-checked:bg-[#8a3fbf] transition-colors">
                                     </div>
@@ -185,16 +187,7 @@
 
                         </label>
                     </div>
-                    <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
-                        <div class="text-sm text-gray-200/80">Fields with
-                            <span class="text-red-400">*</span> are required.
-                        </div>
-                        <div class="flex gap-3"> <button type="reset" id="resetBtn"
-                                class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
-                            <button type="submit"
-                                class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
-                        </div>
-                    </div>
+
                 </div>
 
                 <!-- TAB 2 : REFEREE -->
@@ -206,11 +199,15 @@
                                     <span class="text-white font-medium">Referee</span>
                                     <span class="text-red-400">*</span>
                                 </span>
+                                <input id="refereeMatchId" type="hidden" asp-for="matchDto.MatchReferees[0].MatchId"
+                                       value="" />
+                                <input id="refereeMatchRefereeId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[0].MatchRefereeId" value="" />
                                 <input id="refereeRoleId" type="hidden" asp-for="matchDto.MatchReferees[0].RoleId"
-                                    value="1" />
+                                       value="1" />
                                 <select id="refereeId" class="js-custom-select"
-                                    asp-for="matchDto.MatchReferees[0].RefereeId" required data-show-image="true"
-                                    data-placeholder="Select referee">
+                                        asp-for="matchDto.MatchReferees[0].RefereeId" required data-show-image="true"
+                                        data-placeholder="Select referee">
                                     <option value="">Select Referee</option>
                                     @foreach (var referee in Model.SelectListItemReferees)
                                     {
@@ -220,7 +217,7 @@
                                     }
                                 </select>
                                 <span asp-validation-for="matchDto.MatchReferees[0].RefereeId"
-                                    class="text-red-400 text-sm" id="referee-validation"></span>
+                                      class="text-red-400 text-sm" id="referee-validation"></span>
                             </label>
                         </div>
 
@@ -230,11 +227,15 @@
                                     <span class="text-white font-medium">Assistant Referee 1</span>
                                     <span class="text-red-400">*</span>
                                 </span>
+                                <input id="assistReferee1MatchId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[1].MatchId" value="" />
+                                <input id="assistReferee1MatchRefereeId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[1].MatchRefereeId" value="" />
                                 <input id="assistReferee1RoleId" asp-for="matchDto.MatchReferees[1].RoleId" value="2"
-                                    type="hidden" />
+                                       type="hidden" />
                                 <select id="assistReferee1Id" class="js-custom-select"
-                                    asp-for="matchDto.MatchReferees[1].RefereeId" required data-show-image="true"
-                                    data-placeholder="Select referee">
+                                        asp-for="matchDto.MatchReferees[1].RefereeId" required data-show-image="true"
+                                        data-placeholder="Select referee">
                                     <option value="">Select Referee</option>
                                     @foreach (var referee in Model.SelectListItemReferees)
                                     {
@@ -244,7 +245,7 @@
                                     }
                                 </select>
                                 <span asp-validation-for="matchDto.MatchReferees[1].RefereeId"
-                                    class="text-red-400 text-sm" id="assistReferee1-validation"></span>
+                                      class="text-red-400 text-sm" id="assistReferee1-validation"></span>
                             </label>
 
                             <label class="flex flex-col gap-2">
@@ -253,10 +254,14 @@
                                     <span class="text-red-400">*</span>
                                 </span>
                                 <input id="assistReferee2RoleId" asp-for="matchDto.MatchReferees[2].RoleId" value="3"
-                                    type="hidden" />
+                                       type="hidden" />
+                                <input id="assistReferee2MatchId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[2].MatchId" value="" />
+                                <input id="assistReferee2MatchRefereeId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[2].MatchRefereeId" value="" />
                                 <select id="assistReferee2Id" class="js-custom-select"
-                                    asp-for="matchDto.MatchReferees[2].RefereeId" required data-show-image="true"
-                                    data-placeholder="Select referee">
+                                        asp-for="matchDto.MatchReferees[2].RefereeId" required data-show-image="true"
+                                        data-placeholder="Select referee">
                                     <option value="">Select Referee</option>
                                     @foreach (var referee in Model.SelectListItemReferees)
                                     {
@@ -266,7 +271,7 @@
                                     }
                                 </select>
                                 <span asp-validation-for="matchDto.MatchReferees[2].RefereeId"
-                                    class="text-red-400 text-sm" id="assistReferee2-validation"></span>
+                                      class="text-red-400 text-sm" id="assistReferee2-validation"></span>
                             </label>
                         </div>
 
@@ -277,10 +282,14 @@
                                     <span class="text-red-400">*</span>
                                 </span>
                                 <input id="refereeFourthOfficialRoleId" asp-for="matchDto.MatchReferees[3].RoleId"
-                                    value="4" type="hidden" />
+                                       value="4" type="hidden" />
+                                <input id="refereeFourthOfficialMatchId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[3].MatchId" value="" />
+                                <input id="refereeFourthOfficialMatchRefereeId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[3].MatchRefereeId" value="" />
                                 <select id="refereeFourthOfficialId" class="js-custom-select"
-                                    asp-for="matchDto.MatchReferees[3].RefereeId" required data-show-image="true"
-                                    data-placeholder="Select referee">
+                                        asp-for="matchDto.MatchReferees[3].RefereeId" required data-show-image="true"
+                                        data-placeholder="Select referee">
                                     <option value="">Select Referee</option>
                                     @foreach (var referee in Model.SelectListItemReferees)
                                     {
@@ -290,7 +299,7 @@
                                     }
                                 </select>
                                 <span asp-validation-for="matchDto.MatchReferees[3].RefereeId"
-                                    class="text-red-400 text-sm" id="refereeFourthOfficial-validation"></span>
+                                      class="text-red-400 text-sm" id="refereeFourthOfficial-validation"></span>
                             </label>
 
                             <label class="flex flex-col gap-2">
@@ -299,10 +308,14 @@
                                     <span class="text-red-400">*</span>
                                 </span>
                                 <input id="refereeVARRoleId" asp-for="matchDto.MatchReferees[4].RoleId" value="5"
-                                    type="hidden" />
+                                       type="hidden" />
+                                <input id="refereeVARMatchId" type="hidden" asp-for="matchDto.MatchReferees[4].MatchId"
+                                       value="" />
+                                <input id="refereeVARMatchRefereeId" type="hidden"
+                                       asp-for="matchDto.MatchReferees[4].MatchRefereeId" value="" />
                                 <select id="refereeVARId" class="js-custom-select"
-                                    asp-for="matchDto.MatchReferees[4].RefereeId" required data-show-image="true"
-                                    data-placeholder="Select referee">
+                                        asp-for="matchDto.MatchReferees[4].RefereeId" required data-show-image="true"
+                                        data-placeholder="Select referee">
                                     <option value="">Select Referee</option>
                                     @foreach (var referee in Model.SelectListItemReferees)
                                     {
@@ -312,9 +325,20 @@
                                     }
                                 </select>
                                 <span asp-validation-for="matchDto.MatchReferees[4].RefereeId"
-                                    class="text-red-400 text-sm" id="refereeVAR-validation"></span>
+                                      class="text-red-400 text-sm" id="refereeVAR-validation"></span>
                             </label>
                         </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col md:flex-row justify-between gap-3">
+                    <div class="text-sm text-gray-200/80">Fields with
+                        <span class="text-red-400">*</span> are required.
+                    </div>
+                    <div class="flex gap-3"> <button type="reset" id="resetBtn"
+                                                         class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">Reset</button>
+                        <button type="submit"
+                                class="text-white px-4 py-2 bg-[#8a3fbf] rounded-lg hover:bg-[#6b2fa0] transition hover:ring-2 hover:!ring-[#8a3fbf]">Submit</button>
                     </div>
                 </div>
             </form>
@@ -322,235 +346,793 @@
     </div>
 </div>
 
+<div id="confirmDeleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div class="modalBox !bg-[#1e0021] rounded-2xl shadow-xl p-6 transition-all duration-300 scale-90 opacity-0"
+         onclick="event.stopPropagation()">
 
-<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
-    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
-        <div class="flex items-center justify-between lg:justify-start gap-4">
-            <a href="@Url.Action("Index", "Match")"
-                class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
-                to
-                Home</a>
-
-            <button onclick="openModal('modal-8xl', true)"
-                class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
-                id="btnAddNewMatch">Add New</button>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-white">Delete Match</h2>
         </div>
 
-        <div class="flex flex-col md:flex-col xl:flex-row xl:items-center gap-4 w-full lg:w-fit">
-            <div
-                class="flex items-center justify-start lg:justify-end gap-2 w-full p-2 rounded-t-[10px] overflow-hidden overflow-x-scroll scrollbar-none">
-                <button id="filterBtnId"
-                    class="flex justify-center items-center text-white text-center text-sm w-fit px-3 py-[9px] rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    <i class="fa-solid fa-arrow-down-wide-short"></i>
-                </button>
-
-                <button id="sessionBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    Premier League
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <button id="sessionBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    2025/26
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <button id="sessionBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    MW @Model.MatchWeekDto.Week
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <button id="clubBtnId"
-                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                    Clubs
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-
-                <form asp-action="Index" asp-controller="Match" method="get">
-                    <button type="submit"
-                        class="flex justify-center items-center gap-1 text-gray-500 text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
-                        Reset
-                        <i class="fa-solid fa-arrow-rotate-left"></i>
-                    </button>
-                </form>
+        <div class="p-4 rounded-lg bg-[#55005a]/60 border border-[#8a3fbf]/40">
+            <div class="flex items-start gap-3">
+                <div class="text-red-300 text-xl">⚠️</div>
+                <div>
+                    <p class="text-white text-base font-medium">
+                        Are you sure you want to delete this match?
+                    </p>
+                    <p class="text-red-300 text-sm mt-1">
+                        This action is permanent and cannot be undone.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="flex flex-1 flex-col gap-4 my-4">
-        <div class="flex justify-center items-center w-full gap-10">
-            <a href="@Url.Action("Index", "Match", new { seasonId = Model.MatchWeekDto.SeasonId, week = Model.MatchWeekDto.PrevWeek })"
-                class="flex items-center justify-center rounded-full bg-[#55005a] w-10 h-10 @(Model.MatchWeekDto.PrevWeek == 0 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
-                aria-disabled="@(Model.MatchWeekDto.PrevWeek == 0)">
-                <i class="fa-solid fa-chevron-left text-white"></i>
-            </a>
-            <div class="flex justify-center items-center flex-col">
-                <span class="text-white text-xl font-bold">@Model.MatchWeekDto.MatchWeek</span>
-                <span class="text-white text-sm">@Model.MatchWeekDto.MatchWeekDate</span>
+        <div id="theme"
+             class="flex flex-col items-center mt-4 rounded-2xl w-full h-fit overflow-hidden bg-[#1e0021]/50 border border-[#8a3fbf]/40">
+            <div class="grid grid-cols-2 h-full w-full relative">
+                <div class="flex justify-center items-center flex-col gap-1 p-3" id="fr_homeClubFrame">
+                    <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                         id="fr_homeClubTheme">
+                        <img src="" class="w-auto h-12 object-contain cursor-pointer" id="fr_homeClubCrest" />
+                    </div>
+                    <span class="text-white" id="fr_homeClubName"></span>
+                </div>
+                <div class="flex justify-center items-center flex-col gap-1 p-3" id="fr_awayClubFrame">
+                    <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                         id="fr_awayClubTheme">
+                        <img src="" class="w-auto h-12 object-contain cursor-pointer" id="fr_awayClubCrest" />
+                    </div>
+                    <span class="text-white" id="fr_awayClubName"></span>
+                </div>
+
+                <div
+                    class="absolute flex flex-col items-center gap-2 p-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#55003a] rounded-2xl">
+                    <img id="photo" src="~/icon.png" class="w-auto h-8 object-contain cursor-pointer" />
+                    <div class="bg-white flex justify-center items-center rounded-lg px-2 py-1">
+                        <span class="text-black text-md font-bold" id="fr_matchTime"></span>
+                    </div>
+                </div>
             </div>
-            <a href="@Url.Action("Index", "Match", new { seasonId = Model.MatchWeekDto.SeasonId, week = Model.MatchWeekDto.NextWeek })"
-                class="flex items-center justify-center rounded-full bg-[#55005a] w-10 h-10 @(Model.MatchWeekDto.NextWeek == 0 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]") 
-                aria-disabled=" @(Model.MatchWeekDto.NextWeek == 0)">
-                <i class="fa-solid fa-chevron-right text-white"></i>
-            </a>
-        </div>
-    </div>
-
-    <div class="overflow-x-scroll scrollbar-none">
-        <table class="min-w-full divide-y divide-[#55005a] rounded-lg overflow-hidden">
-            <thead class="bg-[#55005a]">
-                <tr>
-                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID</th>
-                    <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
-                    </th>
-                    <th
-                        class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Home Club</th>
-                    <th
-                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Score</th>
-                    <th
-                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Match
-                    </th>
-                    <th
-                        class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Score</th>
-                    <th
-                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
-                        Away Club</th>
-                </tr>
-            </thead>
-            <tbody class="bg-transparent divide-y divide-[#55005a]">
-                @foreach (var match in Model.matchDetailDtos)
-                {
-                    index++;
-                    <tr>
-                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
-                            <div class="flex justify-center items-center">
-                                <div
-                                    class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
-                                    @index</div>
-                            </div>
-                        </td>
-                        <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
-                            <div class="flex justify-center items-center gap-2">
-
-                                @if (match.KickoffStatus == "Upcoming")
-                                {
-                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
-                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </button>
-                                    <button onclick="showModal('confirmDeleteModal', this, 'modal-lg', true)"
-                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                        <input type="text" name="seasonId" value="@match.MatchId" hidden />
-                                        <input type="text" name="seasonName" value="@match.MatchId" hidden />
-                                        <input type="text" name="startDate" value="@match.MatchId" hidden />
-                                        <input type="text" name="endDate" value="@match.MatchId" hidden />
-                                        <i class="fa-solid fa-circle-minus"></i>
-                                    </button>
-                                }
-                                else if (match.KickoffStatus == "Live")
-                                {
-                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
-                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-white hover:bg-gray-300 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                        <i class="fa-solid fa-ellipsis text-black"></i>
-                                    </button>
-                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
-                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#9c36b5] hover:bg-[#8b30a1] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                        <i class="fa-solid fa-hourglass-half text-white"></i>
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
-                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-white hover:bg-gray-300 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
-                                        <i class="fa-solid fa-ellipsis text-black"></i>
-                                    </button>
-                                }
-
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-white">
-                            <div class="flex justify-center items-center flex-col gap-2">
-                                <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
-                                    style="background-color: @match.HomeClubTheme;">
-                                    <img src="/upload/clubs/@(string.IsNullOrEmpty(match.HomeClubCrest) ? "" : match.HomeClubCrest)"
-                                        class="w-auto h-12 object-contain cursor-pointer" alt="@match.HomeClubName" />
-                                </div>
-                                <span>@match.HomeClubName</span>
-                            </div>
-                        </td>
-                        <td class="px-2 py-4 whitespace-nowrap text-center text-lg font-bold text-white">
-                            @match.HomeClubScore</td>
-                        <td class="px-6 py-2 whitespace-nowrap text-center text-sm text-white">
-                            <div
-                                class="flex justify-center items-center flex-col gap-2 p-2 rounded-2xl bg-gradient-to-r from-[@(match.HomeClubTheme)]/10 to-[@(match.AwayClubTheme)]/10 shadow relative overflow-hidden">
-                                <div class="absolute opacity-5 left-0">
-                                    <img src="/icon.png" alt="" class="mt-10 object-contain" />
-                                </div>
-                                <div class="text-lg font-bold">@match.MatchDate</div>
-                                <div class="text-sm text-gray-300">@match.MatchTime • @match.KickoffStadium</div>
-                                <span class="text-sm text-gray-300">@match.SeasonName</span>
-
-                                @if (!string.IsNullOrEmpty(match.KickoffStatus))
-                                {
-                                    <div class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-medium text-white bg-@(
-                                         match.KickoffStatus == "Live" ? "red-600" :
-                                         match.KickoffStatus == "Upcoming" ? "yellow-600" :
-                                         match.KickoffStatus == "Finished" ? "green-600" : "gray-600")/80">
-                                        @match.KickoffStatus
-                                    </div>
-                                }
-                            </div>
-                        </td>
-                        <td class="px-2 py-4 whitespace-nowrap text-center text-lg font-bold text-white">
-                            @match.AwayClubScore</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-white">
-                            <div class="flex justify-center items-center flex-col gap-2">
-                                <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
-                                    style="background-color: @match.AwayClubTheme;">
-                                    <img src="/upload/clubs/@(string.IsNullOrEmpty(match.AwayClubCrest) ? "" : match.AwayClubCrest)"
-                                        class="w-auto h-12 object-contain cursor-pointer" alt="@match.AwayClubName" />
-                                </div>
-                                <span>@match.AwayClubName</span>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-    <div class="@(ViewBag.TotalPages > 20 ? "flex" : "hidden") items-center mt-4 border-t-2 border-[#55005a] pt-4">
-        <div class="text-sm text-gray-400">
-            Total Matches: @ViewBag.TotalCount
-            Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+            <div class="flex flex-col justify-center gap-2 h-full w-full py-2">
+                <div class="text-lg text-white font-bold text-center" id="fr_matchDate"></div>
+                <div class="text-sm text-gray-300 text-center" id="fr_stadiumName"></div>
+                <span class="text-sm text-gray-300 text-center" id="fr_seasonName"></span>
+            </div>
         </div>
 
-        <div class="ml-auto flex items-center gap-4">
-            <a href="@Url.Action("Index", "Match", new { page = ViewBag.CurrentPage - 1 })"
-                class="px-3 py-1 rounded bg-[#55005a] text-white transition
-           @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
-                aria-disabled="@(ViewBag.CurrentPage == 1)">
-                <i class="fa-solid fa-chevron-left"></i>
-            </a>
+        <form id="confirmDeleteForm" asp-controller="Match" asp-action="Delete" asp-route-matchId="matchDto.matchId"
+              method="post" asp-antiforgery="true" class="h-auto p-2 mt-6" enctype="multipart/form-data" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="fr_matchId" name="MatchId" asp-for="matchDto.MatchId" />
+            <div class="flex flex-col md:flex-row justify-end gap-3">
+                <button type="button" onclick="hideModalDelete('confirmDeleteModal')"
+                        class="text-white px-4 py-2 bg-[#410544] rounded-lg hover:bg-[#55005a] transition hover:ring-2 hover:!ring-[#8a3fbf]">
+                    Cancel
+                </button>
 
-            <a href="@Url.Action("Index", "Match", new { page = ViewBag.CurrentPage + 1 })"
-                class="px-3 py-1 rounded bg-[#55005a] text-white transition
-           @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
-                aria-disabled="@(ViewBag.CurrentPage == ViewBag.TotalPages)">
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-        </div>
+                <button type="submit"
+                        class="text-white px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition hover:ring-2 hover:!ring-[#8a3fbf]">
+                    Confirm Delete
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="/js/match/club_select.js" asp-append-version="true"></script>
-    <script src="/js/match/index.js" asp-append-version="true"></script>
-}
+<div id="matchDetailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center m-4">
+    <div class="modalBox bg-[#1e0021] rounded-2xl shadow-xl p-6 w-full max-w-5xl transition-all duration-300 scale-90 opacity-0"
+         onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl font-semibold text-white" id="matchDetailModalTitle">Match Details</h2>
+            <button onclick="hideModal('matchDetailModal')"
+                    class="bg-[#55005a] text-white flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="flex border-b border-[#55005a] mb-4">
+            <button type="button"
+                    class="match-detail-tab-btn px-4 py-2 font-medium  text-[#8a3fbf] border-b-2 border-[#8a3fbf]"
+                    data-tab="tab-match-recap">
+                Recap
+            </button>
+
+            <button type="button" class="match-detail-tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
+                    data-tab="tab-match-highlights">
+                Highlights
+            </button>
+
+            <button type="button" class="match-detail-tab-btn px-4 py-2 font-medium text-gray-400 hover:text-[#8a3fbf]"
+                    data-tab="tab-match-info">
+                Match Info
+            </button>
+        </div>
+
+        <div>
+            <div id="tab-match-recap" class="match-detail-tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-[30%_1fr] gap-4 ">
+                    <div class="bg-[#28002b] rounded-2xl w-full overflow-hidden relative">
+                        <div class="bg-[#730a7a] grid grid-cols-2 items-center">
+                            <div class="flex flex-col justify-center items-center gap-1 p-4 bg-[#ffd600]">
+                                <img src="/upload/clubs/leed.svg" class="w-auto h-14 md:h-16 object-contain" />
+                                <span class="text-white text-lg font-bold truncate text-center">Leeds Utd</span>
+                            </div>
+
+                            <div class="flex flex-col justify-center items-center gap-1 p-4 bg-[#ff0000]">
+                                <img src="/upload/clubs/ars.png" class="w-auto h-14 md:h-16 object-contain" />
+                                <span class="text-white text-lg font-bold truncate text-center">Arsenal</span>
+                            </div>
+
+                            <div
+                                class="absolute left-1/2 top-[13.5%] transform -translate-x-1/2 -translate-y-1/2 bg-[#41054b] rounded-2xl w-[6rem] h-[3.5rem] flex flex-col items-center justify-center z-20">
+                                <span class="text-white text-xl font-bold">0-4</span>
+                                <span class="text-white text-sm font-bold">FT</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#28002b] rounded-t-2xl rounded-b-2xl p-4 z-10 relative -mt-3">
+
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-[1fr_38%] lg:grid-cols-[1fr_38%] gap-4">
+                        <div class="bg-[#28002b] flex flex-col gap-1 rounded-2xl p-4">
+                            <div class="flex justify-between">
+                                <h2 class="text-white text-lg font-bold mb-2">Match report</h2>
+                                <button
+                                    class="bg-[#55005a] flex justify-center items-center w-8 h-8 rounded-full p-0 hover:bg-[#410544] hover:ring-2 hover:ring-[#8a3fbf]"><i
+                                    class="fa-solid fa-up-right-and-down-left-from-center text-white text-center text-[10px]"></i></button>
+                                </div>
+                                <div class="text-white text-md whitespace-pre-line break-words h-[250px] overflow-hidden">
+                                    Arsenal got back to winning ways in the Premier League, opening up a seven-point lead at
+                                    the top of the table with a 0-4 win over Leeds United.
+
+                                    Last week, Manchester City and Aston Villa took advantage of Arsenal’s three-game
+                                    winless streak to close the gap at the top, but the Gunners regained some control at
+                                    Elland Road.
+
+                                    Noni Madueke – brought in after Bukayo Saka was injured in the warm-up – starred in the
+                                    first half, setting up Martin Zubimendi’s opener before forcing a Karl Darlow own goal
+                                    from a corner.
+                                </div>
+                            </div>
+
+                            <div class="bg-[#ff0000] flex flex-col gap-1 rounded-2xl pt-4 px-4 overflow-hidden">
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-white text-lg font-normal">Gabriel</span>
+                                    <span class="text-white text-xl font-bold">Magalhães</span>
+                                    <span class="text-white text-lg font-normal">Defender</span>
+                                    <button
+                                        class="bg-[#ffffff2b] text-white text-center text-sm px-3 py-1 rounded-2xl w-fit text-nowrap whitespace-nowrap">View
+                                        stats <i class="fas fa-chevron-right !text-[8px]"></i></button>
+                                    </div>
+                                    <div class="flex justify-between items-end gap-1 h-full">
+                                        <span class="text-white text-md font-bold mb-4">Man of the Match</span>
+                                        <img src="/upload/players/226597.png"
+                                             class="w-auto h-40 object-contain cursor-pointer" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-match-highlights"
+                         class="match-detail-tab-content hidden overflow-y-scroll h-[500px] scrollbar-none">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-y-4 gap-x-4">
+                            @foreach (var highlight in Enumerable.Range(0, 7))
+                            {
+                                if (highlight == 1)
+                                {
+                                    <div class="flex flex-col gap-2">
+                                        <div class="bg-[#28002b] flex flex-col gap-1 rounded-2xl p-4 h-[200px] relative">
+                                            <div
+                                                class="absolute text-center bg-[#4b1254] !w-7 !h-7 rounded-full !bottom-2 !right-2 flex !justify-center !items-center">
+                                                <i class="fa-solid fa-play text-white text-[9px] mb-[1.5px] ml-[1px]"></i>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-rows-[1fr_20%] gap-2 justify-between h-20">
+                                            <span class="text-white text-md font-medium">FPL GW11 bonus points:See who's earned extras
+                                                in this weekend's matches</span>
+                                                <span class="text-gray-300 text-xs text-start">Fantasy Premier League</span>
+                                            </div>
+                                        </div>
+                                    }
+                    else
+                                    {
+                                        <div class="flex flex-col gap-2">
+                                            <div class="bg-[#28002b] flex flex-col gap-1 rounded-2xl p-4 h-[200px] relative">
+                                                <div
+                                                    class="absolute text-center bg-[#4b1254] !w-7 !h-7 rounded-full !bottom-2 !right-2 flex !justify-center !items-center">
+                                                    <i class="fa-solid fa-play text-white text-[9px] mb-[1.5px] ml-[1px]"></i>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-rows-[1fr_20%] gap-2 justify-between h-20">
+                                                <span class="text-white text-md font-medium">What we learned from Matchweek 11</span>
+                                                <div class="flex items-end">
+                                                    <span class="text-gray-300 text-xs text-start">Features</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+
+                        </div>
+
+                        <div id="tab-match-info" class="match-detail-tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 ">
+                                <div class="bg-[#28002b] flex flex-col gap-1 rounded-2xl p-4">
+                                    <h2 class="text-white text-lg font-bold mb-2">Match Details</h2>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400 text-md text-start">Kickoff</span>
+                                        <span class="text-white text-md text-end font-bold" id="kickoff"></span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400 text-md text-start">Stadium</span>
+                                        <span class="text-white text-md text-end font-bold" id="stadium"></span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400 text-md text-start">Attendance</span>
+                                        <span class="text-white text-md text-end font-bold" id="attendance"></span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-[#28002b] flex flex-col gap-1 rounded-2xl p-4">
+                                    <h2 class="text-white text-lg font-bold mb-2">Match Officials</h2>
+                                    <div class="flex flex-col gap-1" id="matchOfficials">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Drawer -->
+            <div id="filterDrawer"
+                 class="fixed top-0 right-0 h-full w-full md:w-[25rem] !bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50">
+                <div class="flex flex-col items-end p-6 gap-4">
+                    <button id="closeFilterDrawer" class="w-5 text-gray-500 hover:text-red-500 text-md">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <div class="flex justify-between w-full">
+                        <h2 class="text-white text-2xl font-bold">Filters</h2>
+                        <form asp-controller="Match" asp-action="Index" method="get">
+                            <button id="btnResetFilter" type="submit"
+                                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-2xl bg-[#290d2c] text-nowrap  cursor-pointer">
+                                Reset
+                                <i class="fa-solid fa-arrow-rotate-left"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-3">
+                            <div id="showCompetitionDrawer" class="flex justify-between cursor-pointer">
+                                <span class="text-white text-lg ">Competitions</span>
+                                <i class="fa-solid fa-chevron-right text-white text-lg cursor-pointer"></i>
+                            </div>
+                            <button id="competitionBoxId"
+                                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
+                                Premier League
+                            </button>
+                            <div class="border-[#37003c] border-b-2 mt-4"></div>
+                        </div>
+
+                        <div class="flex flex-col gap-3 mt-2">
+                            <div id="showSeasonDrawer" class="flex justify-between cursor-pointer">
+                                <span class="text-white text-lg ">Seasons</span>
+                                <i class="fa-solid fa-chevron-right text-white text-lg"></i>
+                            </div>
+                            <button id="seasonBoxId"
+                                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
+                                2025/26
+                            </button>
+                            <div class="border-[#37003c] border-b-2 mt-4"></div>
+                        </div>
+
+                        <div class="flex flex-col gap-3 mt-2">
+                            <div id="showMatchweekDrawer" class="flex justify-between cursor-pointer">
+                                <span class="text-white text-lg ">Matchweeks</span>
+                                <i class="fa-solid fa-chevron-right text-white text-lg"></i>
+                            </div>
+                            <button id="matchweekBoxId"
+                                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer">
+                                MW @Model.MatchWeekDto.Week
+                            </button>
+                            <div class="border-[#37003c] border-b-2 mt-4"></div>
+                        </div>
+
+                        <div class="flex flex-col gap-3 mt-2">
+                            <div id="showClubDrawer" class="flex justify-between cursor-pointer">
+                                <span class="text-white text-lg">Clubs</span>
+                                <i class="fa-solid fa-chevron-right text-white text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Competition Drawer -->
+            <div id="competitionDrawer"
+                 class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+                <div class="p-6">
+                    <div class="flex justify-between">
+                        <button id="backCompetitionDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button id="closeCompetitionDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <h2 class="text-white text-2xl font-bold mt-4">Competitions</h2>
+                </div>
+
+                <div class="flex-1 overflow-y-auto scrollbar-none p-6">
+                    <ul class="space-y-8">
+                        <li class="flex items-center justify-between">
+                            <span class="text-white text-lg font-medium">Premier League</span>
+                            <input type="radio" name="competition" class="w-5 h-5 accent-white cursor-pointer" checked>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-6 border-t border-white/10">
+                    <button class="bg-white text-md text-[#1e0021] text-center
+                        w-full py-2 rounded-3xl cursor-pointer">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+            <!-- Seasons Drawer -->
+            <div id="seasonDrawer"
+                 class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+                <div class="p-6">
+                    <div class="flex justify-between">
+                        <button id="backSeasonDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button id="closeSeasonDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <h2 class="text-white text-2xl font-bold mt-4">Seasons</h2>
+                </div>
+
+                <form asp-action="Index" asp-controller="Match" method="get" class="flex flex-col flex-1 overflow-hidden mt-4">
+
+                    @if (Model.SelectedClubIds != null)
+                    {
+                        @foreach (var clubId in Model.SelectedClubIds)
+                        {
+                            <input type="hidden" name="club" value="@clubId" />
+                        }
+                    }
+
+                    @if (Model.MatchWeekDto != null)
+                    {
+                        <input type="hidden" name="week" value="@Model.MatchWeekDto.Week" />
+                    }
+
+                    <div class="flex-1 overflow-y-auto scrollbar-none p-6">
+                        <ul class="space-y-8">
+                            <!-- Item -->
+                            @foreach (var season in Model.SeasonsSelectListItem)
+                            {
+                                <li class="flex items-center justify-between">
+                                    <span class="text-white text-lg font-medium">@season.Text</span>
+                                    <input type="radio" name="seasonId" value="@season.Value"
+                                           class="w-5 h-5 accent-white cursor-pointer" @(season.Value == Model.matchDto.SeasonId.ToString()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ? "checked" : "")>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="p-6 border-t border-white/10">
+                        <button class="bg-white text-md text-[#1e0021] text-center
+                            w-full py-2 rounded-3xl cursor-pointer">
+                            Save
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- Matchweeks Drawer -->
+            <div id="matchweekDrawer"
+                 class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+                <div class="p-6">
+                    <div class="flex justify-between">
+                        <button id="backMatchweekDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button id="closeMatchweekDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <h2 class="text-white text-2xl font-bold mt-4">Matchweeks</h2>
+                </div>
+
+                <form asp-action="Index" asp-controller="Match" method="get" class="flex flex-col flex-1 overflow-hidden mt-4">
+                    @if (Model.SelectedClubIds != null)
+                    {
+                        @foreach (var clubId in Model.SelectedClubIds)
+                        {
+                            <input type="hidden" name="club" value="@clubId" />
+                        }
+                    }
+
+                    @if (Model.matchDto.SeasonId != 0)
+                    {
+                        <input type="hidden" name="season" value="@Model.matchDto.SeasonId" />
+                    }
+
+                    <div class="flex-1 overflow-y-auto scrollbar-none p-6">
+                        <ul class="space-y-8">
+                            @foreach (var matchweek in Model.MatchWeekSelectListItem)
+                            {
+                                <li class="flex items-center justify-between">
+                                    <span class="text-white text-lg font-medium">@matchweek.Text</span>
+                                    <input type="radio" name="week" value="@matchweek.Value" class="w-5 h-5 accent-white cursor-pointer"
+                                    @(matchweek.Value == Model.MatchWeekDto.Week.ToString() ? "checked" : "")>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="p-6 border-t border-white/10">
+                        <button class="bg-white text-md text-[#1e0021] text-center
+                            w-full py-2 rounded-3xl cursor-pointer">
+                            Save
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- Clubs Drawer -->
+            <div id="clubDrawer"
+                 class="fixed top-0 right-0 h-full w-full md:w-[25rem] bg-[#1e0021] shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+                <div class="p-6">
+                    <div class="flex justify-between">
+                        <button id="backClubDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button id="closeClubDrawer" class="w-5 text-gray-500 hover:text-red-500">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <h2 class="text-white text-2xl font-bold mt-4">Clubs</h2>
+                </div>
+
+                <form asp-action="Index" asp-controller="Match" method="get" class="flex flex-col flex-1 overflow-hidden mt-4">
+                    @if (Model.MatchWeekDto != null)
+                    {
+                        <input type="hidden" name="week" value="@Model.MatchWeekDto.Week" />
+                    }
+
+                    @if (Model.matchDto.SeasonId != 0)
+                    {
+                        <input type="hidden" name="season" value="@Model.matchDto.SeasonId" />
+                    }
+
+                    <div class="flex-1 px-6 space-y-6 my-4  overflow-y-auto scrollbar-none">
+                        @foreach (var club in Model.SelectListItemClubs)
+                        {
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex justify-center items-center">
+                                        <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                                             style="background-color: @club.ClubTheme">
+                                            <img src="~/upload/clubs/@club.ClubCrest" class="w-auto h-12 object-contain cursor-pointer"
+                                                 alt="@club.ClubName" />
+                                        </div>
+                                    </div>
+                                    <span class="text-white text-lg font-medium">@club.ClubName</span>
+                                </div>
+                                <input type="checkbox" value="@club.ClubId" name="club"
+                                       class="w-5 h-5 rounded border-white bg-transparent checked:bg-white checked:border-white accent-white"
+                                @(Model.SelectedClubIds.Contains(club.ClubId) ? "checked" : "")>
+                            </label>
+                        }
+                    </div>
+
+                    <div class="p-6 border-t border-white/10">
+                        <button type="submit" class="bg-white text-md text-[#1e0021] text-center
+                            w-full py-2 rounded-3xl cursor-pointer">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden h-fit max-h-[91vh]">
+                <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
+                    <div class="flex items-center justify-between lg:justify-start gap-4">
+                        <a href="@Url.Action("Index", "Match")"
+                               class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">Back
+                            to
+                            Home</a>
+
+                            <button onclick="openModal('modal-8xl', true)"
+                                    class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
+                                    id="btnAddNewMatch">Add New</button>
+                        </div>
+
+                        <div class="flex flex-col md:flex-col xl:flex-row xl:items-center gap-4 w-full lg:w-fit">
+                            <div
+                                class="flex items-center justify-start lg:justify-end gap-2 w-full p-2 rounded-t-[10px] overflow-hidden overflow-x-scroll scrollbar-none">
+                                <button id="filterBtnId"
+                                        class="flex justify-center items-center text-white text-center text-sm w-fit px-3 py-[9px] rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    <i class="fa-solid fa-arrow-down-wide-short"></i>
+                                </button>
+
+                                <button id="competitionBtnId"
+                                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    Premier League
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+
+                                <button id="seasonBtnId"
+                                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    @Model.SeasonsSelectListItem.FirstOrDefault(s => s.Value ==
+                                    Model.matchDto.SeasonId.ToString())?.Text
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+
+                                <button id="matchweekBtnId"
+                                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    MW @Model.MatchWeekDto.Week
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+
+                                <button id="clubBtnId"
+                                        class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] cursor-pointer hover:ring-2 hover:!ring-[#8a3fbf]">
+                                    @{
+                                        if (Model.SelectedClubIds != null && Model.SelectedClubIds.Count > 0)
+                                        {
+                                            if (Model.SelectedClubIds.Count > 1)
+                                            {
+                                                <text>@Model.SelectListItemClubs.FirstOrDefault(c => c.ClubId ==
+                                                                                                                                                                                                                                        Model.SelectedClubIds.First())?.ClubName +@(Model.SelectedClubIds.Count - 1) </text>
+                                                }
+                    else
+                                                {
+                                                    <text>@Model.SelectListItemClubs.FirstOrDefault(c => c.ClubId ==
+                                                                                                                                                                                                                                                        Model.SelectedClubIds.First())?.ClubName</text>
+                                                        ;
+                                                    }
+                                                }
+                    else
+                                                {
+                                                    <text>Clubs</text>
+                                                }
+                                            }
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </button>
+
+                                        <form asp-action="Index" asp-controller="Match" method="get">
+                                            @{
+                                                bool isReset = (Model.SelectedClubIds?.Count > 0)
+                                                || (Model.matchDto != null && Model.matchDto.SeasonId != 0)
+                                                || (Model.MatchWeekDto != null && Model.MatchWeekDto.Week != 0);
+                                            }
+                                            <button type="submit" @(isReset ? "" : "disabled")
+                                                    class="flex justify-center items-center gap-1 text-white text-center text-sm w-fit px-3 py-2 rounded-[10px] bg-transparent border-[#624d64] border-2 text-nowrap hover:bg-[#654c6818] hover:ring-2 hover:!ring-[#8a3fbf] @(isReset ? "" : "opacity-50 cursor-not-allowed pointer-events-none")">
+                                                Reset
+                                                <i class="fa-solid fa-arrow-rotate-left"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-1 flex-col gap-4 my-4">
+                                <div class="flex justify-center items-center w-full gap-10">
+                                    <a href="@Url.Action("Index", "Match", new { club = Model.SelectedClubIds, season = Model.MatchWeekDto.SeasonId, week = Model.MatchWeekDto.PrevWeek })"
+                                           class="flex items-center justify-center rounded-full bg-[#55005a] w-10 h-10 @(Model.MatchWeekDto.PrevWeek == 0 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                                           aria-disabled="@(Model.MatchWeekDto.PrevWeek == 0)">
+                                        <i class="fa-solid fa-chevron-left text-white"></i>
+                                    </a>
+                                    <div class="flex justify-center items-center flex-col">
+                                        <span class="text-white text-xl font-bold">@Model.MatchWeekDto.MatchWeek</span>
+                                        <span class="text-white text-sm">@Model.MatchWeekDto.MatchWeekDate</span>
+                                    </div>
+                                    <a href="@Url.Action("Index", "Match", new { club = Model.SelectedClubIds, season = Model.MatchWeekDto.SeasonId, week = Model.MatchWeekDto.NextWeek })"
+                                           class="flex items-center justify-center rounded-full bg-[#55005a] w-10 h-10 @(Model.MatchWeekDto.NextWeek == 0 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]") 
+                                        aria-disabled=" @(Model.MatchWeekDto.NextWeek == 0)">
+                                        <i class="fa-solid fa-chevron-right text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-scroll overflow-y-auto max-h-[77vh] scrollbar-none overflow-hidden rounded-t-lg">
+                                <table class="min-w-full divide-y divide-[#55005a]">
+                                    <thead class="bg-[#55005a] sticky top-0 z-10">
+                                        <tr>
+                                            <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">ID</th>
+                                            <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">Action
+                                            </th>
+                                            <th
+                                                class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                Home Club</th>
+                                                <th
+                                                    class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                    Score</th>
+                                                    <th
+                                                        class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                        Match
+                                                    </th>
+                                                    <th
+                                                        class="px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                        Score</th>
+                                                        <th
+                                                            class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                                                            Away Club</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="bg-transparent divide-y divide-[#55005a]">
+                                                        @foreach (var match in Model.matchDetailDtos)
+                                                        {
+                                                            index++;
+                                                            <tr>
+                                                                <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                                                    <div class="flex justify-center items-center">
+                                                                        <div
+                                                                            class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#55005a] rounded-full ring-2 !ring-[#8a3fbf]">
+                                                                            @index</div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                                                        <div class="flex justify-center items-center gap-2">
+
+                                                                            @if (match.KickoffStatus == "Upcoming")
+                                                                            {
+                                                                                <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                                                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#8a3fbf] hover:bg-[#6b2fa0] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                                    <i class="fa-solid fa-pencil"></i>
+                                                                                </button>
+                                                                                <button onclick="showModalDelete('confirmDeleteModal', this, 'modal-lg', true)"
+                                                                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-red-500 hover:bg-red-600 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                                    <input type="text" name="matchId" value="@match.MatchId" hidden />
+                                                                                    <input type="text" name="homeClubName" value="@match.HomeClubName" hidden />
+                                                                                    <input type="text" name="homeClubCrest" value="@match.HomeClubCrest" hidden />
+                                                                                    <input type="text" name="homeClubTheme" value="@match.HomeClubTheme" hidden />
+                                                                                    <input type="text" name="awayClubName" value="@match.AwayClubName" hidden />
+                                                                                    <input type="text" name="awayClubCrest" value="@match.AwayClubCrest" hidden />
+                                                                                    <input type="text" name="awayClubTheme" value="@match.AwayClubTheme" hidden />
+                                                                                    <input type="text" name="matchTime" value="@match.MatchTime" hidden />
+                                                                                    <input type="text" name="matchDate" value="@match.MatchDate" hidden />
+                                                                                    <input type="text" name="kickoffStadium" value="@match.KickoffStadium" hidden />
+                                                                                    <input type="text" name="seasonName" value="@match.SeasonName" hidden />
+                                                                                    <i class="fa-solid fa-circle-minus"></i>
+                                                                                </button>
+                                                                            }
+                                                                            else if (match.KickoffStatus == "Live")
+                                                                            {
+                                                                                <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                                                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-white hover:bg-gray-300 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                                    <i class="fa-solid fa-ellipsis text-black"></i>
+                                                                                </button>
+                                                                                <button onclick="attachMatchByIdForUpdate('@match.MatchId')"
+                                                                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-[#9c36b5] hover:bg-[#8b30a1] rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                                    <i class="fa-solid fa-hourglass-half text-white"></i>
+                                                                                </button>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <button onclick="openMatchDetailTab('@match.MatchId')"
+                                                                                        class="w-9 h-9 text-white text-sm font-bold text-center flex justify-center items-center bg-white hover:bg-gray-300 rounded-xl hover:ring-2 hover:!ring-[#8a3fbf]">
+                                                                                    <i class="fa-solid fa-ellipsis text-black"></i>
+                                                                                </button>
+                                                                            }
+
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-white">
+                                                                        <div class="flex justify-center items-center flex-col gap-2">
+                                                                            <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                                                                                 style="background-color: @match.HomeClubTheme;">
+                                                                                <img src="/upload/clubs/@(string.IsNullOrEmpty(match.HomeClubCrest) ? "" : match.HomeClubCrest)"
+                                                                                     class="w-auto h-12 object-contain cursor-pointer" alt="@match.HomeClubName" />
+                                                                            </div>
+                                                                            <span>@match.HomeClubName</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="px-2 py-4 whitespace-nowrap text-center text-lg font-bold text-white">
+                                                                        @match.HomeClubScore</td>
+                                                                        <td class="px-6 py-2 whitespace-nowrap text-center text-sm text-white">
+                                                                            <div
+                                                                                class="flex justify-center items-center flex-col gap-2 p-2 rounded-2xl bg-gradient-to-r from-[@(match.HomeClubTheme)]/10 to-[@(match.AwayClubTheme)]/10 shadow relative overflow-hidden">
+                                                                                <div class="absolute opacity-5 left-0">
+                                                                                    <img src="/icon.png" alt="" class="mt-10 object-contain" />
+                                                                                </div>
+                                                                                <div class="text-lg font-bold">@match.MatchDate</div>
+                                                                                <div class="text-sm text-gray-300">@match.MatchTime • @match.KickoffStadium</div>
+                                                                                <span class="text-sm text-gray-300">@match.SeasonName</span>
+
+                                                                                @if (!string.IsNullOrEmpty(match.KickoffStatus))
+                                                                                {
+                                                                                    <div
+                                                                                        class="mt-2 inline-block px-3 py-1 rounded-full text-xs font-medium text-white bg-@(
+                                                                                                                                                                                match.KickoffStatus == "Live" ? "red-600" :
+                                                                                                                                                                                match.KickoffStatus == "Upcoming" ? "yellow-600" :
+                                                                                                                                                                                match.KickoffStatus == "Finished" ? "green-600" : "gray-600")/80">
+                                                                                        @match.KickoffStatus
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="px-2 py-4 whitespace-nowrap text-center text-lg font-bold text-white">
+                                                                            @match.AwayClubScore</td>
+                                                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-white">
+                                                                                <div class="flex justify-center items-center flex-col gap-2">
+                                                                                    <div class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden"
+                                                                                         style="background-color: @match.AwayClubTheme;">
+                                                                                        <img src="/upload/clubs/@(string.IsNullOrEmpty(match.AwayClubCrest) ? "" : match.AwayClubCrest)"
+                                                                                             class="w-auto h-12 object-contain cursor-pointer" alt="@match.AwayClubName" />
+                                                                                    </div>
+                                                                                    <span>@match.AwayClubName</span>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <div class="@(ViewBag.TotalPages > 20 ? "flex" : "hidden") items-center mt-4 border-t-2 border-[#55005a] pt-4">
+                                                            <div class="text-sm text-gray-400">
+                                                                Total Matches: @ViewBag.TotalCount
+                                                                Page @ViewBag.CurrentPage of @ViewBag.TotalPages
+                                                            </div>
+
+                                                            <div class="ml-auto flex items-center gap-4">
+                                                                <a href="@Url.Action("Index", "Match", new { page = ViewBag.CurrentPage - 1 })"
+                                                                       class="px-3 py-1 rounded bg-[#55005a] text-white transition
+                                                                    @(ViewBag.CurrentPage == 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                                                                       aria-disabled="@(ViewBag.CurrentPage == 1)">
+                                                                    <i class="fa-solid fa-chevron-left"></i>
+                                                                </a>
+
+                                                                <a href="@Url.Action("Index", "Match", new { page = ViewBag.CurrentPage + 1 })"
+                                                                       class="px-3 py-1 rounded bg-[#55005a] text-white transition
+                                                                    @(ViewBag.CurrentPage == ViewBag.TotalPages ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-[#410544] hover:ring-2 hover:!ring-[#8a3fbf]")"
+                                                                       aria-disabled="@(ViewBag.CurrentPage == ViewBag.TotalPages)">
+                                                                    <i class="fa-solid fa-chevron-right"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    @section Scripts {
+                                                        <partial name="_ValidationScriptsPartial" />
+                                                        <script src="/js/match/club_select.js" asp-append-version="true"></script>
+                                                        <script src="/js/match/index.js" asp-append-version="true"></script>
+                                                        <script src="/js/match/filter.js" asp-append-version="true"></script>
+                                                        <script src="/js/match/modal.js" asp-append-version="true"></script>
+                                                        <script src="/js/match/delete.js" asp-append-version="true"></script>
+                                                        <script src="/js/match/match_detail.js" asp-append-version="true"></script>
+                                                        <script>
+                                                            if (window.location.search.includes("club=")) {
+                                                                history.replaceState({}, document.title,
+                                                                    window.location.pathname + window.location.search.replace(/club=[^&]*&?/g, '')
+                                                                );
+                                                            }
+                                                            const { pathname, search } = window.location;
+
+                                                            if (search.endsWith('&') || search.endsWith('?')) {
+                                                                history.replaceState(
+                                                                    null,
+                                                                    '',
+                                                                    pathname + search.slice(0, -1)
+                                                                );
+                                                            }
+                                                        </script>
+                                                    }

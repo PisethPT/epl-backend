@@ -1,4 +1,4 @@
-namespace epl_backend.Helper.SqlCommands;
+namespace PremierLeague_Backend.Helper.SqlCommands;
 
 public static class UserCommands
 {

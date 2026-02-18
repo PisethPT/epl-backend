@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using epl_backend.Models.SelectListItems;
+using PremierLeague_Backend.Models.SelectListItems;
 
-namespace epl_backend.Helper;
+namespace PremierLeague_Backend.Helper;
 
 public static class NationalityLoader
 {

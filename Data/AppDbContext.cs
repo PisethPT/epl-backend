@@ -1,7 +1,7 @@
 
 using System.Data.SqlClient;
 
-namespace epl_backend.Data
+namespace PremierLeague_Backend.Data
 {
     public sealed class AppDbContext : IDisposable
     {

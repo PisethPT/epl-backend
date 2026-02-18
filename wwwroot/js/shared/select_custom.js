@@ -12,6 +12,7 @@ export const CustomSelect = (function () {
     showImage: false,
     maxHeight: 56,
     imgSize: "w-auto h-7",
+    noneScroll: "scrollbar-none",
   };
 
   function escapeHtml(s) {
@@ -85,7 +86,7 @@ export const CustomSelect = (function () {
     const ul = document.createElement("ul");
     ul.setAttribute("role", "listbox");
     ul.tabIndex = 0;
-    ul.className = `max-h-${cfg.maxHeight} overflow-auto scrollbar-none divide-y divide-[#8a3fbf]`;
+    ul.className = `max-h-${cfg.maxHeight} ${cfg.noneScroll} overflow-auto divide-y divide-[#8a3fbf]`;
 
     panel.appendChild(searchWrap);
     panel.appendChild(ul);

@@ -1,8 +1,9 @@
-namespace epl_backend.Models.Enums;
+namespace PremierLeague_Backend.Models.Enums;
 
 public enum PreferredFoot
 {
     Right,
     Left,
-    Both
+    Both,
+    None
 }

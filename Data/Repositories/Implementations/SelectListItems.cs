@@ -1,10 +1,11 @@
 using System.Data.SqlClient;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Models.SelectListItems;
-using epl_backend.Services.Interfaces;
-using static epl_backend.Helper.SqlCommands.SelectListItemCommands;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Models.SelectListItems;
+using PremierLeague_Backend.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using static PremierLeague_Backend.Helper.SqlCommands.SelectListItemCommands;
 
-namespace epl_backend.Data.Repositories.Implementations;
+namespace PremierLeague_Backend.Data.Repositories.Implementations;
 
 public class SelectListItems : ISelectListItems
 {
@@ -14,6 +15,7 @@ public class SelectListItems : ISelectListItems
     {
         this.execute = execute;
     }
+
     public async Task<List<SelectListItemClub>> SelectListItemClubAsync(CancellationToken ct = default)
     {
         try
@@ -228,6 +230,68 @@ public class SelectListItems : ISelectListItems
                         rdr.GetInt32(rdr.GetOrdinal("RefereeRoleId")),
                         rdr.IsDBNull(rdr.GetOrdinal("RoleName")) ? "" : rdr.GetString(rdr.GetOrdinal("RoleName"))
                     );
+                    selectListItem.Add(item);
+
+                } while (await rdr.ReadAsync(ct));
+            }
+            return selectListItem;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<List<SelectListItem>> SelectListItemsAsync(string commandText, CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = commandText;
+            using var rdr = await execute.ExecuteReaderAsync(cmd);
+            var selectListItem = new List<SelectListItem>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    var item = new SelectListItem
+                    {
+                        Value = rdr.GetInt32(rdr.GetOrdinal("Value")).ToString(),
+                        Text = rdr.IsDBNull(rdr.GetOrdinal("Text")) ? "" : rdr.GetString(rdr.GetOrdinal("Text"))
+                    };
+                    selectListItem.Add(item);
+
+                } while (await rdr.ReadAsync(ct));
+            }
+            return selectListItem;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public async Task<List<SelectListItem>> SelectListItemsAsync(string commandText, Dictionary<string, string> sqlParams, CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = commandText;
+            foreach(var param in sqlParams)
+            {
+                cmd.Parameters.AddWithValue(param.Key, param.Value);
+            }
+            using var rdr = await execute.ExecuteReaderAsync(cmd);
+            var selectListItem = new List<SelectListItem>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    var item = new SelectListItem
+                    {
+                        Value = rdr.GetInt32(rdr.GetOrdinal("Value")).ToString(),
+                        Text = rdr.IsDBNull(rdr.GetOrdinal("Text")) ? "" : rdr.GetString(rdr.GetOrdinal("Text"))
+                    };
                     selectListItem.Add(item);
 
                 } while (await rdr.ReadAsync(ct));

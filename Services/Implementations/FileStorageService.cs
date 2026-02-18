@@ -1,5 +1,5 @@
-using epl_backend.Services.Interfaces;
-namespace epl_backend.Services.Implementations;
+using PremierLeague_Backend.Services.Interfaces;
+namespace PremierLeague_Backend.Services.Implementations;
 
 public class FileStorageService : IFileStorageService
 {

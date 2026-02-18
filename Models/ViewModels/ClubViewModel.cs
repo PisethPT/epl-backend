@@ -1,7 +1,6 @@
-using System;
-using epl_backend.Models.DTOs;
+using PremierLeague_Backend.Models.DTOs;
 
-namespace epl_backend.Models.ViewModels;
+namespace PremierLeague_Backend.Models.ViewModels;
 
 public class ClubViewModel
 {

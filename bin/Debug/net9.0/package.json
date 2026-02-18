@@ -19,7 +19,8 @@
     "update-browserslist-db": "^1.1.4"
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.33"
+    "@types/jquery": "^3.5.33",
+    "prettier": "^3.8.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,6 +1,4 @@
-using System;
-
-namespace epl_backend.Helper;
+namespace PremierLeague_Backend.Helper;
 
 public class FileValidationResult
 {

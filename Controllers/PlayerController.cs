@@ -1,7 +1,7 @@
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Helper;
-using epl_backend.Models.DTOs;
-using epl_backend.Models.ViewModels;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Helper;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace epl_backend.Controllers
@@ -231,7 +231,7 @@ namespace epl_backend.Controllers
         // POST: PlayerController/FindPlayerById
         [HttpPost("get-player/{playerId}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> FindPlayerById([FromRoute] int playerId)
+        public async Task<JsonResult> FindPlayerById([FromRoute] int playerId)
         {
             try
             {
@@ -239,17 +239,32 @@ namespace epl_backend.Controllers
                 if (playerDto is null)
                 {
                     ModelState.AddModelError(nameof(playerId), "A player is not found.");
-                    return RedirectToAction(nameof(Index));
+                    return Json(new
+                    {
+                        StatusCode = 404,
+                        Message = "A player is not found."
+                    });
                 }
 
-                return Json(playerDto);
+                return Json(new
+                {
+                    StatusCode = 200,
+                    Message = "Commit Transaction Success.",
+                    Data = new
+                    {
+                        playerDto
+                    }
+                });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error getting user {PlayerId}", playerId);
                 ModelState.AddModelError(string.Empty, ex.Message);
-                viewModel.PlayerDetailDtos = await repository.GetAllPlayerAsync();
-                return View(nameof(Index), viewModel);
+                return Json(new
+                {
+                    StatusCode = 400,
+                    Message = ex.Message,
+                });
             }
         }
     }

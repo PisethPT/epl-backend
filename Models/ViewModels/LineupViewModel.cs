@@ -1,7 +1,7 @@
-using epl_backend.Models.DTOs;
-using epl_backend.Models.SelectListItems;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.SelectListItems;
 
-namespace epl_backend.Models.ViewModels;
+namespace PremierLeague_Backend.Models.ViewModels;
 
 public class LineupViewModel
 {

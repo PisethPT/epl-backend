@@ -1,6 +1,6 @@
 using System.Data.SqlClient;
 
-namespace epl_backend.Services.Interfaces;
+namespace PremierLeague_Backend.Services.Interfaces;
 
 public interface IExecute
 {

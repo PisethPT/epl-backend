@@ -64,17 +64,24 @@ const attachPlayerByIdForUpdate = (playerId) => {
     method: "POST",
     headers: {
       RequestVerificationToken: $(
-        'input[name="__RequestVerificationToken"]'
+        'input[name="__RequestVerificationToken"]',
       ).val(),
     },
-    success: function (data) {
+    success: function (response) {
+      if (response.statusCode !== 200) {
+        alert(JSON.stringify(response.message));
+        hideModal("confirmDeleteModal");
+        return;
+      }
+
+      const data = response.data.playerDto;
       $("#playerId").val(data.playerId);
       $("#photo").val(data.photo);
       $("#firstName").val(data.firstName);
       $("#lastName").val(data.lastName);
       $("#dateOfBirth").val(data.dateOfBirth);
       $("#height").val(data.height);
-      $("#playerNumber").val(data.playerNumber);
+      $("#playerNumber").val(data.playerNumber === 0 ? "" : data.playerNumber);
 
       // selects box
       $("#placeOfBirth").val(data.placeOfBirth);
@@ -88,7 +95,7 @@ const attachPlayerByIdForUpdate = (playerId) => {
       nationalitiesInst.setValue(data.nationality);
       positionInst.setValue(data.position == 0 ? "0" : data.position);
       preferredFootInst.setValue(
-        data.preferredFoot == 0 ? "0" : data.preferredFoot
+        data.preferredFoot == 0 ? "0" : data.preferredFoot,
       );
       joinedClubFootInst.setValue(data.joinedClub == 0 ? "0" : data.joinedClub);
       playerClubInst.setValue(data.clubId);
@@ -109,7 +116,7 @@ const attachPlayerByIdForUpdate = (playerId) => {
       $("#modalTitle").text("Update Player");
       $("#playerForm").attr(
         "action",
-        PLAYER_ENDPOINT.UPDATE_PLAYER_ENDPOINT + "/" + data.playerId
+        PLAYER_ENDPOINT.UPDATE_PLAYER_ENDPOINT + "/" + data.playerId,
       );
 
       // Open modal after fill

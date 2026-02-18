@@ -1,4 +1,4 @@
-namespace epl_backend.Helper.SqlCommands;
+namespace PremierLeague_Backend.Helper.SqlCommands;
 
 public static class MatchCommands
 {
@@ -14,4 +14,8 @@ public static class MatchCommands
     public static string FindMatchAlreadyExistsOnTheSelectedDateCommand => "PL_FindMatchAlreadyExistsOnTheSelectedDate";
     public static string CountMatchesCommand => "PL_CountMatches";
     public static string GetMatchWeekBySeasonIdCommand => "PL_GetMatchWeekBySeasonId";
+    public static string FindMatchRefereeByMatchIdCommand => "PL_FindMatchRefereeByMatchId";
+    public static string GetCurrentMatchWeekAndSeasonIdCommand => "PL_GetCurrentMatchWeekAndSeasonId";
+    public static string GetMatchDetailCommand => "PL_GetMatchDetail";
+    public static string PL_GetMatchOfficialCommand => "PL_GetMatchOfficial";
 }

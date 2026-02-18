@@ -76,7 +76,6 @@ function onDropPlayer(e, slot) {
   const side = slot.dataset.side;
   const ctx = state[side];
   const player = ctx.draggedPlayer;
-
   if (!player) return;
   // prevent duplicate
   if (
@@ -248,15 +247,6 @@ function renderBench(side) {
 
       renderFormation("home", defaultFormationKey);
       renderFormation("away", defaultFormationKey);
-
-      slotHomePlayers = getPlayerIds("homeClubPlayerId");
-      slotAwayPlayers = getPlayerIds("awayClubPlayerId");
-
-      state.home.slotPlayers = [...slotHomePlayers];
-      state.away.slotPlayers = [...slotAwayPlayers];
-
-      renderBench("home");
-      renderBench("away");
     },
     error: function (error) {
       alert("Failed to load formations");

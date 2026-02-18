@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace epl_backend.Controllers
+namespace PremierLeague_Backend.Controllers
 {
     public class TableController : Controller
     {

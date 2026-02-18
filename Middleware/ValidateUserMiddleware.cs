@@ -1,9 +1,9 @@
-using epl_backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
-namespace epl_backend.Middleware;
+namespace PremierLeague_Backend.Middleware;
 
 public class ValidateUserMiddleware
 {

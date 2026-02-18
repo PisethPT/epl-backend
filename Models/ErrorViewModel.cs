@@ -1,4 +1,4 @@
-namespace epl_backend.Models;
+namespace PremierLeague_Backend.Models;
 
 public class ErrorViewModel
 {

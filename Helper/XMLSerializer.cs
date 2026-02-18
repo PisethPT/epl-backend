@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace epl_backend.Helper
+namespace PremierLeague_Backend.Helper
 {
 	public static class XMLSerializer
 	{

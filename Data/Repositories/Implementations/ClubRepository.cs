@@ -1,10 +1,10 @@
 using System.Data;
 using System.Data.SqlClient;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Models.DTOs;
-using static epl_backend.Helper.SqlCommands.ClubCommands;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Models.DTOs;
+using static PremierLeague_Backend.Helper.SqlCommands.ClubCommands;
 
-namespace epl_backend.Data.Repositories.Implementations;
+namespace PremierLeague_Backend.Data.Repositories.Implementations;
 
 public class ClubRepository : IClubRepository
 {

@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using epl_backend.Models;
+using PremierLeague_Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace epl_backend.Controllers;
+namespace PremierLeague_Backend.Controllers;
 
 [Authorize]
 public class HomeController : Controller

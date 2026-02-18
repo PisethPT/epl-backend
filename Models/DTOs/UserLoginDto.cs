@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace epl_backend.Models.DTOs;
+namespace PremierLeague_Backend.Models.DTOs;
 
 public class UserLoginDto
 {

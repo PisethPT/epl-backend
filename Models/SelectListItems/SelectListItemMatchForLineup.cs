@@ -1,4 +1,4 @@
-namespace epl_backend.Models.SelectListItems;
+namespace PremierLeague_Backend.Models.SelectListItems;
 
 public record SelectListItemMatchForLineup
 (

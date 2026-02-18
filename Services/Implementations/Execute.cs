@@ -1,9 +1,9 @@
 using System.Data;
 using System.Data.SqlClient;
-using epl_backend.Data;
-using epl_backend.Services.Interfaces;
+using PremierLeague_Backend.Data;
+using PremierLeague_Backend.Services.Interfaces;
 
-namespace epl_backend.Services.Implementations;
+namespace PremierLeague_Backend.Services.Implementations;
 
 public class Execute : IExecute
 {

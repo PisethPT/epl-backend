@@ -1,7 +1,7 @@
-using epl_backend.Data;
-using epl_backend.Middleware;
+using PremierLeague_Backend.Data;
+using PremierLeague_Backend.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using static epl_backend.Startup.DependenciesConfig;
+using static PremierLeague_Backend.Startup.DependenciesConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/auth/login";
         options.LogoutPath = "/auth/logout";
         options.AccessDeniedPath = "/auth/access-denied";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
         options.SlidingExpiration = true;
 
         // redirect to login automatically when cookie expires

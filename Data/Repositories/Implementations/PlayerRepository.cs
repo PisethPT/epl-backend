@@ -1,12 +1,12 @@
 using System.Data;
 using System.Data.SqlClient;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Models.DTOs;
-using epl_backend.Models.Enums;
-using epl_backend.Services.Interfaces;
-using static epl_backend.Helper.SqlCommands.PlayerCommands;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.Enums;
+using PremierLeague_Backend.Services.Interfaces;
+using static PremierLeague_Backend.Helper.SqlCommands.PlayerCommands;
 
-namespace epl_backend.Data.Repositories.Implementations;
+namespace PremierLeague_Backend.Data.Repositories.Implementations;
 
 public class PlayerRepository : IPlayerRepository
 {
@@ -132,7 +132,7 @@ public class PlayerRepository : IPlayerRepository
         }
     }
 
-    public async Task<List<PlayerDetailDto>> GetAllPlayerAsync(string? positionJson = null , string? clubIdJson = null, int? page = 1, CancellationToken ct = default)
+    public async Task<List<PlayerDetailDto>> GetAllPlayerAsync(string? positionJson = null, string? clubIdJson = null, int? page = 1, CancellationToken ct = default)
     {
         try
         {
@@ -219,7 +219,7 @@ public class PlayerRepository : IPlayerRepository
         }
     }
 
-    public async Task<int> CountPlayersAsync(string? positionJson = null , string? clubIdJson = null, CancellationToken ct = default)
+    public async Task<int> CountPlayersAsync(string? positionJson = null, string? clubIdJson = null, CancellationToken ct = default)
     {
         try
         {
@@ -240,13 +240,13 @@ public class PlayerRepository : IPlayerRepository
     Position MapPosition(object dbValue)
     {
         if (dbValue == null)
-            return Position.Goalkeeper;
+            return Position.None;
 
         if (dbValue is int intVal)
         {
             return Enum.IsDefined(typeof(Position), intVal)
                 ? (Position)intVal
-                : Position.Goalkeeper;
+                : Position.None;
         }
 
         if (dbValue is string strVal)
@@ -257,7 +257,7 @@ public class PlayerRepository : IPlayerRepository
             {
                 return Enum.IsDefined(typeof(Position), parsedInt)
                     ? (Position)parsedInt
-                    : Position.Goalkeeper;
+                    : Position.None;
             }
 
             if (Enum.TryParse<Position>(strVal, true, out var position))
@@ -266,19 +266,19 @@ public class PlayerRepository : IPlayerRepository
             }
         }
 
-        return Position.Goalkeeper;
+        return Position.None;
     }
 
     PreferredFoot MapPreferredFoot(object dbValue)
     {
         if (dbValue == null)
-            return PreferredFoot.Right;
+            return PreferredFoot.None;
 
         if (dbValue is int intVal)
         {
             return Enum.IsDefined(typeof(PreferredFoot), intVal)
                 ? (PreferredFoot)intVal
-                : PreferredFoot.Right;
+                : PreferredFoot.None;
         }
 
         if (dbValue is string strVal)
@@ -289,7 +289,7 @@ public class PlayerRepository : IPlayerRepository
             {
                 return Enum.IsDefined(typeof(PreferredFoot), parsedInt)
                     ? (PreferredFoot)parsedInt
-                    : PreferredFoot.Right;
+                    : PreferredFoot.None;
             }
 
             if (Enum.TryParse<PreferredFoot>(strVal, true, out var foot))
@@ -298,7 +298,6 @@ public class PlayerRepository : IPlayerRepository
             }
         }
 
-        return PreferredFoot.Right;
+        return PreferredFoot.None;
     }
-
 }

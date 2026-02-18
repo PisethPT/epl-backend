@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using epl_backend.Models.Enums;
+using PremierLeague_Backend.Models.Enums;
 
-namespace epl_backend.Models.DTOs;
+namespace PremierLeague_Backend.Models.DTOs;
 
 public class PlayerDto
 {
@@ -32,11 +32,11 @@ public class PlayerDto
     [Required(ErrorMessage = "Please select a playing position.")]
     public Position Position { get; set; }
 
-    [Required(ErrorMessage = "Please input player number.")]
+    //[Required(ErrorMessage = "Please input player number.")]
     [Range(1, 99, ErrorMessage = "Player number must be between 1 and 99.")]
     public int? PlayerNumber { get; set; }
 
-    [Required(AllowEmptyStrings = false, ErrorMessage = "Please select player's joined club.")]
+    //[Required(AllowEmptyStrings = false, ErrorMessage = "Please select player's joined club.")]
     public string? JoinedClub { get; set; }
 
     public string? Photo { get; set; }

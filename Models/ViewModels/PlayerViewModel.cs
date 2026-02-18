@@ -1,8 +1,8 @@
-using epl_backend.Models.DTOs;
-using epl_backend.Models.SelectListItems;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.SelectListItems;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace epl_backend.Models.ViewModels;
+namespace PremierLeague_Backend.Models.ViewModels;
 
 public class PlayerViewModel
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace epl_backend.Models.DTOs;
+namespace PremierLeague_Backend.Models.DTOs;
 
 public class MatchDto
 {
@@ -18,7 +18,7 @@ public class MatchDto
     [Range(1, int.MaxValue, ErrorMessage = "Away club is required.")]
     public int AwayClubId { get; set; }
 
-    public bool IsHomeStadium { get; set; } = false;
+    public bool IsHomeStadium { get; set; } = true;
 
     [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Season is required.")]
@@ -27,7 +27,7 @@ public class MatchDto
     [Required]
     public int? MatchWeek { get; set; }
 
-    public MatchRefereeDto[]? MatchReferees { get; set; } =
+    public List<MatchRefereeDto>? MatchReferees { get; set; } = new List<MatchRefereeDto>
     {
         new MatchRefereeDto { RoleId = 1},
         new MatchRefereeDto { RoleId = 2},

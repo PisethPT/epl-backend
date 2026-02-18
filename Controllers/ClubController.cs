@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Models.DTOs;
-using epl_backend.Models.ViewModels;
-using epl_backend.Helper;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Models.DTOs;
+using PremierLeague_Backend.Models.ViewModels;
+using PremierLeague_Backend.Helper;
 using Microsoft.AspNetCore.Authorization;
 
-namespace epl_backend.Controllers
+namespace PremierLeague_Backend.Controllers
 {
     [Authorize]
     [Route("clubs")]

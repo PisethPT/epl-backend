@@ -1,4 +1,4 @@
-namespace epl_backend.Models.Enums;
+namespace PremierLeague_Backend.Models.Enums;
 
 public enum Gender
 {

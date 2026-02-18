@@ -1,0 +1,653 @@
+﻿@using PremierLeague_Backend.Models.DTOs
+@using PremierLeague_Backend.Models.ViewModels
+@model PlayerStatViewModel
+@{
+    ViewData["Title"] = "Player Stat";
+    int index = 0;
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="bg-red-100 border-red-700 text-red-700 px-4 py-2 rounded-t-lg mb-4 flex justify-between transition-all duration-300"
+         id="errorAlertPanel">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('errorAlertPanel')" class="text-red-700">✕</button>
+        </div>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="bg-[#8a3fbf] text-white px-4 py-2 rounded-t-lg mb-4 flex justify-between items-center transition-all duration-300 hover:ring-2 hover:!ring-[#8a3fbf]"
+         id="infoAlertPanel">
+        <span>@TempData["SuccessMessage"]</span>
+        <div class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
+            <button onclick="closeAlertPanel('infoAlertPanel')" class="text-white">✕</button>
+        </div>
+    </div>
+}
+
+
+
+
+
+<div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden">
+    <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 w-full">
+        <div class="flex items-center justify-between lg:justify-start gap-4">
+            <a href="@Url.Action("Index", "Season")"
+               class="inline-block bg-[#55005a] text-white px-4 py-2 hover:bg-[#410544] rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap">
+                Back
+                to
+                Home
+            </a>
+
+            <button onclick="openModal('modal-8xl', true)"
+                    class="inline-block bg-[#8a3fbf] hover:bg-[#6b2fa0] text-white px-4 py-2 rounded-lg transition hover:ring-2 hover:!ring-[#8a3fbf] text-nowrap"
+                    id="btnAddNewSeason">
+                Add New
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4">
+    <div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden h-fit max-h-[83vh]">
+        <h2 class="text-white text-md font-semibold uppercase">Matches</h2>
+
+        <div class="overflow-y-auto max-h-[78vh] scrollbar-none overflow-hidden rounded-t-lg">
+            <table class="min-w-full divide-y divide-[#55005a]">
+                <thead class="bg-[#55005a] sticky top-0 z-10">
+                    <tr>
+                        <th class="px-1 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
+                            ID
+                        </th>
+                        <th class="px-2 py-3 text-xs font-medium text-white uppercase tracking-wider text-center text-nowrap">
+                            Home Club
+                        </th>
+                        <th class="px-auto py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Match Info
+                        </th>
+                        <th class="px-1 py-3 text-center text-xs font-medium text-white uppercase tracking-wider text-nowrap">
+                            Away Club
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-transparent divide-y divide-[#55005a]">
+                    @foreach (var match in Model.PlayerStatMatchListDtos)
+                    {
+                        index++;
+                        <tr class="cursor-pointer">
+                            <td class="px-1 py-4 whitespace-nowrap text-sm text-white">
+                                <div class="flex justify-center items-center">
+                                    <div class="w-8 h-8 text-white text-sm font-bold text-center flex justify-center items-center bg-[#c] rounded-full ring-2 !ring-[#8a3fbf]">
+                                        @index
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                <div class="flex justify-start items-center flex-col gap-1">
+                                    <div style="background-color: @match.HomeClubTheme"
+                                         class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden !p-[4px]">
+                                        <img src="~/upload/clubs/@match.HomeClubCrest"
+                                             class="max-w-full max-h-full object-contain cursor-pointer" />
+                                    </div>
+                                    <span class="text-white text-center text-sm font-semibold">@match.HomeClubName</span>
+                                    <div class="flex justify-center items-center gap-1 cursor-pointer">
+                                        <div class="bg-[#8e07ee] flex justify-center items-center w-4 h-4 rounded-full">
+                                            <span class="text-white !text-[11px] font-bold">+</span>
+                                        </div>
+                                        <span class="text-[#8e07ee] text-center text-sm font-thin hover:underline">
+                                            Add
+                                            stats
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                <div class="flex justify-start items-center flex-col gap-2">
+                                    <div class="bg-[#8a3fbf] flex justify-center items-center flex-col w-fit px-4 py-1 rounded-md">
+                                        <span class="text-white text-center text-xl font-semibold">@match.HomeClubGoal-@match.AwayClubGoal</span>
+                                        <span class="text-white text-center text-[9px] font-bold">@match.MatchStatus</span>
+                                    </div>
+                                    <span class="text-white text-center text-md font-bold">@match.MatchDate</span>
+                                    <span class="text-gray-400 text-center text-sm font-thin">
+                                        @match.MatchTime •
+                                        @match.KickoffStadium
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="px-2 py-4 whitespace-nowrap text-sm text-white">
+                                <div class="flex justify-end items-center flex-col gap-1">
+                                    <div style="background-color: @match.AwayClubTheme"
+                                         class="flex justify-center items-center w-14 h-14 shadow rounded-2xl overflow-hidden !p-[4px]">
+                                        <img src="~/upload/clubs/@match.AwayClubCrest"
+                                             class="max-w-full max-h-full object-contain cursor-pointer" />
+                                    </div>
+                                    <span class="text-white text-center text-sm font-semibold">@match.AwayClubName</span>
+                                    <div class="flex justify-center items-center gap-1 cursor-pointer">
+                                        <div class="bg-[#8e07ee] flex justify-center items-center w-4 h-4 rounded-full">
+                                            <span class="text-white !text-[11px] font-bold">+</span>
+                                        </div>
+                                        <span class="text-[#8e07ee] text-center text-sm font-thin hover:underline">
+                                            Add
+                                            stats
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="p-4 bg-[#37003c] rounded-lg shadow-lg space-y-4 overflow-hidden h-fit max-h-[86vh]">
+        <h2 class="text-white text-md font-semibold uppercase">Stats</h2>
+
+        <div class="flex flex-col gap-2 overflow-y-auto max-h-[76.5vh] scrollbar-none overflow-hidden rounded-t-lg">
+
+            <div class="accordion-item">
+                <div onclick="toggleAccordion(this)"
+                     class="min-w-full bg-[#55005a] flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer">
+                    <span class="text-xs font-medium text-white uppercase tracking-wider">Top Stats</span>
+                    <div class="flex items-center justify-center rounded-full bg-[#37003c] w-6 h-6">
+                        <i class="fa-solid fa-chevron-down text-white text-xs transition-transform duration-300"></i>
+                    </div>
+                </div>
+
+                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ">
+                    <div class="flex flex-col gap-2 justify-center mt-3">
+                        <span class="text-white text-center">Possession</span>
+                        <div class="flex justify-between w-full h-7 rounded-lg overflow-hidden">
+                            <div class="bg-white w-[54.9%] flex justify-start px-3 text-black font-bold">54.9%</div>
+                            <div class="bg-[#7ab2e1] w-[45.1%] flex justify-end px-3 text-white font-bold">45.1%</div>
+                        </div>
+                    </div>
+
+                    <div class="divide-y divide-[#55005a]">
+                        <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                            <div class="flex gap-4">
+                                <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                                <div class="text-white text-start font-bold">0.92</div>
+                            </div>
+                            <span class="text-white text-center">XG</span>
+                            <div class="flex gap-4 justify-end">
+                                <div class="text-white text-end font-bold">0.63</div>
+                                <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                            <div class="flex gap-4">
+                                <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                                <div class="text-white text-start font-bold">10</div>
+                            </div>
+                            <span class="text-white text-center">Total Shots</span>
+                            <div class="flex gap-4 justify-end">
+                                <div class="text-white text-end font-bold">5</div>
+                                <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                            <div class="flex gap-4">
+                                <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                                <div class="text-white text-start font-bold">4</div>
+                            </div>
+                            <span class="text-white text-center">Shots On Target</span>
+                            <div class="flex gap-4 justify-end">
+                                <div class="text-white text-end font-bold">2</div>
+                                <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                            <div class="flex gap-4">
+                                <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                                <div class="text-white text-start font-bold">1</div>
+                            </div>
+                            <span class="text-white text-center">Big Chances</span>
+                            <div class="flex gap-4 justify-end">
+                                <div class="text-white text-end font-bold">1</div>
+                                <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                            <div class="flex gap-4">
+                                <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                                <div class="text-white text-start font-bold">5</div>
+                            </div>
+                            <span class="text-white text-center">Corners</span>
+                            <div class="flex gap-4 justify-end">
+                                <div class="text-white text-end font-bold">3</div>
+                                <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                            <div class="flex gap-4">
+                                <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                                <div class="text-white text-start font-bold">0</div>
+                            </div>
+                            <span class="text-white text-center">Saves</span>
+                            <div class="flex gap-4 justify-end">
+                                <div class="text-white text-end font-bold">2</div>
+                                <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div onclick="toggleAccordion(this)"
+                     class="min-w-full bg-[#55005a] flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer">
+                    <span class="text-xs font-medium text-white uppercase tracking-wider">Attack</span>
+                    <div class="flex items-center justify-center rounded-full bg-[#37003c] w-6 h-6">
+                        <i class="fa-solid fa-chevron-down text-white text-xs transition-transform duration-300"></i>
+                    </div>
+                </div>
+
+                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 divide-y divide-[#55005a]">
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">10</div>
+                        </div>
+                        <span class="text-white text-center">Total Shots</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">5</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">4</div>
+                        </div>
+                        <span class="text-white text-center">Shots On Target</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">2</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">3</div>
+                        </div>
+                        <span class="text-white text-center">Shots Off Target</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">2</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">2</div>
+                        </div>
+                        <span class="text-white text-center">Shots Inside the Box</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">0</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">4</div>
+                        </div>
+                        <span class="text-white text-center">Shots Outside the Box</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">0</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-transparent text-start font-bold">0</div>
+                        </div>
+                        <span class="text-white text-center">Hit Woodwork</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">0</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">3</div>
+                        </div>
+                        <span class="text-white text-center">Big chances Created</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">2</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">29(17%)</div>
+                        </div>
+                        <span class="text-white text-center">Total Crosses (% Completed)</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">12(33%)</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div onclick="toggleAccordion(this)"
+                     class="min-w-full bg-[#55005a] flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer">
+                    <span class="text-xs font-medium text-white uppercase tracking-wider">Possession</span>
+                    <div class="flex items-center justify-center rounded-full bg-[#37003c] w-6 h-6">
+                        <i class="fa-solid fa-chevron-down text-white text-xs transition-transform duration-300"></i>
+                    </div>
+                </div>
+
+                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 divide-y divide-[#55005a]">
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">464(83%)</div>
+                        </div>
+                        <span class="text-white text-center">Total Passes</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">396(77%)</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">44(32%)</div>
+                        </div>
+                        <span class="text-white text-center">Long Passes (% Completed)</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">59(49%)</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">0(0%)</div>
+                        </div>
+                        <span class="text-white text-center">Through Balls</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">4(50%)</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">684</div>
+                        </div>
+                        <span class="text-white text-center">Touches</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">590</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">18</div>
+                        </div>
+                        <span class="text-white text-center">Touches in the opposition box</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">19</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div onclick="toggleAccordion(this)"
+                     class="min-w-full bg-[#55005a] flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer">
+                    <span class="text-xs font-medium text-white uppercase tracking-wider">Defence</span>
+                    <div class="flex items-center justify-center rounded-full bg-[#37003c] w-6 h-6">
+                        <i class="fa-solid fa-chevron-down text-white text-xs transition-transform duration-300"></i>
+                    </div>
+                </div>
+
+                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 divide-y divide-[#55005a]">
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">15(58%)</div>
+                        </div>
+                        <span class="text-white text-center">Tackles Won</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">8(38%)</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">4</div>
+                        </div>
+                        <span class="text-white text-center">Blocks</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">3</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">7</div>
+                        </div>
+                        <span class="text-white text-center">Interceptions</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">6</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">17</div>
+                        </div>
+                        <span class="text-white text-center">Clearances</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">23</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">0</div>
+                        </div>
+                        <span class="text-white text-center">Saves</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">2</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div onclick="toggleAccordion(this)"
+                     class="min-w-full bg-[#55005a] flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer">
+                    <span class="text-xs font-medium text-white uppercase tracking-wider">Physical</span>
+                    <div class="flex items-center justify-center rounded-full bg-[#37003c] w-6 h-6">
+                        <i class="fa-solid fa-chevron-down text-white text-xs transition-transform duration-300"></i>
+                    </div>
+                </div>
+
+                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 divide-y divide-[#55005a]">
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">22</div>
+                        </div>
+                        <span class="text-white text-center">Total Dribbles</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">13</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">12</div>
+                        </div>
+                        <span class="text-white text-center">Successful Dribbles</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">3</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">59</div>
+                        </div>
+                        <span class="text-white text-center">Duels Won</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">52</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">14</div>
+                        </div>
+                        <span class="text-white text-center">Aerial Duels Won</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">18</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">108.48km</div>
+                        </div>
+                        <span class="text-white text-center">Distance Covered</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">108.06km</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div onclick="toggleAccordion(this)"
+                     class="min-w-full bg-[#55005a] flex justify-between items-center px-3 py-2 rounded-lg cursor-pointer">
+                    <span class="text-xs font-medium text-white uppercase tracking-wider">Discipline</span>
+                    <div class="flex items-center justify-center rounded-full bg-[#37003c] w-6 h-6">
+                        <i class="fa-solid fa-chevron-down text-white text-xs transition-transform duration-300"></i>
+                    </div>
+                </div>
+
+                <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 divide-y divide-[#55005a]">
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">0</div>
+                        </div>
+                        <span class="text-white text-center">Red Cards</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">0</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">5</div>
+                        </div>
+                        <span class="text-white text-center">Yellow Cards</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">1</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-transparent w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">10</div>
+                        </div>
+                        <span class="text-white text-center">Fouls</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">8</div>
+                            <div class="bg-[#7ab2e1] w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 grid grid-cols-[1fr_auto_1fr]">
+                        <div class="flex gap-4">
+                            <div class="bg-white w-[4px] h-full rounded-r-md"></div>
+                            <div class="text-white text-start font-bold">2</div>
+                        </div>
+                        <span class="text-white text-center">Offsides</span>
+                        <div class="flex gap-4 justify-end">
+                            <div class="text-white text-end font-bold">3</div>
+                            <div class="bg-transparent w-[4px] h-full rounded-l-md"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector("i");
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.classList.remove("rotate-180");
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.add("rotate-180");
+            }
+        }
+    </script>
+}

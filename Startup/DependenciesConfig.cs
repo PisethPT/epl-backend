@@ -1,9 +1,9 @@
-using epl_backend.Data.Repositories.Implementations;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Services.Implementations;
-using epl_backend.Services.Interfaces;
+using PremierLeague_Backend.Data.Repositories.Implementations;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Services.Implementations;
+using PremierLeague_Backend.Services.Interfaces;
 
-namespace epl_backend.Startup;
+namespace PremierLeague_Backend.Startup;
 
 public static class DependenciesConfig
 {
@@ -18,7 +18,9 @@ public static class DependenciesConfig
         builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
         builder.Services.AddScoped<ISeasonRepository, SeasonRepository>();
         builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+        builder.Services.AddScoped<IGoalRepository, GoalRepository>();
         builder.Services.AddScoped<ILineupRepository, LineupRepository>();
+        builder.Services.AddScoped<IPlayerStatRepository, PlayerStatRepository>();
 
         // select list item
         builder.Services.AddScoped<ISelectListItems, SelectListItems>();

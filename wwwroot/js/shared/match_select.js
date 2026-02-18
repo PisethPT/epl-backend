@@ -15,7 +15,7 @@ export const MatchSelect = (function () {
           ">": "&gt;",
           '"': "&quot;",
           "'": "&#39;",
-        }[m])
+        })[m],
     );
   }
 
@@ -80,7 +80,7 @@ export const MatchSelect = (function () {
       "hidden absolute z-50 mt-[46px] w-full bg-[#55005a] border border-[#430044] rounded-lg shadow-lg";
 
     const ul = document.createElement("ul");
-    ul.className = `max-h-${cfg.maxHeight} overflow-auto divide-y divide-[#8a3fbf]`;
+    ul.className = `max-h-${cfg.maxHeight} scrollbar-none overflow-auto divide-y divide-[#8a3fbf]`;
 
     panel.appendChild(ul);
     wrapper.append(btn, panel);
@@ -127,11 +127,11 @@ export const MatchSelect = (function () {
   ${
     it.subtitle
       ? `<div class="text-xs text-gray-400 mt-1 text-center">${escapeHtml(
-          it.subtitle
+          it.subtitle,
         )}</div>`
       : ""
   }
-</li>`
+</li>`,
       )
       .join("");
   }
@@ -216,7 +216,7 @@ export const MatchSelect = (function () {
 
   function initAll(selector = ".js-match-select", options = {}) {
     return [...document.querySelectorAll(selector)].map((s) =>
-      init(s, options)
+      init(s, options),
     );
   }
 

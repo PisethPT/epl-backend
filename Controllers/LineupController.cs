@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
-using epl_backend.Data.Repositories.Interfaces;
-using epl_backend.Models.ViewModels;
+using PremierLeague_Backend.Data.Repositories.Interfaces;
+using PremierLeague_Backend.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace epl_backend.Controllers
+namespace PremierLeague_Backend.Controllers
 {
     [Route("lineups")]
     public class LineupController : Controller
@@ -26,9 +25,6 @@ namespace epl_backend.Controllers
         public async Task<ActionResult> Index()
         {
             viewModel.SelectListItemMatchForLineups = await selectList.SelectListItemMatchForLineupAsync();
-            viewModel.SelectListItemHomeClubPlayer = await selectList.SelectListItemPlayerLineupByClubIdAsync(1, 1);
-            viewModel.SelectListItemAwayClubPlayer = await selectList.SelectListItemPlayerLineupByClubIdAsync(1, 3);
-
             return View(viewModel);
         }
 
@@ -46,7 +42,7 @@ namespace epl_backend.Controllers
             try
             {
                 viewModel.SelectListItemFormations = await selectList.SelectListItemFormationAsync();
-                
+
                 return Json(
                     new
                     {
@@ -61,6 +57,48 @@ namespace epl_backend.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error loading formations");
+                return Json(
+                    new
+                    {
+                        StatusCode = 400,
+                        Message = ex.Message,
+                    }
+                );
+            }
+        }
+
+        [HttpPost("get-players-by-match/{matchId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetPlayersByMatchAsync([FromRoute] int matchId)
+        {
+            try
+            {
+                var (homeClubId, awayClubId) = await repository.GetHomeClubAndAwayClubByMatchIdAsync(matchId);
+                if (homeClubId == 0 || awayClubId == 0)
+                {
+                    throw new Exception("Match not found.");
+                }
+
+                viewModel.SelectListItemHomeClubPlayer = await selectList.SelectListItemPlayerLineupByClubIdAsync(matchId, homeClubId);
+                viewModel.SelectListItemAwayClubPlayer = await selectList.SelectListItemPlayerLineupByClubIdAsync(matchId, awayClubId);
+
+                return Json(
+                    new
+                    {
+                        StatusCode = 200,
+                        Data = new
+                        {
+                            HomePlayers = viewModel.SelectListItemHomeClubPlayer,
+                            AwayPlayers = viewModel.SelectListItemAwayClubPlayer,
+                        },
+                        Message = "Commit Transaction Success."
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading players by match Id");
                 return Json(
                     new
                     {

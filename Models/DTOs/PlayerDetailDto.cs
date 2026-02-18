@@ -1,6 +1,6 @@
-using epl_backend.Models.Enums;
+using PremierLeague_Backend.Models.Enums;
 
-namespace epl_backend.Models.DTOs;
+namespace PremierLeague_Backend.Models.DTOs;
 
 public class PlayerDetailDto
 {

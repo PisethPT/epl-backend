@@ -9,6 +9,13 @@
       "group": "build",
       "problemMatcher": [],
       "detail": "CMake template build task"
+    },
+    {
+      "type": "dotnet",
+      "task": "build",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "dotnet: build"
     }
   ]
 }
