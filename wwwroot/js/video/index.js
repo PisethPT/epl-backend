@@ -15,7 +15,10 @@ let playerIndex = 0;
 
 (async () => {
   const { CustomSelect } = await import("/js/shared/select_custom.js");
+  const { MatchSelect } = await import("/js/shared/match_select.js");
+
   window.CustomSelect = CustomSelect;
+  window.MatchSelect = MatchSelect;
 
   window.selectCategoryInst = CustomSelect.init(
     document.getElementById("selectVideoCategory"),
@@ -41,11 +44,12 @@ let playerIndex = 0;
     },
   );
 
-  window.selectMatchInst = CustomSelect.init(
+  window.selectMatchInst = MatchSelect.init(
     document.getElementById("selectMatch"),
     {
-      showImage: false,
+      showImage: true,
       placeholder: "Select Match",
+      imgSize: "w-auto h-7",
     },
   );
 })();
@@ -71,7 +75,7 @@ function addClubSelect(selectedValue = "") {
     "beforeend",
     `
     <div class="flex gap-2 items-center">
-        <select class="js-custom-select w-full">
+        <select name="VideoDto.ClubIds" class="js-custom-select w-full">
             <option value="">Select Club</option>
             ${window.clubOptions || ""}
         </select>
@@ -116,7 +120,7 @@ function addPlayerSelect(selectedValue = "") {
     "beforeend",
     `
     <div class="flex gap-2 items-center">
-        <select class="js-custom-select w-full">
+        <select name="VideoDto.PlayerIds" class="js-custom-select w-full">
             <option value="">Select Player</option>
             ${window.playerOptions || ""}
         </select>
@@ -173,8 +177,12 @@ const resetForm = () => {
   clubIndex = 0;
   playerIndex = 0;
 
-  addClubSelect();
-  addPlayerSelect();
+  if (window.selectMatchInst) {
+    window.selectMatchInst.reset();
+  }
+
+  //addClubSelect();
+  //addPlayerSelect();
 
   document.querySelectorAll(".char-counter-input").forEach(updateCharCounter);
 };
@@ -261,6 +269,9 @@ function toggleEditVideo(videoId) {
       window.selectVideoTagInst.setValue(data.videoTagId);
       toggleGetVideoCategory(data.isTheArchive, data.videoCategoryId);
 
+      window.selectMatchInst.setValue(data.matchId);
+      window.selectSeasonInst.setValue(data.seasonId);
+
       if (data.clubIds?.length) data.clubIds.forEach((id) => addClubSelect(id));
       else addClubSelect();
 
@@ -294,8 +305,10 @@ function toggleGetVideoCategory(isTheArchive = false, selectedValue = "") {
         subtitle: it.subtitle || "",
       }));
 
-      window.selectCategoryInst.updateOptions(itemOptions);
-      window.selectCategoryInst.setValue(selectedValue);
+      if (window.selectCategoryInst) {
+        window.selectCategoryInst.updateOptions(itemOptions);
+        window.selectCategoryInst.setValue(selectedValue);
+      }
     },
   });
 }

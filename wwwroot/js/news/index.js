@@ -6,6 +6,12 @@ const NEWS_ENDPOINT = {
   GET_NEWS_ENDPOINT: NEWS_BASE_CONTROLLER + "/get-news",
 };
 
+window.clubSelectInstances = [];
+window.playerSelectInstances = [];
+
+let clubIndex = 0;
+let playerIndex = 0;
+
 (async () => {
   const { CustomSelect } = await import("/js/shared/select_custom.js");
   const { MatchSelect } = await import("/js/shared/match_select.js");
@@ -21,14 +27,6 @@ const NEWS_ENDPOINT = {
     },
   );
 
-  window.selectClubInst = CustomSelect.init(
-    document.getElementById("selectClub"),
-    {
-      showImage: false,
-      placeholder: "Select club",
-    },
-  );
-
   window.selectMatchInst = MatchSelect.init(
     document.getElementById("selectMatch"),
     {
@@ -37,6 +35,7 @@ const NEWS_ENDPOINT = {
       imgSize: "w-auto h-7",
     },
   );
+
   window.selectNewsCategoryInst = CustomSelect.init(
     document.getElementById("selectNewsCategory"),
     {
@@ -60,6 +59,96 @@ function updateCharCounter(input) {
   } else {
     display.parentElement.classList.replace("text-orange-400", "text-gray-400");
   }
+}
+
+function addClubSelect(selectedValue = "") {
+  const container = document.getElementById("clubContainer");
+
+  container.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="flex gap-2 items-center">
+        <select name="NewsDto.ClubIds" class="js-custom-select w-full">
+            <option value="">Select Club</option>
+            ${window.clubOptions || ""}
+        </select>
+
+        <button type="button" class="remove-btn bg-red-500 text-white px-2 py-1 rounded">
+            ✕
+        </button>
+    </div>
+    `,
+  );
+
+  const row = container.lastElementChild;
+  const select = row.querySelector("select");
+
+  const instance = window.CustomSelect.init(select, {
+    showImage: true,
+    placeholder: "Select Club",
+  });
+
+  if (selectedValue) instance.setValue(selectedValue);
+
+  window.clubSelectInstances.push(instance);
+
+  document.querySelectorAll("#clubContainer label").forEach((el) => {
+    el.style.width = "100%";
+  });
+
+  row.querySelector(".remove-btn").onclick = () => {
+    instance.destroy?.();
+    row.remove();
+
+    window.clubSelectInstances = window.clubSelectInstances.filter(
+      (i) => i !== instance,
+    );
+  };
+}
+
+function addPlayerSelect(selectedValue = "") {
+  const container = document.getElementById("playerContainer");
+
+  container.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="flex gap-2 items-center">
+        <select name="NewsDto.PlayerIds" class="js-custom-select w-full">
+            <option value="">Select Player</option>
+            ${window.playerOptions || ""}
+        </select>
+
+        <button type="button" class="remove-btn bg-red-500 text-white px-2 py-1 rounded">
+            ✕
+        </button>
+    </div>
+    `,
+  );
+
+  const row = container.lastElementChild;
+  const select = row.querySelector("select");
+
+  const instance = window.CustomSelect.init(select, {
+    showImage: true,
+    placeholder: "Select Player",
+  });
+
+  if (selectedValue) instance.setValue(selectedValue);
+
+  window.playerSelectInstances.push(instance);
+
+  document.querySelectorAll("#playerContainer label").forEach((el) => {
+    el.style.width = "100%";
+  });
+
+  row.querySelector(".remove-btn").onclick = () => {
+    instance.destroy?.();
+    row.remove();
+
+    window.playerSelectInstances = window.playerSelectInstances.filter(
+      (i) => i !== instance,
+    );
+  };
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -109,6 +198,15 @@ const resetForm = () => {
   document
     .querySelectorAll(".char-counter-input")
     .forEach((el) => updateCharCounter(el));
+
+  document.getElementById("clubContainer").innerHTML = "";
+  document.getElementById("playerContainer").innerHTML = "";
+
+  window.clubSelectInstances = [];
+  window.playerSelectInstances = [];
+
+  clubIndex = 0;
+  playerIndex = 0;
 };
 
 $("#btnAddNews").on("click", function () {
@@ -219,6 +317,14 @@ function toggleEditNews(newsId) {
           $("#fileName").text("");
           $("#fileInput").attr("required", true);
         }
+
+        if (data.clubIds?.length)
+          data.clubIds.forEach((id) => addClubSelect(id));
+        else addClubSelect();
+
+        if (data.playerIds?.length)
+          data.playerIds.forEach((id) => addPlayerSelect(id));
+        else addPlayerSelect();
 
         form.attr("action", NEWS_ENDPOINT.UPDATE_NEWS_ENDPOINT + "/" + newsId);
         openModal("modal-8xl", true);

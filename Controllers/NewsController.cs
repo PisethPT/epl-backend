@@ -35,6 +35,7 @@ namespace PremierLeague_Backend.Controllers
                 viewModel.NewsDetailDtos = await repository.GetAllNewsDetailAsync(page);
                 viewModel.SelectListItemNewsTag = await selectListItems.SelectListItemHasSubtitleAsync(SelectListItemCommands.CommandSelectListItemNewsTag);
                 viewModel.SelectListItemClubs = await selectListItems.SelectListItemClubAsync();
+                viewModel.SelectListItemPlayers = await repository.GetAllPlayersAsync();
                 viewModel.SelectListItemMatches = await selectListItems.SelectListItemMatchesAsync(SelectListItemCommands.SelectListItemMatchCommands);
                 viewModel.SelectListItemNewsCategories = await selectListItems.SelectListItemsAsync("PL_CommandSelectListItemNewsCategories");
 

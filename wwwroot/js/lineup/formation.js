@@ -62,6 +62,9 @@ $("#matchSelectId").on("change", function () {
 
       renderSubSlots("home");
       renderSubSlots("away");
+
+      initializePlayerDrag();
+      initializeCaptainDropZones();
     },
     error: function (err) {
       console.error("Error fetching players:", err);
@@ -170,34 +173,54 @@ function renderPlayers({ containerId, players, side }) {
 function renderFormation(side, layoutData) {
   const containerId =
     side === "home" ? "homeClubFormationSlots" : "awayClubFormationSlots";
+
   const container = document.getElementById(containerId);
-  if (!container) return;
+  if (!container) {
+    console.warn("Formation container not found:", containerId);
+    return;
+  }
+
+  if (!layoutData || !Array.isArray(layoutData)) {
+    console.warn("Invalid formation layout data:", layoutData);
+    return;
+  }
 
   const occupiedPlayers = {};
+
   container.querySelectorAll("[data-player-slot]").forEach((el) => {
-    const slotPos = el.closest(".grid")?.dataset.formationSlot;
-    if (slotPos) occupiedPlayers[slotPos] = el.innerHTML;
+    const wrapper = el.closest(".grid");
+    const posId = wrapper?.dataset?.formationSlot;
+
+    if (posId) {
+      occupiedPlayers[posId] = el.cloneNode(true);
+    }
   });
 
-  const dataArray = Array.isArray(layoutData) ? layoutData : [layoutData];
   container.innerHTML = "";
 
-  const rows = dataArray.reduce((acc, slot) => {
-    const r = slot.row || slot.Row;
+  const rows = layoutData.reduce((acc, slot) => {
+    const r = slot?.row ?? slot?.Row;
+    if (r == null) return acc;
+
     if (!acc[r]) acc[r] = [];
     acc[r].push(slot);
     return acc;
   }, {});
 
   Object.keys(rows)
-    .sort((a, b) => a - b)
+    .sort((a, b) => Number(a) - Number(b))
     .forEach((rowNum) => {
       const rowDiv = document.createElement("div");
       rowDiv.className = "flex justify-around items-center w-full px-4 mb-4";
 
       rows[rowNum].forEach((slotData) => {
-        const posId = slotData.positionId || slotData.PositionId;
-        const posCode = slotData.code || slotData.Code;
+        const posId = slotData?.positionId ?? slotData?.PositionId;
+        const posCode = slotData?.code ?? slotData?.Code ?? "";
+
+        if (!posId) {
+          console.warn("Missing positionId in slotData:", slotData);
+          return;
+        }
 
         const wrapper = document.createElement("div");
         wrapper.className = "grid justify-items-center gap-1";
@@ -207,19 +230,31 @@ function renderFormation(side, layoutData) {
         const slot = document.createElement("div");
         slot.dataset.side = side;
         slot.dataset.filled = "false";
+
         slot.className =
           "w-14 h-14 rounded-2xl border-2 border-dashed border-white/20 flex items-center justify-center cursor-pointer hover:border-[#8a3fbf] transition-all relative";
 
         if (occupiedPlayers[posId]) {
-          slot.innerHTML = occupiedPlayers[posId];
+          const playerNode = occupiedPlayers[posId];
+
+          slot.appendChild(playerNode);
+
           slot.classList.remove("border-dashed", "border-white/20");
           slot.dataset.filled = "true";
-          slot.querySelector("button").onclick = (ev) => {
-            ev.stopPropagation();
-            clearSlot(slot);
-          };
+
+          const btn = slot.querySelector("button");
+          if (btn) {
+            btn.onclick = (ev) => {
+              ev.stopPropagation();
+              clearSlot(slot);
+            };
+          }
         } else {
-          slot.innerHTML = `<span class="text-white/20 text-[10px] font-bold uppercase">${posCode}</span>`;
+          slot.innerHTML = `
+            <span class="text-white/20 text-[10px] font-bold uppercase">
+              ${posCode}
+            </span>
+          `;
         }
 
         slot.ondragover = (e) => e.preventDefault();
@@ -228,14 +263,15 @@ function renderFormation(side, layoutData) {
         const label = document.createElement("div");
         label.className = "flex gap-1 items-center leading-none";
         label.innerHTML = `
-                <span class="text-[10px] text-gray-400"></span>
-                <span class="text-[10px] text-white uppercase font-medium"></span>
-            `;
+          <span class="text-[10px] text-gray-400"></span>
+          <span class="text-[10px] text-white uppercase font-medium"></span>
+        `;
 
         wrapper.appendChild(slot);
         wrapper.appendChild(label);
         rowDiv.appendChild(wrapper);
       });
+
       container.appendChild(rowDiv);
     });
 }
@@ -310,7 +346,7 @@ function onDropPlayer(e, slot) {
             ${player.position} • #${player.playerNumber}
           </p>
       </div>
-      <button class="absolute -top-1 -right-1 z-50 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] flex items-center justify-center hover:bg-red-500 shadow-md">
+      <button class="absolute -top-1 -right-1 z-20 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] flex items-center justify-center hover:bg-red-500 shadow-md">
           ✕
       </button>`;
   } else {
@@ -524,6 +560,8 @@ function resetPitchPlayers(side) {
   renderBench(side);
 }
 
+let isInitializingFormation = false;
+
 async function getFormations() {
   await $.ajax({
     url: "/en/lineups/get-formations",
@@ -538,21 +576,33 @@ async function getFormations() {
       awayClubFormation.empty();
 
       const listItem = response.data.listItem;
-      console.log(listItem);
+      let clubFormations = [];
+
       listItem.forEach((data) => {
         const key = data.formationId;
         const value = data.primaryFormation.split("-").map(Number);
 
         formations[key] = [1, ...value];
 
-        homeClubFormation.append(
-          `<option value="${key}">${data.primaryFormation}</option>`,
-        );
-
-        awayClubFormation.append(
-          `<option value="${key}">${data.primaryFormation}</option>`,
-        );
+        clubFormations.push({
+          value: key,
+          label: data.primaryFormation,
+        });
       });
+
+      window.homeClubFormationInst.updateOptions(clubFormations);
+      window.awayClubFormationInst.updateOptions(clubFormations);
+
+      if (window.homeClubFormationInst) {
+        window.homeClubFormationInst.setValue("1");
+      }
+
+      if (window.awayClubFormationInst) {
+        window.awayClubFormationInst.setValue("1");
+      }
+
+      homeClubFormation.val(1).trigger("change");
+      awayClubFormation.val(1).trigger("change");
 
       renderFormation("home", listItem);
       renderFormation("away", listItem);
@@ -594,6 +644,101 @@ async function getFormations() {
   });
 }
 
-(async () => {
-  await getFormations();
-})();
+function initializePlayerDrag() {
+  this.addEventListener("dragstart", function (e) {
+    const player = {
+      id: Number($(this).data("player-id")),
+      firstName: $(this).data("player-firstname"),
+      lastName: $(this).data("player-lastname"),
+      img: $(this).data("player-img"),
+      clubTheme: $(this).data("player-clubtheme"),
+      clubId: $(this).data("club-id"),
+      playerNumber: $(this).data("player-playernumber"),
+      position: $(this).data("player-position"),
+      positionId: Number($(this).data("player-positionid")),
+    };
+    const payload = JSON.stringify(player);
+    e.dataTransfer.setData("player", payload);
+    console.log("drag payload:", payload);
+  });
+}
+
+function initializeCaptainDropZones() {
+  $(".captain-container").each(function () {
+    const container = this;
+    const side = $(container).data("side"); // home / away
+
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      container.classList.add("border-[#8a3fbf]");
+    });
+
+    container.addEventListener("dragleave", () => {
+      container.classList.remove("border-[#8a3fbf]");
+    });
+
+    container.addEventListener("drop", (e) => {
+      e.preventDefault();
+
+      const raw = e.dataTransfer.getData("player");
+
+      if (!raw) {
+        console.warn("No player data found in drag event");
+        return;
+      }
+
+      let player;
+
+      try {
+        player = JSON.parse(raw);
+      } catch (err) {
+        console.error("Invalid player JSON:", raw);
+        return;
+      }
+
+      setCaptain(side, player);
+    });
+
+    $(container)
+      .find(".remove-captain-btn")
+      .on("click", function (e) {
+        e.stopPropagation();
+        removeCaptain(side);
+      });
+  });
+}
+
+function setCaptain(side, player) {
+  if (!player || !player.id) return;
+
+  // save state
+  state[side].captain = player;
+
+  // hidden input
+  $(`#${side}ClubCaptainPlayerId`).val(player.id);
+
+  // name
+  $(`#${side}ClubCaptainName`).text(player.firstName + " " + player.lastName);
+
+  // image
+  $(`#${side}ClubCaptainImage`).attr("src", player.img).removeClass("hidden");
+
+  $(`#${side}ClubCaptainPlaceholder`).addClass("hidden");
+
+  // show remove button
+  $(`#remove${capitalize(side)}ClubCaptainBtn`).removeClass("hidden");
+}
+
+function removeCaptain(side) {
+  state[side].captain = null;
+
+  $(`#${side}ClubCaptainPlayerId`).val("");
+
+  $(`#${side}ClubCaptainName`).text("Empty");
+
+  $(`#${side}ClubCaptainImage`).attr("src", "").addClass("hidden");
+
+  $(`#${side}ClubCaptainPlaceholder`).removeClass("hidden");
+
+  $(`#remove${capitalize(side)}ClubCaptainBtn`).addClass("hidden");
+}

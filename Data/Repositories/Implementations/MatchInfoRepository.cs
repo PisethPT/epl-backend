@@ -15,7 +15,6 @@ public class MatchInfoRepository : IMatchInfoRepository
     public MatchInfoRepository(IExecute execute)
     {
         this.execute = execute;
-
     }
 
     public async Task<bool> AddAsync(MatchInfoDto matchInfoDto)
@@ -30,6 +29,17 @@ public class MatchInfoRepository : IMatchInfoRepository
             cmd.Parameters.AddWithValue("@PitchCondition", matchInfoDto.PitchCondition);
             cmd.Parameters.AddWithValue("@AddedTimeFirstHalf", matchInfoDto.AddedTimeFirstHalf);
             cmd.Parameters.AddWithValue("@AddedTimeSecondHalf", matchInfoDto.AddedTimeSecondHalf);
+
+            cmd.Parameters.AddWithValue("@MatchReportTitle", matchInfoDto.MatchReportTitle);
+            cmd.Parameters.AddWithValue("@MatchReportContent", matchInfoDto.MatchReportContent);
+            cmd.Parameters.AddWithValue("@AuthorId", matchInfoDto.AuthorId);
+            cmd.Parameters.AddWithValue("@HomeClubReportUrl", matchInfoDto.HomeClubReportUrl);
+            cmd.Parameters.AddWithValue("@AwayClubReportUrl", matchInfoDto.AwayClubReportUrl);
+
+            cmd.Parameters.AddWithValue("@PlayerId", matchInfoDto.PlayerId);
+            cmd.Parameters.AddWithValue("@AwardBy", matchInfoDto.AwardBy);
+            cmd.Parameters.AddWithValue("@Notes", matchInfoDto.Notes);
+            cmd.Parameters.AddWithValue("@IsHomeClub", matchInfoDto.IsHomeClub);
 
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
@@ -110,7 +120,7 @@ public class MatchInfoRepository : IMatchInfoRepository
             var rdr = await execute.ExecuteReaderAsync(cmd);
             if (rdr is not null)
             {
-                return new MatchInfoDto
+                var values = new MatchInfoDto
                 {
                     MatchInfoId = rdr.SafeGetInt("MatchInfoId"),
                     MatchId = rdr.SafeGetInt("MatchId"),
@@ -118,8 +128,20 @@ public class MatchInfoRepository : IMatchInfoRepository
                     Weather = rdr.SafeGetString("Weather"),
                     PitchCondition = rdr.SafeGetString("PitchCondition"),
                     AddedTimeFirstHalf = rdr.SafeGetInt("AddedTimeFirstHalf"),
-                    AddedTimeSecondHalf = rdr.SafeGetInt("AddedTimeSecondHalf")
+                    AddedTimeSecondHalf = rdr.SafeGetInt("AddedTimeSecondHalf"),
+
+                    MatchReportTitle = rdr.SafeGetString("MatchReportTitle"),
+                    MatchReportContent = rdr.SafeGetString("MatchReportContent"),
+                    HomeClubReportUrl = rdr.SafeGetString("HomeClubReportUrl"),
+                    AwayClubReportUrl = rdr.SafeGetString("AwayClubReportUrl"),
+
+                    PlayerId = rdr.SafeGetInt("PlayerId"),
+                    AwardBy = rdr.SafeGetString("AwardedBy"),
+                    Notes = rdr.SafeGetString("Notes"),
+                    IsHomeClub = rdr.SafeGetBoolean("IsHomeClub"),
                 };
+
+                return values;
             }
 
             return new MatchInfoDto();
@@ -148,6 +170,17 @@ public class MatchInfoRepository : IMatchInfoRepository
             cmd.Parameters.AddWithValue("@PitchCondition", matchInfoDto.PitchCondition);
             cmd.Parameters.AddWithValue("@AddedTimeFirstHalf", matchInfoDto.AddedTimeFirstHalf);
             cmd.Parameters.AddWithValue("@AddedTimeSecondHalf", matchInfoDto.AddedTimeSecondHalf);
+
+            cmd.Parameters.AddWithValue("@MatchReportTitle", matchInfoDto.MatchReportTitle);
+            cmd.Parameters.AddWithValue("@MatchReportContent", matchInfoDto.MatchReportContent);
+            cmd.Parameters.AddWithValue("@AuthorId", matchInfoDto.AuthorId);
+            cmd.Parameters.AddWithValue("@HomeClubReportUrl", matchInfoDto.HomeClubReportUrl);
+            cmd.Parameters.AddWithValue("@AwayClubReportUrl", matchInfoDto.AwayClubReportUrl);
+
+            cmd.Parameters.AddWithValue("@PlayerId", matchInfoDto.PlayerId);
+            cmd.Parameters.AddWithValue("@AwardBy", matchInfoDto.AwardBy);
+            cmd.Parameters.AddWithValue("@Notes", matchInfoDto.Notes);
+            cmd.Parameters.AddWithValue("@IsHomeClub", matchInfoDto.IsHomeClub);
 
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }

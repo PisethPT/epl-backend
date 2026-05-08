@@ -37,7 +37,8 @@ public class NewsDto
     public bool IsRelatedContent { get; set; } = false;
     public bool IsPremierLeagueGame { get; set; } = false;
     public int? MatchId { get; set; }
-    public int? ClubId { get; set; }
+    public List<int> ClubIds { get; set; } = new();
+    public List<int> PlayerIds { get; set; } = new();
 
     // [Required(ErrorMessage = "News Image is required")]
     // [DataType(DataType.Upload)]

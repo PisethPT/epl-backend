@@ -16,6 +16,7 @@ public class LineupRepository : ILineupRepository
     {
         this.execute = execute;
     }
+
     public async Task<bool> AddLineupAsync(LineupDto lineupDto)
     {
         try
@@ -175,7 +176,8 @@ public class LineupRepository : ILineupRepository
                         Formation = rdr.SafeGetString("Formation"),
                         PlayerPhoto = rdr.SafeGetString("PlayerPhoto"),
                         ClubTheme = rdr.SafeGetString("ClubTheme"),
-                        FormationSlot = rdr.SafeGetInt("FormationSlot")
+                        FormationSlot = rdr.SafeGetInt("FormationSlot"),
+                        IsStarting = rdr.SafeGetBoolean("IsStarting")
                     });
                 } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
             }
@@ -243,7 +245,8 @@ public class LineupRepository : ILineupRepository
                         Formation = rdr.SafeGetString("Formation"),
                         PlayerPhoto = rdr.SafeGetString("PlayerPhoto"),
                         ClubTheme = rdr.SafeGetString("ClubTheme"),
-                        FormationSlot = rdr.SafeGetInt("FormationSlot")
+                        FormationSlot = rdr.SafeGetInt("FormationSlot"),
+                        IsStarting = rdr.SafeGetBoolean("IsStarting")
                     });
                 } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
             }
@@ -323,7 +326,7 @@ public class LineupRepository : ILineupRepository
             var cmd = new SqlCommand();
             cmd.CommandText = IsMatchCurringKickOffCommand;
             cmd.Parameters.AddWithValue("@MatchId", matchId);
-            return await execute.ExecuteScalarAsync<bool>(cmd);
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? true : false;
         }
         catch (SqlException ex)
         {
@@ -338,7 +341,7 @@ public class LineupRepository : ILineupRepository
             var cmd = new SqlCommand();
             cmd.CommandText = IsMatchEndedCommand;
             cmd.Parameters.AddWithValue("@MatchId", matchId);
-            return await execute.ExecuteScalarAsync<bool>(cmd);
+            return await execute.ExecuteScalarAsync<bool>(cmd) ? true : false;
         }
         catch (SqlException ex)
         {

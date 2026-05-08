@@ -78,10 +78,23 @@ const resetForm = () => {
 
 $("#btnAddLineup").on("click", async function () {
   const form = $("#lineupForm");
+
   resetForm();
+
   form.attr("action", LINEUP_ENDPOINT.CREATE_LINEUP_ENDPOINT);
-  getMatchItems(false);
-  openModal("modal-8xl", true);
+
+  try {
+    await getFormations();
+
+    await getMatchItems(false);
+
+    $("#modalTitle").text("Create Lineup");
+
+    openModal("modal-8xl", true);
+  } catch (err) {
+    console.error("Init lineup failed:", err);
+    alert("Failed to initialize lineup");
+  }
 });
 
 $("#lineupForm").on("submit", function (e) {
@@ -115,22 +128,35 @@ function submitDto(dto) {
   $.ajax({
     url: $("#lineupForm").attr("action"),
     type: "POST",
-    contentType: "application/json",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
     data: JSON.stringify(dto),
+
     headers: {
       RequestVerificationToken: $(
         'input[name="__RequestVerificationToken"]',
       ).val(),
     },
+
     success: function (response) {
-      window.location.href = response.redirectUrl;
-    },
-    error: function (err) {
-      if (err.responseJSON && err.responseJSON.redirectUrl) {
-        window.location.href = err.responseJSON.redirectUrl;
-      } else {
-        alert("A critical error occurred.");
+      console.log("Success:", response);
+
+      if (response.redirectUrl) {
+        window.location.href = response.redirectUrl;
       }
+    },
+
+    error: function (xhr) {
+      console.error("Submit error:", xhr);
+
+      if (xhr.responseJSON?.redirectUrl) {
+        window.location.href = xhr.responseJSON.redirectUrl;
+        return;
+      }
+
+      console.error("Response text:", xhr.responseText);
+
+      alert(xhr.responseText || "A critical error occurred.");
     },
   });
 }

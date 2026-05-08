@@ -5,12 +5,15 @@ const MATCH_INFO_ENDPOINT = {
   DELETE_MATCH_INFO_ENDPOINT: MATCH_INFO_BASE_CONTROLLER + "/delete",
   GET_MATCH_INFO_ENDPOINT: MATCH_INFO_BASE_CONTROLLER + "/get-match-info",
   GET_MATCH_ITEMS_ENDPOINT: MATCH_INFO_BASE_CONTROLLER + "/get-match",
+  GET_PLAYER_ITEMS_ENDPOINT: MATCH_INFO_BASE_CONTROLLER + "/get-match-player",
 };
 
 (async () => {
   const { MatchSelect } = await import("/js/shared/match_select.js");
+  const { CustomSelect } = await import("/js/shared/select_custom.js");
 
   window.MatchSelect = MatchSelect;
+  window.CustomSelect = CustomSelect;
 
   window.selectMatchInst = MatchSelect.init(
     document.getElementById("selectMatch"),
@@ -18,6 +21,14 @@ const MATCH_INFO_ENDPOINT = {
       showImage: true,
       placeholder: "Select Match",
       imgSize: "w-auto h-7",
+    },
+  );
+
+  window.selectPlayerInst = CustomSelect.init(
+    document.getElementById("selectPlayer"),
+    {
+      showImage: false,
+      placeholder: "Select player",
     },
   );
 })();
@@ -28,9 +39,15 @@ const resetForm = () => {
 
   form.find("input").not("[name='__RequestVerificationToken']").val("");
 
+  window.selectPlayerInst.updateOptions([]);
+  window.selectPlayerInst.setValue("");
+
   if (window.selectMatchInst) {
     window.selectMatchInst.reset();
   }
+
+  $("#isHomeClub").prop("checked", false);
+  $("#isHomeClubHidden").val("false");
 };
 
 (function () {
@@ -72,7 +89,20 @@ function toggleEdit(matchInfoId) {
         form.find("#addedTimeFirstHalf").val(data.addedTimeFirstHalf);
         form.find("#addedTimeSecondHalf").val(data.addedTimeSecondHalf);
 
+        form.find("#title").val(data.matchReportTitle);
+        form.find("#content").val(data.matchReportContent);
+        form.find("#homeClubReportUrl").val(data.homeClubReportUrl);
+        form.find("#awayClubReportUrl").val(data.awayClubReportUrl);
+
+        form.find("#awardBy").val(data.awardBy);
+        form.find("#notes").val(data.notes);
+
         getMatchItems(true, data.matchId);
+
+        $("#isHomeClub").prop("checked", data.isHomeClub);
+        $("#isHomeClubHidden").val(data.isHomeClub ? "true" : "false");
+
+        toggleGetPlayers(data.isHomeClub, data.matchId, data.playerId);
 
         form.attr(
           "action",
@@ -133,3 +163,40 @@ function getMatchItems(isEdit = false, existingMatchId = "") {
     alert(JSON.stringify(error));
   }
 }
+
+function toggleGetPlayers(isHomeClub = false, matchId, selectedValue = "") {
+  return $.ajax({
+    url: MATCH_INFO_ENDPOINT.GET_PLAYER_ITEMS_ENDPOINT,
+    method: "POST",
+    data: { isHomeClub: isHomeClub, matchId: matchId },
+    headers: {
+      RequestVerificationToken: $(
+        'input[name="__RequestVerificationToken"]',
+      ).val(),
+    },
+    success: function (response) {
+      let data = response.data.item;
+
+      if (!Array.isArray(data)) {
+        data = [data];
+      }
+      const itemOptions = data.map((it) => ({
+        value: it.value,
+        label: it.label || "",
+        img: it.img || "",
+      }));
+
+      if (window.selectPlayer) {
+        window.selectPlayerInst.updateOptions(itemOptions);
+        window.selectPlayerInst.setValue(selectedValue);
+      }
+    },
+  });
+}
+
+$("#isHomeClub").on("change", function () {
+  const matchId = $("#selectMatch").val();
+  if (matchId) toggleGetPlayers(this.checked, matchId);
+
+  $("#isHomeClubHidden").val(this.checked ? "true" : "false");
+});

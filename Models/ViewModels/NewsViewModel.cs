@@ -9,6 +9,7 @@ public class NewsViewModel
     public NewsDto NewsDto { get; set; }
     public IEnumerable<NewsDetailDto> NewsDetailDtos { get; set; }
     public IEnumerable<SelectListItemClub> SelectListItemClubs { get; set; }
+    public IEnumerable<PlayerStatGetPlayersDto> SelectListItemPlayers { get; set; }
     public IEnumerable<SelectListItemMatch> SelectListItemMatches { get; set; }
     public List<SelectListItemHasSubtitle> SelectListItemNewsTag { get; set; }
     public List<SelectListItem> SelectListItemNewsCategories { get; set; }
@@ -19,6 +20,7 @@ public class NewsViewModel
         this.SelectListItemNewsTag = new List<SelectListItemHasSubtitle>();
         this.SelectListItemNewsCategories = new List<SelectListItem>();
         this.SelectListItemClubs = new List<SelectListItemClub>();
+        this.SelectListItemPlayers = new List<PlayerStatGetPlayersDto>();
         this.SelectListItemMatches = new List<SelectListItemMatch>();
     }
 }

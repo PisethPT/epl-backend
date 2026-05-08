@@ -33,8 +33,6 @@ public class VideoDto
     public bool IsActive { get; set; } = true;
     public bool IsTheArchive { get; set; } = false;
     public int? MatchId { get; set; }
-    public int? ClubId { get; set; }
-    public int? PlayerId { get; set; }
     public int? SeasonId { get; set; }
 
     public List<int> ClubIds { get; set; } = new();

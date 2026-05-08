@@ -5,6 +5,7 @@ using PremierLeague_Backend.Models.ViewModels;
 using PremierLeague_Backend.Helper.SqlCommands;
 using PremierLeague_Backend.Models.SelectListItems;
 using PremierLeague_Backend.Helper;
+using System.Security.Claims;
 
 namespace PremierLeague_Backend.Controllers;
 
@@ -55,6 +56,8 @@ public class MatchInfoController : Controller
     {
         try
         {
+            matchInfoDto.AuthorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "12c64674-5ea2-484d-90b1-7419243b1758";
+
             if (!ModelState.IsValid)
             {
                 var errors = ModelState
@@ -92,6 +95,7 @@ public class MatchInfoController : Controller
     {
         try
         {
+            matchInfoDto.AuthorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "12c64674-5ea2-484d-90b1-7419243b1758";
             if (!ModelState.IsValid)
             {
                 var errors = ModelState
@@ -171,7 +175,7 @@ public class MatchInfoController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error getting news by id");
+            _logger.LogError(ex, "Error getting match info by id");
             ModelState.AddModelError(string.Empty, ex.Message);
             return Json(new
             {
@@ -216,6 +220,43 @@ public class MatchInfoController : Controller
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error getting news by id");
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return Json(new
+            {
+                StatusCode = 400,
+                Message = ex.Message,
+            });
+        }
+    }
+
+    [HttpPost("get-match-player")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> GetPlayersAsync(bool isHomeClub, int matchId)
+    {
+        try
+        {
+            var items = await selectListItems.SelectListItemAsync<SelectListItemHasImage>("PL_SelectListItemPlayerForManOfTheMatch",
+            new Dictionary<string, string>() { { "@IsHomeClub", isHomeClub.ToString().ToLower() }, { "@MatchId", matchId.ToString() } },
+             rdr => new SelectListItemHasImage
+             {
+                 Value = rdr.SafeGetInt("PlayerId"),
+                 Label = rdr.SafeGetString("PlayerName"),
+                 Img = rdr.SafeGetString("Photo"),
+             });
+
+            return Json(new
+            {
+                StatusCode = 200,
+                Message = "Commit Transaction Success.",
+                Data = new
+                {
+                    Item = items
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting players by id");
             ModelState.AddModelError(string.Empty, ex.Message);
             return Json(new
             {

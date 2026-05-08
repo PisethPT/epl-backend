@@ -36,7 +36,9 @@ namespace PremierLeague_Backend.Controllers
                 viewModel.VideoDetailDtos = await repository.GetAllVideosAsync(page);
                 viewModel.SelectListItemClubs = await selectListItems.SelectListItemClubAsync();
                 viewModel.SelectListItemPlayers = await repository.GetAllPlayersAsync();
+                viewModel.SelectListItemMatches = await selectListItems.SelectListItemMatchesAsync(SelectListItemCommands.SelectListItemMatchCommands);
                 viewModel.selectListItemVideoTag = await selectListItems.SelectListItemsAsync("PL_CommandSelectListItemVideoTag");
+                viewModel.SelectListItemSeason = await selectListItems.SelectListItemsAsync("PL_CommandSelectListItemSeason");
 
                 int totalCount = await repository.GetVideoCountAsync();
                 int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);

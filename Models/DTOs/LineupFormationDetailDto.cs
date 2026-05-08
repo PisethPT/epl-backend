@@ -12,4 +12,5 @@ public class LineupFormationDetailDto
     public string PlayerPhoto { get; set; } = string.Empty;
     public string ClubTheme { get; set; } = string.Empty;
     public int FormationSlot { get; set; }
+    public bool IsStarting { get; set; }
 }

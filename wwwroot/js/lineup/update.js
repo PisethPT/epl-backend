@@ -5,8 +5,11 @@ window.toggleUpdate = async function (matchId) {
     resetForm();
 
     const form = $("#lineupForm");
-    form.attr("action", LINEUP_ENDPOINT.UPDATE_LINEUP_ENDPOINT);
+    form.attr("action", LINEUP_ENDPOINT.UPDATE_LINEUP_ENDPOINT + "/" + matchId);
+    form.attr("method", "POST");
+    form.attr("enctype", "multipart/form-data");
 
+    $("#modalTitle").text("Update Lineup");
     openModal("modal-8xl", true);
 
     await loadLineupForUpdate(matchId);
@@ -36,14 +39,13 @@ async function loadLineupForUpdate(matchId) {
     const detailResponse = await getLineupFormationDetail(matchId);
     const { lineupFormation, substitutionFormation } = detailResponse.data;
 
-    console.log("LINEUP:", lineupFormation);
-    console.log("SUBS:", substitutionFormation);
+    await getFormations();
 
     await getMatchItems(true, String(matchId));
+
     await waitForPlayersLoaded();
 
     $("#homeClubFormation").val(clubInfo.homeClubFormationId).trigger("change");
-
     $("#awayClubFormation").val(clubInfo.awayClubFormationId).trigger("change");
 
     if (window.homeClubFormationInst) {
@@ -71,104 +73,106 @@ function populateSlotsFromAPI(lineupFormation, substitutionFormation) {
   ["home", "away"].forEach((side) => {
     const ctx = state[side];
 
-    lineupFormation
-      .filter((p) => p.isHomeClub === (side === "home"))
-      .forEach((player) => {
-        const wrapper = document.querySelector(
-          `#${ctx.formationContainer} [data-formation-slot="${player.formationSlot}"]`,
-        );
+    const players = lineupFormation.filter(
+      (p) => p.isHomeClub === (side === "home"),
+    );
 
-        if (!wrapper) return;
+    const subs = substitutionFormation.filter(
+      (p) => p.isHomeClub === (side === "home"),
+    );
 
-        const slot = wrapper.querySelector("[data-side]");
-        if (!slot) return;
+    players.forEach((player) => {
+      const storePlayer =
+        playerStore[side][player.playerId] || buildPlayerFromAPI(player);
 
-        const storePlayer = playerStore[side][player.playerId];
-        if (!storePlayer) {
-          console.warn("Missing player in store:", player.playerId);
-          return;
-        }
+      const wrapper = findBestSlot(ctx, player);
 
-        slot.dataset.filled = "true";
-        slot.classList.remove("border-dashed", "border-white/20");
+      if (!wrapper) {
+        console.error("No slot found for:", player);
+        return;
+      }
 
-        slot.innerHTML = `
-          <div class="w-full h-full rounded-[0.88rem] flex items-center justify-center overflow-hidden"
-               data-player-slot="${storePlayer.id}"
-               data-player-id="${storePlayer.id}"
-               data-club-id="${storePlayer.clubId}"
-               style="background-color:${storePlayer.clubTheme}">
-            <img src="${storePlayer.img}"
-                 class="h-[4rem] mt-5 object-contain pointer-events-none"/>
-          </div>
+      const slot = wrapper.querySelector("[data-side]");
+      if (!slot) return;
 
-          <button class="absolute -top-2 -right-2 z-20 w-5 h-5 bg-red-600 text-white rounded-full text-xs flex items-center justify-center">
+      slot.dataset.filled = "true";
+      slot.classList.remove("border-dashed", "border-white/20");
+
+      slot.innerHTML = `
+        <div class="w-full h-full rounded-[0.88rem] flex items-center justify-center overflow-hidden"
+             data-player-slot="${storePlayer.id}"
+             data-player-id="${storePlayer.id}"
+             data-club-id="${storePlayer.clubId}"
+             style="background-color:${storePlayer.clubTheme}">
+          <img src="${storePlayer.img}"
+               class="h-[4rem] mt-5 object-contain pointer-events-none"/>
+        </div>
+
+        <button class="absolute -top-2 -right-2 z-20 w-5 h-5 bg-red-600 text-white rounded-full text-xs flex items-center justify-center">
+          ✕
+        </button>
+      `;
+
+      slot.querySelector("button").onclick = (ev) => {
+        ev.stopPropagation();
+        clearSlot(slot);
+      };
+
+      const labelName = wrapper.querySelector("span.text-white");
+      const labelNum = wrapper.querySelector("span.text-gray-400");
+
+      if (labelName)
+        labelName.innerText = storePlayer.lastName || storePlayer.firstName;
+
+      if (labelNum) labelNum.innerText = storePlayer.playerNumber;
+
+      ctx.slotPlayers = ctx.slotPlayers.filter((id) => id !== storePlayer.id);
+    });
+
+    subs.forEach((player, index) => {
+      const storePlayer =
+        playerStore[side][player.playerId] || buildPlayerFromAPI(player);
+
+      const subSlot = document.querySelector(
+        `#${ctx.substitutionContainer} [data-sub-slot="${index + 1}"]`,
+      );
+
+      if (!subSlot) return;
+
+      subSlot.dataset.filled = "true";
+      subSlot.classList.remove("border-dashed", "border-white/10");
+      subSlot.classList.add("relative");
+
+      subSlot.innerHTML = `
+        <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
+             style="background-color:${storePlayer.clubTheme}"
+             data-player-slot="${storePlayer.id}"
+             data-player-id="${storePlayer.id}"
+             data-club-id="${storePlayer.clubId}">
+          <img src="${storePlayer.img}"
+               class="h-[4rem] mt-[16px] object-contain pointer-events-none"/>
+        </div>
+
+        <div class="overflow-hidden">
+            <p class="text-sm text-white font-medium">${storePlayer.firstName}</p>
+            <p class="text-xs text-white font-medium">${storePlayer.lastName}</p>
+            <p class="text-[10px] text-gray-300 mt-2">
+              ${storePlayer.position} • #${storePlayer.playerNumber}
+            </p>
+        </div>
+
+        <button class="absolute -top-1 -right-1 z-20 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] flex items-center justify-center">
             ✕
-          </button>
-        `;
+        </button>
+      `;
 
-        slot.querySelector("button").onclick = (ev) => {
-          ev.stopPropagation();
-          clearSlot(slot);
-        };
+      subSlot.querySelector("button").onclick = (ev) => {
+        ev.stopPropagation();
+        clearSubSlot(subSlot);
+      };
 
-        const labelName = wrapper.querySelector("span.text-white");
-        const labelNum = wrapper.querySelector("span.text-gray-400");
-
-        if (labelName)
-          labelName.innerText = storePlayer.lastName ?? storePlayer.firstName;
-
-        if (labelNum) labelNum.innerText = storePlayer.playerNumber;
-
-        ctx.slotPlayers = ctx.slotPlayers.filter((id) => id !== storePlayer.id);
-      });
-
-    substitutionFormation
-      .filter((p) => p.isHomeClub === (side === "home"))
-      .forEach((player) => {
-        const subSlot = document.querySelector(
-          `#${ctx.substitutionContainer} [data-sub-slot="${player.formationSlot}"]`,
-        );
-
-        if (!subSlot) return;
-
-        const storePlayer = playerStore[side][player.playerId];
-        if (!storePlayer) return;
-
-        subSlot.dataset.filled = "true";
-
-        subSlot.innerHTML = `
-          <div class="w-14 h-14 rounded-2xl overflow-hidden flex justify-center items-center"
-               style="background-color:${storePlayer.clubTheme}"
-               data-player-slot="${storePlayer.id}"
-               data-player-id="${storePlayer.id}"
-               data-club-id="${storePlayer.clubId}">
-            <img src="${storePlayer.img}"
-                 class="h-[4rem] mt-[0.3rem] object-contain pointer-events-none"/>
-          </div>
-
-          <div class="overflow-hidden">
-              <p class="text-sm text-white font-medium">${storePlayer.firstName}</p>
-              <p class="text-xs text-white font-medium">${storePlayer.lastName}</p>
-              <p class="text-[10px] text-gray-300 mt-2">
-                ${storePlayer.position} • #${storePlayer.playerNumber}
-              </p>
-          </div>
-
-          <button class="absolute -top-1 -right-1 z-50 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] flex items-center justify-center">
-              ✕
-          </button>
-        `;
-
-        subSlot.querySelector("button").onclick = (ev) => {
-          ev.stopPropagation();
-          clearSubSlot(subSlot);
-        };
-
-        ctx.slotPlayers = ctx.slotPlayers.filter((id) => id !== storePlayer.id);
-      });
-
-    renderBench(side);
+      ctx.slotPlayers = ctx.slotPlayers.filter((id) => id !== storePlayer.id);
+    });
   });
 }
 
@@ -199,4 +203,59 @@ function waitForPlayersLoaded() {
       }
     }, 300);
   });
+}
+
+function findBestSlot(ctx, player) {
+  const allSlots = document.querySelectorAll(
+    `#${ctx.formationContainer} [data-pos-code]`,
+  );
+
+  const playerPos = (player.formation || "").toLowerCase();
+
+  for (const wrapper of allSlots) {
+    const posCode = wrapper.dataset.posCode?.toLowerCase();
+    const slot = wrapper.querySelector("[data-side]");
+
+    if (!slot || slot.dataset.filled === "true") continue;
+
+    if (posCode === playerPos) {
+      return wrapper;
+    }
+  }
+
+  for (const wrapper of allSlots) {
+    const posCode = wrapper.dataset.posCode?.toLowerCase();
+    const slot = wrapper.querySelector("[data-side]");
+
+    if (!slot || slot.dataset.filled === "true") continue;
+
+    if (posCode && playerPos && posCode.includes(playerPos)) {
+      return wrapper;
+    }
+  }
+
+  for (const wrapper of allSlots) {
+    const slot = wrapper.querySelector("[data-side]");
+    if (slot && slot.dataset.filled === "false") {
+      return wrapper;
+    }
+  }
+
+  return null;
+}
+
+function buildPlayerFromAPI(player) {
+  return {
+    id: player.playerId,
+    clubId: player.clubId,
+    firstName: player.firstName || "",
+    lastName: player.lastName || "",
+    position: player.position || "",
+    positionId: player.positionId || 0,
+    playerNumber: player.playerNumber || "",
+    img: player.playerPhoto
+      ? BASE_PLAYER_PATH + player.playerPhoto
+      : "/upload/players/placeholder.png",
+    clubTheme: player.clubTheme || "#37003c",
+  };
 }

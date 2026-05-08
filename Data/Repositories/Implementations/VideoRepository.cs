@@ -4,6 +4,7 @@ using PremierLeague_Backend.Services.Interfaces;
 using static PremierLeague_Backend.Helper.SqlCommands.VideoCommands;
 using System.Data.SqlClient;
 using PremierLeague_Backend.Helper;
+using System.Text.Json;
 
 namespace PremierLeague_Backend.Data.Repositories.Implementations;
 
@@ -39,9 +40,9 @@ public class VideoRepository : IVideoRepository
             cmd.Parameters.AddWithValue("@IsFeatured", videoDto.IsFeatured);
             cmd.Parameters.AddWithValue("@IsActive", videoDto.IsActive);
             cmd.Parameters.AddWithValue("@MatchId", videoDto.MatchId);
-            cmd.Parameters.AddWithValue("@ClubId", videoDto.ClubId);
-            cmd.Parameters.AddWithValue("@PlayerId", videoDto.PlayerId);
             cmd.Parameters.AddWithValue("@SeasonId", videoDto.SeasonId);
+            cmd.Parameters.AddWithValue("@ClubJson", JsonSerializer.Serialize(videoDto.ClubIds));
+            cmd.Parameters.AddWithValue("@PlayerJson", JsonSerializer.Serialize(videoDto.PlayerIds));
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
         catch (Exception ex)
@@ -183,14 +184,14 @@ public class VideoRepository : IVideoRepository
                         PublishedDate = rdr.SafeGetDateTime("PublishedDate"),
                         ExpiryDate = rdr.SafeGetDateTime("ExpiryDate"),
                         MatchId = rdr.SafeGetInt("MatchId"),
-                        ClubId = rdr.SafeGetInt("ClubId"),
-                        PlayerId = rdr.SafeGetInt("PlayerId"),
                         SeasonId = rdr.SafeGetInt("SeasonId"),
                         IsTheArchive = rdr.SafeGetBoolean("IsTheArchive"),
                         IsStory = rdr.SafeGetBoolean("IsStory"),
                         IsReference = rdr.SafeGetBoolean("IsReference"),
                         IsFeatured = rdr.SafeGetBoolean("IsFeatured"),
-                        IsActive = rdr.SafeGetBoolean("IsActive")
+                        IsActive = rdr.SafeGetBoolean("IsActive"),
+                        ClubIds = !string.IsNullOrEmpty(rdr.SafeGetString("Clubs")) ? JsonSerializer.Deserialize<List<int>>(rdr.SafeGetString("Clubs"))! : new List<int>(),
+                        PlayerIds = !string.IsNullOrEmpty(rdr.SafeGetString("Players")) ? JsonSerializer.Deserialize<List<int>>(rdr.SafeGetString("Players"))! : new List<int>()
                     };
                 } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
             }
@@ -242,9 +243,9 @@ public class VideoRepository : IVideoRepository
             cmd.Parameters.AddWithValue("@IsFeatured", videoDto.IsFeatured);
             cmd.Parameters.AddWithValue("@IsActive", videoDto.IsActive);
             cmd.Parameters.AddWithValue("@MatchId", videoDto.MatchId);
-            cmd.Parameters.AddWithValue("@ClubId", videoDto.ClubId);
-            cmd.Parameters.AddWithValue("@PlayerId", videoDto.PlayerId);
             cmd.Parameters.AddWithValue("@SeasonId", videoDto.SeasonId);
+            cmd.Parameters.AddWithValue("@ClubJson", JsonSerializer.Serialize(videoDto.ClubIds));
+            cmd.Parameters.AddWithValue("@PlayerJson", JsonSerializer.Serialize(videoDto.PlayerIds));
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
         catch (Exception ex)

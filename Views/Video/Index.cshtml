@@ -177,12 +177,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                     <label class="flex flex-col gap-2">
                         <span class="text-white font-medium">Match</span>
-                        <select id="selectMatch" class="js-custom-select" asp-for="VideoDto.MatchId">
-                            <option value="">Select Match</option>
-                            @* @foreach (var match in Model.SelectListItemMatch)
-                        {
-                            <option value="@match.Value">@match.Label</option>
-                        }*@
+                        <select id="selectMatch" asp-for="VideoDto.MatchId" class="js-custom-select"
+                                data-placeholder="Select Match">
+                            @foreach (var lineup in Model.SelectListItemMatches)
+                            {
+                                <option value="@lineup.MatchId" data-sub="@lineup.MatchSubContent"
+                                        data-home-img="/upload/clubs/@lineup.HomeClubCrest"
+                                        data-away-img="/upload/clubs/@lineup.AwayClubCrest" data-home-theme="@lineup.HomeTheme"
+                                        data-away-theme="@lineup.AwayTheme">
+                                    @lineup.MatchContent
+                                </option>
+                            }
                         </select>
                     </label>
 
@@ -190,10 +195,10 @@
                         <span class="text-white font-medium">Season</span>
                         <select id="selectSeason" class="js-custom-select" asp-for="VideoDto.SeasonId">
                             <option value="">Select Season</option>
-                            @* @foreach (var season in Model.SelectListItemSeason)
-                        {
-                            <option value="@season.Value">@season.Label</option>
-                        }*@
+                            @foreach (var season in Model.SelectListItemSeason)
+                            {
+                                <option value="@season.Value">@season.Text</option>
+                            }
                         </select>
                     </label>
                 </div>
@@ -437,26 +442,26 @@
             <partial name="_ValidationScriptsPartial" />
             <script>
                 window.clubOptions = `
-                                                                                                                                                                                                                                                                                                                @foreach (var club in Model.SelectListItemClubs)
-                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="@club.ClubId"
+                                                                                                                                                                                                                                                                                                                                                                            @foreach (var club in Model.SelectListItemClubs)
+                                                                                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="@club.ClubId"
                             data-img="/upload/clubs/@club.ClubCrest"
                             data-sub="@club.ClubTheme">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @club.ClubName
-                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
-                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                `;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @club.ClubName
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
+                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                            `;
 
                 window.playerOptions = `
-                                                                                                                                                                                                                                                                                                                @foreach (var p in Model.SelectListItemPlayers)
-                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="@p.PlayerId"
+                                                                                                                                                                                                                                                                                                                                                                            @foreach (var p in Model.SelectListItemPlayers)
+                                                                                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="@p.PlayerId"
                             data-img="/upload/players/@p.Photo"
                             data-sub="@p.Position">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @p.FirstName @p.LastName
-                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
-                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                `;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @p.FirstName @p.LastName
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </option>
+                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                            `;
             </script>
             <script src="/js/video/index.js" asp-append-version="true"></script>
             <script src="/js/video/delete.js" asp-append-version="true"></script>

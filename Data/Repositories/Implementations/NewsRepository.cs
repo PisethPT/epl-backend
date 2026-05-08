@@ -1,4 +1,5 @@
 using System.Data.SqlClient;
+using System.Text.Json;
 using PremierLeague_Backend.Data.Repositories.Interfaces;
 using PremierLeague_Backend.Helper;
 using PremierLeague_Backend.Models.DTOs;
@@ -41,13 +42,15 @@ public class NewsRepository : INewsRepository
             cmd.Parameters.AddWithValue("@ExpireDate", newsDto.ExpiryDate);
             cmd.Parameters.AddWithValue("@AuthorId", newsDto.AuthorId);
             cmd.Parameters.AddWithValue("@MatchId", newsDto.MatchId);
-            cmd.Parameters.AddWithValue("@ClubId", newsDto.ClubId);
             cmd.Parameters.AddWithValue("@IsActive", newsDto.IsActive);
             cmd.Parameters.AddWithValue("@IsFeatured", newsDto.IsFeatured);
             cmd.Parameters.AddWithValue("@IsVideo", newsDto.IsVideo);
             cmd.Parameters.AddWithValue("@IsQuizzes", newsDto.IsQuizzes);
             cmd.Parameters.AddWithValue("@IsRelatedContent", newsDto.IsRelatedContent);
             cmd.Parameters.AddWithValue("@IsPremierLeagueGame", newsDto.IsPremierLeagueGame);
+            cmd.Parameters.AddWithValue("@ClubJson", JsonSerializer.Serialize(newsDto.ClubIds));
+            cmd.Parameters.AddWithValue("@PlayerJson", JsonSerializer.Serialize(newsDto.PlayerIds));
+
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
         catch (SqlException ex)
@@ -147,13 +150,14 @@ public class NewsRepository : INewsRepository
                         ImageUrl = rdr.SafeGetString("ImageUrl"),
                         ExpiryDate = rdr.SafeGetDateTime("ExpiryDate"),
                         MatchId = rdr.SafeGetInt("MatchId"),
-                        ClubId = rdr.SafeGetInt("ClubId"),
                         IsFeatured = rdr.SafeGetBoolean("IsFeatured"),
                         IsVideo = rdr.SafeGetBoolean("IsVideo"),
                         IsQuizzes = rdr.SafeGetBoolean("IsQuizzes"),
                         IsRelatedContent = rdr.SafeGetBoolean("IsRelatedContent"),
                         IsPremierLeagueGame = rdr.SafeGetBoolean("IsPremierLeagueGame"),
-                        IsActive = rdr.SafeGetBoolean("IsActive")
+                        IsActive = rdr.SafeGetBoolean("IsActive"),
+                        ClubIds = !string.IsNullOrEmpty(rdr.SafeGetString("Clubs")) ? JsonSerializer.Deserialize<List<int>>(rdr.SafeGetString("Clubs"))! : new List<int>(),
+                        PlayerIds = !string.IsNullOrEmpty(rdr.SafeGetString("Players")) ? JsonSerializer.Deserialize<List<int>>(rdr.SafeGetString("Players"))! : new List<int>()
                     };
                 } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
             }
@@ -191,13 +195,15 @@ public class NewsRepository : INewsRepository
             cmd.Parameters.AddWithValue("@ExpireDate", newsDto.ExpiryDate);
             cmd.Parameters.AddWithValue("@AuthorId", newsDto.AuthorId);
             cmd.Parameters.AddWithValue("@MatchId", newsDto.MatchId);
-            cmd.Parameters.AddWithValue("@ClubId", newsDto.ClubId);
             cmd.Parameters.AddWithValue("@IsActive", newsDto.IsActive);
             cmd.Parameters.AddWithValue("@IsFeatured", newsDto.IsFeatured);
             cmd.Parameters.AddWithValue("@IsVideo", newsDto.IsVideo);
             cmd.Parameters.AddWithValue("@IsQuizzes", newsDto.IsQuizzes);
             cmd.Parameters.AddWithValue("@IsRelatedContent", newsDto.IsRelatedContent);
             cmd.Parameters.AddWithValue("@IsPremierLeagueGame", newsDto.IsPremierLeagueGame);
+            cmd.Parameters.AddWithValue("@ClubJson", JsonSerializer.Serialize(newsDto.ClubIds));
+            cmd.Parameters.AddWithValue("@PlayerJson", JsonSerializer.Serialize(newsDto.PlayerIds));
+
             return await execute.ExecuteScalarAsync<bool>(cmd) ? false : true;
         }
         catch (SqlException ex)
@@ -240,4 +246,40 @@ public class NewsRepository : INewsRepository
             throw new Exception($"Database find news existing error: {ex.Message}");
         }
     }
+
+    public async Task<IEnumerable<PlayerStatGetPlayersDto>> GetAllPlayersAsync(CancellationToken ct = default)
+    {
+        try
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = "PL_GetAllPlayers";
+            var rdr = await execute.ExecuteReaderAsync(cmd);
+            var players = new List<PlayerStatGetPlayersDto>();
+            if (rdr is not null)
+            {
+                do
+                {
+                    players.Add(new PlayerStatGetPlayersDto(
+                        MatchId: rdr.SafeGetInt("MatchId"),
+                        ClubId: rdr.SafeGetInt("ClubId"),
+                        PlayerId: rdr.SafeGetInt("PlayerId"),
+                        ClubName: rdr.SafeGetString("ClubName"),
+                        ClubCrest: rdr.SafeGetString("ClubCrest"),
+                        ClubTheme: rdr.SafeGetString("ClubTheme"),
+                        FirstName: rdr.SafeGetString("FirstName"),
+                        LastName: rdr.SafeGetString("LastName"),
+                        Position: rdr.SafeGetString("Position"),
+                        PlayerNumber: rdr.SafeGetInt("PlayerNumber"),
+                        Photo: rdr.SafeGetString("Photo")
+                    ));
+                } while (await rdr.ReadAsync(ct).ConfigureAwait(false));
+            }
+            return players;
+        }
+        catch (SqlException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
 }
